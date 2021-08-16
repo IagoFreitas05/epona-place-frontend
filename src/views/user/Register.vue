@@ -6,13 +6,13 @@
         <div class="mb-4">
           <div class="flex">
             <div class="w-1/2 p-1">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              <label class="block text-gray-700 text-sm font-bold mb-2" >
                 nome
               </label>
               <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="nome">
             </div>
             <div class="w-1/2 p-1">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              <label class="block text-gray-700 text-sm font-bold mb-2">
                 sobrenome
               </label>
               <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="last_name" type="text" placeholder="sobrenome">
@@ -22,13 +22,14 @@
         <div class="mb-4">
           <div class="flex">
             <div class="w-1/2 p-1">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              <label class="block text-gray-700 text-sm font-bold mb-2" >
                 data de nascimento
               </label>
-              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="dt_nascimento" type="date" placeholder="nome">
+              <input class="shadow appearance-none border
+               rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="dt_nascimento" type="date">
             </div>
             <div class="w-1/2 p-1">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              <label class="block text-gray-700 text-sm font-bold mb-2" >
                 telefone
               </label>
               <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cellphone" type="tel" pattern="[0-9]{2}-[0-9]{5}-[0-9]{4}" placeholder="(dd) xxxxx-xxxx">
@@ -38,10 +39,10 @@
         <div class="mb-4">
           <div class="flex">
             <div class="w-1/2 p-1">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              <label class="block text-gray-700 text-sm font-bold mb-2" >
                 gênero
               </label>
-              <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="gender"  >
+              <select name="gender" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="gender"  >
                 <option value="">gênero</option>
                 <option value="masculino">masculino</option>
                 <option value="feminino">feminino</option>
@@ -49,7 +50,7 @@
               </select>
             </div>
             <div class="w-1/2 p-1">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              <label class="block text-gray-700 text-sm font-bold mb-2" >
                 cpf
               </label>
               <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cpf" type="text" placeholder="cpf">
@@ -58,10 +59,10 @@
         </div>
 
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+          <label class="block text-gray-700 text-sm font-bold mb-2" >
             email
           </label>
-          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="email" placeholder="email">
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="email">
         </div>
         <div class="mb-6">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
@@ -71,12 +72,12 @@
         </div>
         <h4 class="text-xl font-bold text-purple-600 my-4">endereço</h4>
         <div class="mb-4 ">
-          <label class="block text-gray-700 text-sm font-bold mb-2 " for="username">
+          <label class="block text-gray-700 text-sm font-bold mb-2 " >
             logradouro
           </label>
           <div class="flex">
             <div class="w-5/6 p-1">
-              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="rua, avenida, etc">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="logradouro" type="text" placeholder="rua, avenida, etc">
             </div>
             <div class="w-1/6 p-1">
               <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numero" type="number" placeholder="nº">
@@ -92,7 +93,7 @@
               <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="city" type="text" placeholder="cidade">
             </div>
             <div class="p-1">
-              <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="state" type="text" placeholder="">
+              <select name="state" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="state">
                 <option value="">Selecione</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -126,7 +127,7 @@
           </div>
         </div>
         <div class="flex items-center justify-between">
-          <button class="bg-blue-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+          <button @click="registerMessage" id="save" class="bg-blue-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
             cadastrar
           </button>
         </div>
@@ -137,3 +138,21 @@
   </div>
   </div>
 </template>
+
+<script>
+import swal from 'sweetalert';
+export default {
+  name:"Register",
+  data(){
+    return {
+      message:'hello'
+    }
+  },
+  methods:{
+    registerMessage(){
+      swal("Cadastro efetuado com sucesso!", "Agora, faça login na sua conta!", "success");
+     this.$router.push("Login")
+    }
+  }
+}
+</script>
