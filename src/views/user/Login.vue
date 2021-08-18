@@ -7,16 +7,16 @@
           <label class="block text-gray-700 text-sm font-bold mb-2" >
             email
           </label>
-          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="email">
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="email" id="email" type="email" placeholder="email">
         </div>
         <div class="mb-6">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
             senha
           </label>
-          <input class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************">
+          <input class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="password" id="password" type="password" placeholder="******************">
         </div>
         <div class="flex items-center justify-between">
-          <button @click="loginNotification" id="enter" class="bg-blue-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+          <button @click="loginNotification" id="enter" class="bg-blue-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" name="login" type="button">
             <span v-if="charge ===  true ">acessando...</span>
             <span v-else-if="charge === false">acessar</span>
           </button>
