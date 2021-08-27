@@ -259,17 +259,38 @@ export default {
   },
   methods:{
     storeRegister(){
-      this.axios.get("http://localhost:8080/place/client")
-          .then(function (response){
-            response.data
-            alert("requisitei bom")
-          }).catch(function () {
-          swal("Oops :(","não foi possível realizar seu cadastro","error" )
+      this.axios.post("http://localhost:8080/place/client",{
+        name: this.name,
+        lastName: this.lastName,
+        birthday: this.birthday,
+        celphone: this.celphone,
+        gender: this.gender,
+        cpf: this.cpf,
+        mail: this.mail,
+        password:this.password,
+        address: this.address,
+        number: this.number,
+        city: this.city,
+        state: this.state,
+        role:"USER",
+        typeAddress:"n/a",
+        country:"n/a",
+        nameAddress:"n/a",
+        postalCode:"n/a",
+        category:"n/a",
+        observation:"n/a",
+        complement:"n/a"
       })
-    },
-    registerMessage(){
-      swal("Cadastro efetuado com sucesso!", "Agora, faça login na sua conta!", "success");
-     this.$router.push("Login")
+          .then( (response) =>{
+            if(response.data == "sucesso"){
+              swal("Uhuu 0/","Cadastro feito com sucesso, faça seu login agora","success")
+                  .then(() => {
+                    this.$router.push("Login")
+                  });
+            }else{
+              swal(response.data )
+            }
+          })
     },
     mounted(){
 
