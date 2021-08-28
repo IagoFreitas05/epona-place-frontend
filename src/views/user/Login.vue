@@ -33,6 +33,7 @@
               name="password"
               id="password"
               type="password"
+              autocomplete="on"
               placeholder="******************"
               v-model="password"
               required
@@ -75,11 +76,12 @@ export default{
         token:""
       })
         .then((response)=>{
+
           response.data
           swal("Uhuu 0/","Login feito com sucesso","success")
               .then(() => {
                 this.token = response.data.token
-                this.$store.dispatch("saveToken", this.token)
+                localStorage.setItem('token',this.token)
                 this.$router.push("Profile")
               });
         }).catch(() =>{

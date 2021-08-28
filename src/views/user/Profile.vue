@@ -3,7 +3,7 @@
     <div class="mt-8 w-full ">
       <div class="w-full mx-auto flex ">
           <div class=" w-full ">
-            <form class="bg-white flex  rounded grid gap-10    px-8 pt-6 pb-8 mb-4">
+            <form class="bg-white flex  rounded grid gap-10    px-8 pt-6 pb-8 mb-4" @submit.prevent="editUserData()" autocomplete="on">
               <div class="flex items-center mt-3 justify-center gap-4" id="perfil_picture">
                 <div class="text-center">
                   <img class="rounded-full" src=" https://www.stevensegallery.com/100/100" alt="">
@@ -24,13 +24,34 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2" >
                           nome
                         </label>
-                        <input name="edit-name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="nome">
+                        <input
+                            name="edit-name"
+                            class="shadow appearance-none
+                              border rounded w-full py-2 px-3
+                                text-gray-700 leading-tight
+                                  focus:outline-none focus:shadow-outline"
+                            id="name"
+                            type="text"
+                            placeholder="nome"
+                            v-model="name"
+                        >
                       </div>
                       <div class="w-1/2 p-1">
                         <label class="block text-gray-700 text-sm font-bold mb-2">
                           sobrenome
                         </label>
-                        <input name="edit-lastname" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="last_name" type="text" placeholder="sobrenome">
+                        <input
+                            name="edit-lastname"
+                              class="shadow appearance-none border
+                                rounded w-full py-2 px-3
+                                  text-gray-700 leading-tight
+                                    focus:outline-none
+                                      focus:shadow-outline"
+                            id="last_name"
+                            type="text"
+                            placeholder="sobrenome"
+                            v-model="last_name"
+                        >
                       </div>
                     </div>
                   </div>
@@ -40,14 +61,32 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2" >
                           data de nascimento
                         </label>
-                        <input name="edit-date" class="shadow appearance-none border
-                          rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="dt_nascimento" type="date">
+                        <input name="edit-date"
+                          class="shadow appearance-none border
+                            rounded w-full py-2 px-3 text-gray-700
+                              leading-tight focus:outline-none
+                                focus:shadow-outline"
+                               id="dt_nascimento"
+                               type="date"
+                               v-model="birthday"
+                        >
                       </div>
                       <div class="w-1/2 p-1">
                         <label class="block text-gray-700 text-sm font-bold mb-2" >
                           telefone
                         </label>
-                        <input name="edit-phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cellphone" type="tel" pattern="[0-9]{2}-[0-9]{5}-[0-9]{4}" placeholder="(dd) xxxxx-xxxx">
+                        <input
+                            name="edit-phone"
+                            class="shadow appearance-none border
+                              rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none
+                                  focus:shadow-outline"
+                              id="cellphone"
+                            type="tel"
+
+                            placeholder="(dd) xxxxx-xxxx"
+                            v-model="celphone"
+                        >
                       </div>
                     </div>
                   </div>
@@ -57,7 +96,7 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2" >
                           gênero
                         </label>
-                        <select id="edit-gender" name="edit-gender" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"   >
+                        <select v-model="gender" id="edit-gender" name="edit-gender" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"   >
                           <option value="">gênero</option>
                           <option value="masculino">masculino</option>
                           <option value="feminino">feminino</option>
@@ -68,7 +107,17 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2" >
                           cpf
                         </label>
-                        <input name="edit-cpf" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cpf" type="text" placeholder="cpf">
+                        <input
+                            name="edit-cpf"
+                            class="shadow appearance-none border
+                              rounded w-full py-2 px-3 text-gray-700
+                                leading-tight focus:outline-none
+                                  focus:shadow-outline"
+                            id="cpf"
+                            type="text"
+                            placeholder="cpf"
+                            v-model="cpf"
+                        >
                       </div>
                     </div>
                   </div>
@@ -77,15 +126,33 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2" >
                       email
                     </label>
-                    <input name="edit-email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="email">
+                    <input name="edit-email"
+                           class="shadow appearance-none
+                            border rounded w-full py-2 px-3 text-gray-700
+                              leading-tight focus:outline-none
+                                focus:shadow-outline"
+                           id="email"
+                           type="email"
+                           placeholder="email"
+                           v-model="mail"
+                    >
                   </div>
                   <div class="mb-6">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                       senha
                     </label>
-                    <input name="edit-password" class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************">
+                    <input name="edit-password"
+                           class="shadow appearance-none border  rounded w-full py-2 px-3
+                            text-gray-700 mb-3 leading-tight focus:outline-none
+                              focus:shadow-outline"
+                           id="password"
+                           type="text"
+                           placeholder="digite sua nova senha aqui"
+                           v-model="password"
+                    >
                   </div>
                 </div>
+
                 <!-- endereço residencial -->
                 <div class="items-center border-2  border-purple-200 shadow-lg rounded-md p-5 ">
                   <h4 class="text-md font-bold text-purple-600 my-4">endereço residencial</h4>
@@ -95,13 +162,28 @@
                     </label>
                     <div class="flex">
                       <div class="w-1/2 p-1">
-                        <input name="edit-address-name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-address-name" type="text" placeholder="nome do endereço">
+                        <input name="edit-address-name"
+                               class="shadow appearance-none border rounded w-full
+                                py-2 px-3 text-gray-700 leading-tight
+                                  focus:outline-none focus:shadow-outline"
+                               id="edit-address-name"
+                               type="text"
+                               placeholder="nome do endereço"
+                               v-model="nameAddress"
+                        >
                       </div>
                       <div class="w-1/2 p-1">
-                        <input name="edit-pais" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="digite o nome do pais">
+                        <input name="edit-pais"
+                                class="shadow appearance-none border rounded
+                                  w-full py-2 px-3 text-gray-700 leading-tight
+                                    focus:outline-none focus:shadow-outline"
+                               type="text"
+                               placeholder="digite o nome do pais"
+                               v-model="country"
+                        >
                       </div>
                       <div class="w-1/2 p-1">
-                        <select  name="state" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-state">
+                        <select  name="state" v-model="state" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-state">
                           <option value="">Selecione</option>
                           <option value="AC">Acre</option>
                           <option value="AL">Alagoas</option>
@@ -140,13 +222,36 @@
                     </label>
                     <div class="flex">
                       <div class="w-1/2 p-1">
-                        <input name="edit-address-type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-address-type" type="text" placeholder="tipo do logradouro">
+                        <input name="edit-address-type" class="shadow appearance-none border rounded
+                        w-full py-2 px-3 text-gray-700 leading-tight
+                        focus:outline-none focus:shadow-outline"
+                               id="edit-address-type"
+                               type="text"
+                               placeholder="tipo do logradouro"
+                               v-model="typeAddress"
+                        >
                       </div>
                       <div class="w-5/6 p-1">
-                        <input name="edit-address" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-address" type="text" placeholder="nome do logradouro">
+                        <input name="edit-address"  v-model="address" class="shadow appearance-none border rounded
+                        w-full py-2 px-3 text-gray-700
+                        leading-tight focus:outline-none
+                        focus:shadow-outline"
+                               id="edit-address"
+                               type="text"
+                               placeholder="nome do logradouro"
+
+                        >
                       </div>
                       <div class="w-1/6 p-1">
-                        <input  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-number" name="edit-number" type="number" placeholder="nº">
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                            leading-tight focus:outline-none focus:shadow-outline"
+                            id="edit-number"
+                            name="edit-number"
+                            type="number"
+                            placeholder="nº"
+                            v-model="number"
+                        >
                       </div>
                     </div>
                   </div>
@@ -156,10 +261,25 @@
                     </label>
                     <div class="flex">
                       <div class="w-1/2 p-1">
-                        <input name="edit-city" class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="edit-city" type="text" placeholder="cidade">
+                        <input name="edit-city"
+                               v-model="city"
+                               class="shadow appearance-none border  rounded w-full
+                               py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none
+                               focus:shadow-outline"
+                               id="edit-city"
+                               type="text"
+                               placeholder="cidade">
                       </div>
                       <div class="p-1 w-1/2">
-                        <input  class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="edit-complement" name="edit-complement" type="text" placeholder="complemento">
+                        <input
+                            v-model="complement"
+                                 class="shadow appearance-none border  rounded w-full
+                                py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none
+                                focus:shadow-outline"
+                            id="edit-complement"
+                            name="edit-complement"
+                            type="text"
+                            placeholder="complemento">
                       </div>
                     </div>
                   </div>
@@ -169,20 +289,42 @@
                     </label>
                     <div class="flex">
                       <div class="w-1/2 p-1">
-                        <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="edit-cep" name="edit-cep" type="text" placeholder="cep">
+                        <input  v-model="postalCode" class="shadow
+                        appearance-none border  rounded w-full
+                         py-2 px-3 text-gray-700 mb-3 leading-tight
+                         focus:outline-none focus:shadow-outline"
+                                id="edit-cep"
+                                name="edit-cep"
+                                type="text"
+                                placeholder="cep">
                       </div>
                       <div class="p-1 w-1/2">
-                        <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="edit-obs" name="edit-obs" type="text" placeholder="observação">
+                        <input  v-model="observation"
+                                class="shadow appearance-none border
+                                rounded w-full
+                                py-2 px-3 text-gray-700 mb-3 leading-tight
+                                focus:outline-none focus:shadow-outline"
+                                id="edit-obs"
+                                name="edit-obs"
+                                type="text"
+                                placeholder="observação">
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="flex items-center justify-between">
-                <button @click="alterData" id="save" class="bg-blue-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                <button  id="save"
+                        class="bg-blue-500
+                        hover:bg-purple-600
+                        text-white font-bold py-2
+                        px-4 rounded focus:outline-none
+                        focus:shadow-outline"
+                        type="submit">
                   alterar dados
                 </button>
               </div>
+
             </form>
           </div>
       </div>
@@ -199,19 +341,15 @@
             <h4 class="text-md font-bold text-purple-600 my-4"> cartões de credito</h4>
             <table class="table-auto text-purple-400 font-bold w-full text-justify text-sm ">
               <thead>
-              <tr>
+              <tr >
                 <th class="w-1/2">número</th>
                 <th class="w-1/2"></th>
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>2345 2345 3456 2345</td>
-                <td><button id="desativar" @click="disableConfirmation" class="border-2 border-red-400 hover:bg-white text-red-500 text-xs font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">desativar</button></td>
-              </tr>
-              <tr>
-                <td>2332 3423 23423 2343</td>
-                <td><button @click="disableConfirmation" class="border-2 border-red-400 hover:bg-white text-red-500 text-xs font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">desativar</button></td>
+              <tr v-for="item in cards" :key="item.id">
+                <td>{{item.cardNumber}}</td>
+                <td><button id="desativar" @click="removeCreditCard(item.id)" class="border-2 border-red-400 hover:bg-white text-red-500 text-xs font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">desativar</button></td>
               </tr>
               </tbody>
             </table>
@@ -230,18 +368,11 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
+              <tr >
                 <td>Rua das Couves</td>
                 <td>12</td>
                 <td><button @click="disableConfirmation" class="border-2 border-red-400 hover:bg-white text-red-500 text-xs font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">desativar</button></td>
                 <td><button id="button_edit_address" @click="showEditAddress" class="border-2 border-yellow-400 text-yellow-500 text-xs font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">editar</button></td>
-
-              </tr>
-              <tr>
-                <td>Rua das tartarugas</td>
-                <td>24</td>
-                <td><button @click="disableConfirmation" class="border-2 border-red-400 hover:bg-white text-red-500 text-xs font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">desativar</button></td>
-                <td><button @click="showEditAddress" class="border-2 border-yellow-400 text-yellow-500 text-xs font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">editar</button></td>
               </tr>
               </tbody>
             </table>
@@ -256,10 +387,31 @@
               </label>
               <div class="flex">
                 <div class="w-5/6 p-1">
-                  <input name="add-card_number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="card_number" type="text" placeholder="numero do cartão">
+                  <input
+                      name="add-card_number"
+                      class="shadow appearance-none border
+                        rounded w-full py-2 px-3 text-gray-700
+                          leading-tight focus:outline-none focus:shadow-outline"
+                      id="card_number"
+                      type="text"
+                      placeholder="numero do cartão"
+                      v-model="cardNumber"
+                      required
+                  >
                 </div>
                 <div class="w-1/6 p-1">
-                  <input name="add-card_cvv" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="card_cvv" type="number" placeholder="cvv">
+                  <input
+                      name="add-card_cvv"
+                      class="shadow appearance-none border rounded
+                        w-full py-2 px-3 text-gray-700 leading-tight
+                          focus:outline-none focus:shadow-outline"
+                      id="card_cvv"
+                      type="number"
+                      placeholder="cvv"
+                      required
+                      v-model="cvv"
+
+                  >
                 </div>
               </div>
             </div>
@@ -269,10 +421,29 @@
               </label>
               <div class="flex">
                 <div class="w-1/2 p-1">
-                  <input name="add-card_flag" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="card_flag" type="text" placeholder="bandeira do cartão">
+                  <input
+                      name="add-card_flag"
+                      class="shadow appearance-none border
+                        rounded w-full py-2 px-3 text-gray-700
+                          leading-tight focus:outline-none focus:shadow-outline"
+                      id="card_flag"
+                      type="text"
+                      placeholder="bandeira do cartão"
+                      v-model="flag"
+                  >
                 </div>
                 <div class="w-1/2 p-1">
-                  <input name="add-card_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="card_date" type="number" placeholder="ex: 11/28">
+                  <input
+                      name="add-card_date"
+                      class="shadow appearance-none border
+                        rounded w-full py-2 px-3 text-gray-700
+                          leading-tight focus:outline-none
+                            focus:shadow-outline"
+                      id="card_date"
+                      type="text"
+                      placeholder="ex: 11/28"
+                      v-model="expireDate"
+                  >
                 </div>
               </div>
             </div>
@@ -280,9 +451,25 @@
               <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                 nome impresso no cartão
               </label>
-              <input name="add-card_name" class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="card_name" type="text" placeholder="nome indetico ao cartão">
+              <input
+                  name="add-card_name"
+                    class="shadow appearance-none border
+                      rounded w-full py-2 px-3 text-gray-700
+                        mb-3 leading-tight focus:outline-none
+                        focus:shadow-outline"
+                  id="card_name"
+                  type="text"
+                  placeholder="nome indetico ao cartão"
+                  v-model="cardName"
+              >
             </div>
-            <button id="save_new_card" @click="saveCreditCardData" class="bg-blue-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">salvar novo cartão</button>
+            <button
+                  id="save_new_card"
+                  @click="saveCreditCardData"
+                  class="bg-blue-500 hover:bg-purple-600
+                    text-white font-bold py-2 px-4 rounded
+                      focus:outline-none focus:shadow-outline"
+                  type="button">salvar novo cartão</button>
           </div>
           <button @click="showCardAndAndAddress" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">cancelar</button>
         </div>
@@ -484,6 +671,7 @@
 
 <script>
   import Footer from "@/components/footer/Footer";
+  import Cookie from "js-cookie";
   import swal from "sweetalert";
   export default{
     name: 'profile',
@@ -492,19 +680,168 @@
     },
     data(){
       return{
+        name:"",
+        last_name:"",
+        birthday:"",
+        celphone:"",
+        gender:"",
+        cpf:"",
+        mail:"",
+        password:"",
+        typeAddress:"",
+        country:"",
+        city:"",
+        state:"",
+        address:"",
+        nameAddress:"",
+        number:"",
+        complement:"",
+        postalCode:"",
+        category:"",
+        observation:"",
+        idUser:"",
+        idAddress:"",
+        actualPassword:"",
         showCardAndAddress:true,
         showFormAddCard:false,
         showFormAddAddress:false,
-        showFormEditAddress:false
+        showFormEditAddress:false,
+        cardNumber:"",
+        cvv:"",
+        flag:"",
+        expireDate:"",
+        cardName:"",
+        cards:[]
       }
     },
     methods:{
+      removeCreditCard(id){
+        swal({
+          title: "tem certeza?",
+          text: "uma vez deletado, essa informação não poderá ser recuperada!",
+          icon: "warning",
+          buttons: ["cancelar", "tenho certeza"],
+          dangerMode: true,
+        })
+            .then((willDelete) => {
+              if (willDelete) {
+                let url = `/${id}`
+                this.axios
+                    .request({
+                      url:url,
+                      method: 'delete',
+                      baseURL: 'http://localhost:8080/place/creditCard',
+                      headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                      }
+                    })
+                    .then(response => {
+                      response.data
+                      swal("Delatado com sucesso!", {
+                        icon: "success",
+                      });
+                    })
+              } else {
+                swal("uffa, nada aconteceu!");
+              }
+            });
+      },
+      loadCreditCardData(){
+        let url = `/findByUserId/${Cookie.get('idUser')}`
+        this.axios
+            .request({
+              url:url,
+              method: 'GET',
+              baseURL: 'http://localhost:8080/place/creditCard',
+              headers: {
+                "Authorization":"Bearer  " + localStorage.getItem('token'),
+                "Access-Control-Allow-Origin": '*',
+                "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+              }
+            })
+            .then(response => {
+              this.cards = response.data
+            })
+      },
+      editUserData(){
+        let config = {
+          headers:{
+            "Authorization":"Bearer " + localStorage.getItem('token')
+          }
+        }
+        this.axios.put("http://localhost:8080/place/client",{
+          name : this.name,
+          lastName: this.last_name,
+          birthday: this.birthday,
+          celphone: this.celphone,
+          gender: this.gender,
+          cpf: this.cpf,
+          password: this.password,
+          idUser: this.idUser,
+          mail:this.mail,
+          typeAddress:this.typeAddress,
+          country : this.country,
+          state : this.state,
+          address : this.address,
+          nameAddress : this.nameAddress,
+          number : this.number,
+          complement : this.complement,
+          postalCode : this.postalCode,
+          category : this.category,
+          observation : this.observation,
+          idAddress : this.idAddress,
+          actualPassword: this.actualPassword,
+          city : this.city
+        }, config)
+            .then((response)=>{
+              if(response.data === " "){
+                swal(response.data)
+              }
+              else{
+                swal("Alterado com sucesso", "suas informações sempre estarão seguras conosco", "success");
+              }
+
+            }).catch(() =>{
+          swal("Oops :(","parece que seus dados estão incorretos.","error")
+        })
+      },
       alterData(){
         swal("dados alterados com sucesso", "", "success");
       },
       saveCreditCardData(){
-        swal("cartão de credito salvo com sucesso", "suas informações sempre estarão seguras conosco", "success");
-        this.showCardAndAndAddress()
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${localStorage.getItem('token')}` );
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          "cardNumber": this.cardNumber,
+          "cvv": this.cvv,
+          "flag": this.flag,
+          "expireDate": this.expireDate,
+          "cardName": this.cardName,
+          "idUser": `${Cookie.get('idUser')}`
+        });
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+        fetch("http://localhost:8080/place/creditCard", requestOptions)
+            .then((response) => {
+              console.log(response)
+              if(response.data === " "){
+                swal(response.data)
+              }
+              else{
+                swal("Cartão salvo com sucesso", "suas informações sempre estarão seguras conosco", "success");
+              }
+              this.showCardAndAndAddress()
+            }).catch(() =>{
+              swal("Oops :(","parece que seus dados estão incorretos.","error")
+            })
+            .catch(error => console.log('error', error));
       },
       saveAddressData(){
         swal("endereço de entrega salvo com sucesso", "", "success");
@@ -551,7 +888,55 @@
                 swal("uffa, nada aconteceu!");
               }
             });
-      }
+      },
+      loadUserData(){
+        let config = {
+          headers:{
+            Authorization:"Bearer " + localStorage.getItem('token')
+          }
+        }
+        this.axios.get("http://localhost:8080/place/auth",config)
+            .then((response)=>{
+              this.name = response.data.name
+              this.last_name= response.data.lastName
+              this.birthday=response.data.birthday
+              this.celphone=response.data.celphone
+              this.gender=response.data.gender
+              this.cpf=response.data.cpf
+              this.idUser=response.data.idUser
+              this.mail=response.data.mail
+              this.typeAddress = response.data.typeAddress
+              this.country = response.data.country
+              this.state = response.data.state
+              this.address = response.data.address
+              this.nameAddress = response.data.nameAddress
+              this.number = response.data.number
+              this.complement = response.data.complement
+              this.postalCode = response.data.postalCode
+              this.category = response.data.category
+              this.observation = response.data.observation
+              this.idAddress = response.data.idAddress
+              this.city = response.data.city
+              this.actualPassword = response.data.actualPassword
+              this.$store.commit('saveIdUser', response.data.idUser)
+              localStorage.setItem('idUser',response.data.idUser)
+              Cookie.set('idUser', response.data.idUser)
+            })
+      },
+      verifyToken(){
+        if(localStorage.getItem('token') === ""){
+         this.$router.push("Login")
+        }else{
+          this.loadUserData()
+        }
+      },
+    },
+    beforeMount(){
+        this.verifyToken()
+
+    },
+    created() {
+      this.loadCreditCardData()
     }
   }
 </script>

@@ -279,7 +279,7 @@ export default {
         postalCode:"n/a",
         category:"n/a",
         observation:"n/a",
-        complement:"n/a"
+        complement:"n/a",
       })
           .then( (response) =>{
             if(response.data == "sucesso"){

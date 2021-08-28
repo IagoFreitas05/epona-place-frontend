@@ -4,7 +4,7 @@
 describe('Registrar',()=>{
     
     it('Realizar cadastro',()=>{
-        cy.visit('http://localhost:8080/#/register')
+        cy.visit('http://localhost:8081/#/register')
         cy.get('input[name=name]').type('Iago');
         cy.get('input[name=sobrenome]').type('Freitas Cardoso de Souza');
         cy.get('input[name=date]').type('2020-01-18')
