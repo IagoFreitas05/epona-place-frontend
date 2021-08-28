@@ -153,7 +153,7 @@
                   </div>
                 </div>
 
-                <!-- endereço residencial -->
+                <!-- alteração de endereço de entrega -->
                 <div class="items-center border-2  border-purple-200 shadow-lg rounded-md p-5 ">
                   <h4 class="text-md font-bold text-purple-600 my-4">endereço residencial</h4>
                   <div class="mb-4 ">
@@ -368,11 +368,19 @@
               </tr>
               </thead>
               <tbody>
-              <tr >
-                <td>Rua das Couves</td>
-                <td>12</td>
-                <td><button @click="disableConfirmation" class="border-2 border-red-400 hover:bg-white text-red-500 text-xs font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">desativar</button></td>
-                <td><button id="button_edit_address" @click="showEditAddress" class="border-2 border-yellow-400 text-yellow-500 text-xs font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">editar</button></td>
+              <tr v-for="item in addresses" :key="item.id" >
+                <td>{{ item.address }}</td>
+                <td>{{ item.number }}</td>
+                <td><button
+                    @click="removeAddresses(item.id)"
+                      class="border-2 border-red-400 hover:bg-white
+                        text-red-500 text-xs font-bold py-2 px-4 rounded
+                          focus:outline-none focus:shadow-outline">desativar</button></td>
+                <td><button id="button_edit_address"
+                            @click="showEditAddress(item.id)"
+                            class="border-2 border-yellow-400 text-yellow-500 text-xs
+                              font-bold py-2 px-4 rounded focus:outline-none
+                                focus:shadow-outline">editar</button></td>
               </tr>
               </tbody>
             </table>
@@ -482,13 +490,30 @@
               </label>
               <div class="flex">
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="add-address-name" id="add-address-name" type="text" placeholder="nome do endereço">
+                  <input class="shadow
+                  appearance-none border rounded w-full py-2 px-3
+                    text-gray-700 leading-tight focus:outline-none
+                      focus:shadow-outline"
+                         name="add-address-name"
+                         id="add-address-name"
+                         type="text"
+                         placeholder="nome do endereço"
+                        v-model="newnameAddress"
+                  >
                 </div>
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="add-pais" name="add-pais" type="text" placeholder="digite o nome do pais">
+                  <input class="shadow appearance-none border rounded
+                    w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
+                      focus:shadow-outline"
+                         id="add-pais"
+                         name="add-pais"
+                         type="text"
+                         placeholder="digite o nome do pais"
+                         v-model="newcountry"
+                  >
                 </div>
                 <div class="w-1/2 p-1">
-                  <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="add-state" name="add-state">
+                  <select v-model="newstate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="add-state" name="add-state">
                     <option value="">Selecione</option>
                     <option value="AC">Acre</option>
                     <option value="AL">Alagoas</option>
@@ -527,13 +552,37 @@
               </label>
               <div class="flex">
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="add-address-type" name="add-address-type" type="text" placeholder="tipo do logradouro">
+                  <input class="shadow appearance-none border rounded
+                    w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
+                      focus:shadow-outline"
+                         id="add-address-type"
+                         name="add-address-type"
+                         type="text"
+                         placeholder="tipo do logradouro"
+                        v-model="newtypeAddress"
+                  >
                 </div>
                 <div class="w-5/6 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="add-address" name="add-address" type="text" placeholder="nome do logradouro">
+                  <input class="shadow appearance-none border rounded w-full
+                    py-2 px-3 text-gray-700 leading-tight focus:outline-none
+                      focus:shadow-outline"
+                          id="add-address"
+                         name="add-address"
+                         type="text"
+                         placeholder="nome do logradouro"
+                          v-model="newaddress"
+                  >
                 </div>
                 <div class="w-1/6 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="add-number" name="add-number" type="number" placeholder="nº">
+                  <input class="shadow appearance-none border rounded w-full
+                    py-2 px-3 text-gray-700 leading-tight focus:outline-none
+                      focus:shadow-outline"
+                         id="add-number"
+                         name="add-number"
+                         type="number"
+                         placeholder="nº"
+                        v-model="newnumber"
+                  >
                 </div>
               </div>
             </div>
@@ -543,10 +592,26 @@
               </label>
               <div class="flex">
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="add-city" name="add-city" type="text" placeholder="cidade">
+                  <input class="shadow appearance-none border  rounded w-full
+                    py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none
+                      focus:shadow-outline"
+                         id="add-city"
+                         name="add-city"
+                         type="text"
+                         placeholder="cidade"
+                        v-model="newcity"
+                  >
                 </div>
                 <div class="p-1 w-1/2">
-                  <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="add-complement" name="add-complement" type="text" placeholder="complemento">
+                  <input class="shadow appearance-none border  rounded w-full
+                    py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none
+                      focus:shadow-outline"
+                         id="add-complement"
+                         name="add-complement"
+                         type="text"
+                         placeholder="complemento"
+                        v-model="newcomplement"
+                  >
                 </div>
               </div>
             </div>
@@ -556,35 +621,68 @@
               </label>
               <div class="flex">
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="add-cep" name="add-cep" type="text" placeholder="cep">
+                  <input class="shadow appearance-none border  rounded w-full
+                      py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none
+                        focus:shadow-outline"
+                         id="add-cep"
+                         name="add-cep"
+                         type="text"
+                         placeholder="cep"
+                        v-model="newpostalCode"
+                  >
                 </div>
                 <div class="p-1 w-1/2">
-                  <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="add-obs" name="add-obs" type="text" placeholder="observação">
+                  <input class="shadow appearance-none border  rounded w-full
+                    py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none
+                    focus:shadow-outline"
+                         id="add-obs"
+                         name="add-obs"
+                         type="text"
+                         placeholder="observação"
+                        v-model="newobservation"
+                  >
                 </div>
               </div>
             </div>
-            <button id="button_new_address" @click="saveAddressData" type="button" class="bg-blue-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">salvar novo endereço</button>
+            <button
+                id="button_new_address"
+                @click="saveAddressData" type="button" class="bg-blue-500 hover:bg-purple-600
+                  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">salvar novo endereço</button>
           </div>
           <button  @click="showCardAndAndAddress" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">cancelar</button>
         </div>
 
         <div class="sm:grid sm:grid-cols-1 md:grid md:gap-4 md:grid-cols-2" v-if="showFormEditAddress === true">
           <div class="items-center border-2 border-purple-200 shadow-lg rounded-md p-5 ">
-            <h4 class="text-md font-bold text-purple-600 my-4">endereço de entrega</h4>
+            <h4 class="text-md font-bold text-purple-600 my-4">edição de endereço de entrega</h4>
             <div class="mb-4 ">
-
               <label class="block text-gray-700 text-sm font-bold mb-2 " >
                 Nome do endereço, País e estado
               </label>
               <div class="flex">
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-deliver-address-name" name="edit-deliver-address-name" type="text" placeholder="nome do endereço">
+                  <input class="shadow appearance-none border rounded w-full
+                    py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="edit-deliver-address-name"
+                         name="edit-deliver-address-name"
+                         type="text"
+                         placeholder="nome do endereço"
+                        v-model="editnameAddress"
+                  >
                 </div>
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-deliver-pais" name="edit-deliver-pais" type="text" placeholder="digite o nome do pais">
+                  <input class="shadow appearance-none border rounded
+                    w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
+                      focus:shadow-outline"
+                          id="edit-deliver-pais"
+                         name="edit-deliver-pais"
+                         type="text"
+                         placeholder="digite o nome do pais"
+                        v-model="editcountry"
+                  >
                 </div>
                 <div class="w-1/2 p-1">
-                  <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="edit-deliver-state" id="edit-deliver-state">
+                  <select v-model="editstate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="edit-deliver-state" id="edit-deliver-state">
                     <option value="">Selecione</option>
                     <option value="AC">Acre</option>
                     <option value="AL">Alagoas</option>
@@ -623,13 +721,33 @@
               </label>
               <div class="flex">
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-deliver-address-type" name="edit-deliver-address-type" type="text" placeholder="tipo do logradouro">
+                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+                      leading-tight focus:outline-none focus:shadow-outline"
+                         id="edit-deliver-address-type"
+                         name="edit-deliver-address-type"
+                         type="text" placeholder="tipo do logradouro"
+                        v-model="edittypeAddress"
+                  >
                 </div>
                 <div class="w-5/6 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-deliver-address" name="edit-deliver-address" type="text" placeholder="nome do logradouro">
+                  <input class="shadow appearance-none
+                    border rounded w-full py-2 px-3 text-gray-700 leading-tight
+                      focus:outline-none focus:shadow-outline"
+                         id="edit-deliver-address"
+                         name="edit-deliver-address"
+                         type="text"
+                         placeholder="nome do logradouro"
+                        v-model="editaddress"
+                  >
                 </div>
                 <div class="w-1/6 p-1">
-                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="edit-deliver-number" name="edit-deliver-number" type="number" placeholder="nº">
+                  <input class="shadow appearance-none border rounded
+                    w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
+                    focus:shadow-outline" id="edit-deliver-number"
+                         name="edit-deliver-number"
+                         type="number" placeholder="nº"
+                        v-model="editnumber"
+                  >
                 </div>
               </div>
             </div>
@@ -639,10 +757,26 @@
               </label>
               <div class="flex">
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="edit-deliver-city" name="edit-deliver-city" type="text" placeholder="cidade">
+                  <input class="shadow appearance-none border  rounded w-full
+                    py-2 px-3 text-gray-700 mb-3 leading-tight
+                      focus:outline-none focus:shadow-outline"
+                         id="edit-deliver-city"
+                         name="edit-deliver-city"
+                         type="text"
+                         placeholder="cidade"
+                        v-model="editcity"
+                  >
                 </div>
                 <div class="p-1 w-1/2">
-                  <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="edit-deliver-complement" name="edit-deliver-complement" type="text" placeholder="complemento">
+                  <input class="shadow appearance-none border  rounded w-full
+                    py-2 px-3 text-gray-700 mb-3 leading-tight
+                      focus:outline-none focus:shadow-outline"
+                         id="edit-deliver-complement"
+                         name="edit-deliver-complement"
+                         type="text"
+                         placeholder="complemento"
+                        v-model="editcomplement"
+                  >
                 </div>
               </div>
             </div>
@@ -652,14 +786,37 @@
               </label>
               <div class="flex">
                 <div class="w-1/2 p-1">
-                  <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="edit-deliver-cep" name="edit-deliver-cep" type="text" placeholder="cep">
+                  <input class="shadow appearance-none border  rounded w-full
+                    py-2 px-3 text-gray-700 mb-3 leading-tight
+                      focus:outline-none focus:shadow-outline"
+                         id="edit-deliver-cep"
+                         name="edit-deliver-cep"
+                         type="text"
+                         placeholder="cep"
+                        v-model="editpostalCode"
+                  >
                 </div>
                 <div class="p-1 w-1/2">
-                  <input class="shadow appearance-none border  rounded w-full   py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="edit-deliver-obs" type="text" name="edit-deliver-obs" placeholder="observação">
+                  <input class="shadow appearance-none border  rounded w-full
+                    py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none
+                      focus:shadow-outline"
+                         id="edit-deliver-obs"
+                         type="text"
+                         name="edit-deliver-obs"
+                         placeholder="observação"
+                        v-model="editobservation"
+                  >
                 </div>
               </div>
             </div>
-            <button id="button_save_edition" @click="saveAddressData" type="button" class="bg-blue-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">salvar edição</button>
+            <button id="button_save_edition"
+                    @click="editAddressData"
+                    type="button"
+                    class="bg-blue-500 hover:bg-purple-600 text-white font-bold
+                      py-2 px-4 rounded focus:outline-none
+                      focus:shadow-outline">
+                salvar edição
+            </button>
           </div>
           <button  @click="showCardAndAndAddress" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">cancelar</button>
         </div>
@@ -670,6 +827,7 @@
 </template>
 
 <script>
+
   import Footer from "@/components/footer/Footer";
   import Cookie from "js-cookie";
   import swal from "sweetalert";
@@ -711,10 +869,66 @@
         flag:"",
         expireDate:"",
         cardName:"",
-        cards:[]
+        cards:[],
+        newtypeAddress:"",
+        newcountry:"",
+        newcity:"",
+        newstate:"",
+        newaddress:"",
+        newnameAddress:"",
+        newnumber:"",
+        newcomplement:"",
+        newpostalCode:"",
+        newcategory:"",
+        newobservation:"",
+        addresses:[],
+        edittypeAddress:"",
+        editcountry:"",
+        editcity:"",
+        editstate:"",
+        editaddress:"",
+        editnameAddress:"",
+        editnumber:"",
+        editcomplement:"",
+        editpostalCode:"",
+        editcategory:"",
+        editobservation:"",
+        editIdAddress:"",
+        editAddressIdUser:""
       }
     },
     methods:{
+      removeAddresses(id){
+        swal({
+          title: "tem certeza?",
+          text: "uma vez deletado, essa informação não poderá ser recuperada!",
+          icon: "warning",
+          buttons: ["cancelar", "tenho certeza"],
+          dangerMode: true,
+        })
+            .then((willDelete) => {
+              if (willDelete) {
+                let url = `/${id}`
+                this.axios
+                    .request({
+                      url:url,
+                      method: 'delete',
+                      baseURL: 'http://localhost:8080/place/address',
+                      headers: {
+                        'Authorization': 'Bearer ' + Cookie.get('token')
+                      }
+                    })
+                    .then(response => {
+                      response.data
+                      swal("Delatado com sucesso!", {
+                        icon: "success",
+                      });
+                    })
+              } else {
+                swal("uffa, nada aconteceu!");
+              }
+            });
+      },
       removeCreditCard(id){
         swal({
           title: "tem certeza?",
@@ -732,7 +946,7 @@
                       method: 'delete',
                       baseURL: 'http://localhost:8080/place/creditCard',
                       headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                        'Authorization': 'Bearer ' + Cookie.get('token')
                       }
                     })
                     .then(response => {
@@ -746,7 +960,26 @@
               }
             });
       },
+      loadAddressesData(){
+        this.cards = null;
+        let url = `/findByUserId/${Cookie.get('idUser')}`
+        this.axios
+            .request({
+              url:url,
+              method: 'GET',
+              baseURL: 'http://localhost:8080/place/address',
+              headers: {
+                "Authorization":"Bearer  " + Cookie.get('token'),
+                "Access-Control-Allow-Origin": '*',
+                "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+              }
+            })
+            .then(response => {
+              this.addresses = response.data
+            })
+      },
       loadCreditCardData(){
+        this.cards = null;
         let url = `/findByUserId/${Cookie.get('idUser')}`
         this.axios
             .request({
@@ -754,7 +987,7 @@
               method: 'GET',
               baseURL: 'http://localhost:8080/place/creditCard',
               headers: {
-                "Authorization":"Bearer  " + localStorage.getItem('token'),
+                "Authorization":"Bearer  " + Cookie.get('token'),
                 "Access-Control-Allow-Origin": '*',
                 "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
               }
@@ -766,7 +999,7 @@
       editUserData(){
         let config = {
           headers:{
-            "Authorization":"Bearer " + localStorage.getItem('token')
+            "Authorization":"Bearer " + Cookie.get('token')
           }
         }
         this.axios.put("http://localhost:8080/place/client",{
@@ -800,17 +1033,47 @@
               else{
                 swal("Alterado com sucesso", "suas informações sempre estarão seguras conosco", "success");
               }
+            }).catch(() =>{
+          swal("Oops :(","parece que seus dados estão incorretos.","error")
+        })
+      },
+      editAddressData(){
+        let config = {
+          headers:{
+            "Authorization":"Bearer " + Cookie.get('token')
+          }
+        }
+        this.axios.put("http://localhost:8080/place/address",{
+          id: this.editIdAddress,
+          idUser: this.editAddressIdUser,
+          typeAddress:this. edittypeAddress,
+          country : this.editcountry,
+          state : this.editstate,
+          address : this.editaddress,
+          nameAddress : this.editnameAddress,
+          number : this.editnumber,
+          complement : this.editcomplement,
+          postalCode : this.editpostalCode,
+          category : "entrega",
+          observation : this.editobservation,
+          city : this.editcity
+        }, config)
+            .then((response)=>{
+              if(response.data === " "){
+                swal(response.data)
+              }
+              else{
+                swal("Alterado com sucesso", "suas informações sempre estarão seguras conosco", "success");
+                this.showCardAndAndAddress()
+              }
 
             }).catch(() =>{
           swal("Oops :(","parece que seus dados estão incorretos.","error")
         })
       },
-      alterData(){
-        swal("dados alterados com sucesso", "", "success");
-      },
       saveCreditCardData(){
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${localStorage.getItem('token')}` );
+        myHeaders.append("Authorization", `Bearer ${Cookie.get('token')}` );
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
@@ -844,8 +1107,37 @@
             .catch(error => console.log('error', error));
       },
       saveAddressData(){
-        swal("endereço de entrega salvo com sucesso", "", "success");
-        this.showCardAndAndAddress()
+        let config = {
+          headers:{
+            "Authorization":"Bearer " + Cookie.get('token')
+          }
+        }
+        this.axios.post("http://localhost:8080/place/address",{
+          typeAddress:this.newtypeAddress,
+          country : this.newcountry,
+          state : this.newstate,
+          address : this.newaddress,
+          nameAddress : this.newnameAddress,
+          number : this.newnumber,
+          complement : this.newcomplement,
+          postalCode : this.newpostalCode,
+          category : "entrega",
+          idUser : Cookie.get('idUser'),
+          observation : this.newobservation,
+          city : this.newcity
+        }, config)
+            .then((response)=>{
+              if(response.data === " "){
+                swal(response.data)
+              }
+              else{
+                swal("Salvo com sucesso", "suas informações sempre estarão seguras conosco", "success");
+                this.showCardAndAndAddress()
+              }
+
+            }).catch(() =>{
+          swal("Oops :(","parece que seus dados estão incorretos.","error")
+        })
       },
       showCardModal(){
         this.showCardAndAddress = false
@@ -865,34 +1157,31 @@
         this.showFormAddCard = false
         this.showFormEditAddress = false
       },
-      showEditAddress(){
+      showEditAddress(id){
+
+        const index = this.addresses.findIndex( (addresses) => addresses.id === id)
+        this.edittypeAddress= this.addresses[index].typeAddress
+        this.editcountry= this.addresses[index].country
+        this.editcity = this.addresses[index].city
+        this.editstate = this.addresses[index].state
+        this.editaddress = this.addresses[index].address
+        this.editnameAddress = this.addresses[index].nameAddress
+        this.editnumber = this.addresses[index].number
+        this.editcomplement = this.addresses[index].complement
+        this.editpostalCode=this.addresses[index].postalCode
+        this.editcategory=this.addresses[index].category
+        this.editobservation=this.addresses[index].postalCode
+        this.editIdAddress = this.addresses[index].id
+        this.editAddressIdUser = this.addresses[index].idUser
         this.showCardAndAddress = false
         this.showFormAddAddress = false
         this.showFormAddCard = false
         this.showFormEditAddress = true
       },
-      disableConfirmation(){
-        swal({
-          title: "tem certeza?",
-          text: "uma vez deletado, essa informação não poderá ser recuperada!",
-          icon: "warning",
-              buttons: ["cancelar", "tenho certeza"],
-          dangerMode: true,
-        })
-            .then((willDelete) => {
-              if (willDelete) {
-                swal("Delatado com sucesso!", {
-                  icon: "success",
-                });
-              } else {
-                swal("uffa, nada aconteceu!");
-              }
-            });
-      },
       loadUserData(){
         let config = {
           headers:{
-            Authorization:"Bearer " + localStorage.getItem('token')
+            Authorization:"Bearer " + Cookie.get('token')
           }
         }
         this.axios.get("http://localhost:8080/place/auth",config)
@@ -918,13 +1207,13 @@
               this.idAddress = response.data.idAddress
               this.city = response.data.city
               this.actualPassword = response.data.actualPassword
-              this.$store.commit('saveIdUser', response.data.idUser)
-              localStorage.setItem('idUser',response.data.idUser)
               Cookie.set('idUser', response.data.idUser)
+              this.loadCreditCardData()
+              this.loadAddressesData()
             })
       },
       verifyToken(){
-        if(localStorage.getItem('token') === ""){
+        if(Cookie.get('token') === " "){
          this.$router.push("Login")
         }else{
           this.loadUserData()
@@ -936,7 +1225,7 @@
 
     },
     created() {
-      this.loadCreditCardData()
+
     }
   }
 </script>

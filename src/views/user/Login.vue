@@ -55,6 +55,7 @@
 
 <script>
 import swal from "sweetalert";
+import Cookie from "js-cookie";
 
 export default{
   name:"Login",
@@ -81,7 +82,7 @@ export default{
           swal("Uhuu 0/","Login feito com sucesso","success")
               .then(() => {
                 this.token = response.data.token
-                localStorage.setItem('token',this.token)
+                Cookie.set('token', response.data.token)
                 this.$router.push("Profile")
               });
         }).catch(() =>{
