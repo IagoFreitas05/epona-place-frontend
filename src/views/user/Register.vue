@@ -277,7 +277,7 @@ export default {
         country:"n/a",
         nameAddress:"n/a",
         postalCode:"n/a",
-        category:"n/a",
+        category:"residencial",
         observation:"n/a",
         complement:"n/a",
       })

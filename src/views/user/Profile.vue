@@ -1,20 +1,16 @@
 <template>
-  <div>
-    <div class="mt-8 w-full ">
+  <div class="flex">
+      <div class="mt-12 p-2 w-1/12 text-left " >
+        <div class="flex-col flex gap-4 ">
+          <div class="bg-blue-500  text-sm text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <router-link class="text-center" to="/login">sair</router-link>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 w-11/12 ">
       <div class="w-full mx-auto flex ">
           <div class=" w-full ">
             <form class="bg-white flex  rounded grid gap-10    px-8 pt-6 pb-8 mb-4" @submit.prevent="editUserData()" autocomplete="on">
-              <div class="flex items-center mt-3 justify-center gap-4" id="perfil_picture">
-                <div class="text-center">
-                  <img class="rounded-full" src=" https://www.stevensegallery.com/100/100" alt="">
-                  <h4 class="text-xs font-bold mt-1 bg-purple-500 hover:bg-purple-600 text-white font-bold  rounded focus:outline-none focus:shadow-outline "> #31</h4>
-                </div>
-                <div>
-                  <button id="alterImg" class="bg-blue-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                    alterar imagem de perfil
-                  </button>
-                </div>
-              </div>
               <div class="sm:grid md:grid md:grid-cols-2 lg:grid-cols-2  sm:grid-cols-1 md:gap-4">
                 <div class="items-center border-2  border-purple-200 shadow-lg rounded-md p-5 ">
                   <div class="mb-4">
@@ -823,6 +819,7 @@
       </div>
       <Footer></Footer>
   </div>
+
   </div>
 </template>
 
@@ -923,6 +920,9 @@
                       swal("Delatado com sucesso!", {
                         icon: "success",
                       });
+
+                      const index = this.addresses.findIndex( (addresses) => addresses.id === id)
+                      this.addresses.splice(this.addresses[index], 1)
                     })
               } else {
                 swal("uffa, nada aconteceu!");
@@ -954,6 +954,7 @@
                       swal("Delatado com sucesso!", {
                         icon: "success",
                       });
+                      this.loadCreditCardData()
                     })
               } else {
                 swal("uffa, nada aconteceu!");
@@ -970,8 +971,6 @@
               baseURL: 'http://localhost:8080/place/address',
               headers: {
                 "Authorization":"Bearer  " + Cookie.get('token'),
-                "Access-Control-Allow-Origin": '*',
-                "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
               }
             })
             .then(response => {
@@ -1059,57 +1058,50 @@
           city : this.editcity
         }, config)
             .then((response)=>{
-              if(response.data === " "){
-                swal(response.data)
-              }
-              else{
+              if(response.data === "sucesso"){
                 swal("Alterado com sucesso", "suas informações sempre estarão seguras conosco", "success");
                 this.showCardAndAndAddress()
               }
-
+              else{
+                swal(response.data)
+              }
             }).catch(() =>{
           swal("Oops :(","parece que seus dados estão incorretos.","error")
         })
       },
       saveCreditCardData(){
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${Cookie.get('token')}` );
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-          "cardNumber": this.cardNumber,
-          "cvv": this.cvv,
-          "flag": this.flag,
-          "expireDate": this.expireDate,
-          "cardName": this.cardName,
-          "idUser": `${Cookie.get('idUser')}`
-        });
-
-        var requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: raw,
-          redirect: 'follow'
-        };
-        fetch("http://localhost:8080/place/creditCard", requestOptions)
-            .then((response) => {
-              console.log(response)
-              if(response.data === " "){
-                swal(response.data)
+        let config = {
+          headers:{
+            "Authorization":"Bearer " + Cookie.get('token'),
+            "Content-type":"Application/json"
+          }
+        }
+        this.axios.post("http://localhost:8080/place/creditCard",{
+          cardNumber: this.cardNumber,
+          cvv: this.cvv,
+          flag: this.flag,
+          expireDate: this.expireDate,
+          cardName: this.cardName,
+          idUser: `${Cookie.get('idUser')}`
+        }, config)
+            .then((response)=>{
+              if(response.data === "sucesso"){
+                swal("Salvo com sucesso", "suas informações sempre estarão seguras conosco", "success");
+                this.loadCreditCardData()
+                this.showCardAndAndAddress()
               }
               else{
-                swal("Cartão salvo com sucesso", "suas informações sempre estarão seguras conosco", "success");
+                swal(response.data)
               }
-              this.showCardAndAndAddress()
             }).catch(() =>{
-              swal("Oops :(","parece que seus dados estão incorretos.","error")
-            })
-            .catch(error => console.log('error', error));
+          swal("Oops :(","parece que seus dados estão incorretos.","error")
+        })
       },
       saveAddressData(){
         let config = {
           headers:{
-            "Authorization":"Bearer " + Cookie.get('token')
+            "Authorization":"Bearer " + Cookie.get('token'),
+            "Content-type":"Application/json"
           }
         }
         this.axios.post("http://localhost:8080/place/address",{
@@ -1128,16 +1120,18 @@
         }, config)
             .then((response)=>{
               if(response.data === " "){
-                swal(response.data)
-              }
-              else{
                 swal("Salvo com sucesso", "suas informações sempre estarão seguras conosco", "success");
+                this.loadAddressesData()
+                this.loadCreditCardData()
                 this.showCardAndAndAddress()
               }
-
+              else{
+                swal(response.data)
+              }
             }).catch(() =>{
           swal("Oops :(","parece que seus dados estão incorretos.","error")
         })
+
       },
       showCardModal(){
         this.showCardAndAddress = false
@@ -1170,7 +1164,7 @@
         this.editcomplement = this.addresses[index].complement
         this.editpostalCode=this.addresses[index].postalCode
         this.editcategory=this.addresses[index].category
-        this.editobservation=this.addresses[index].postalCode
+        this.editobservation=this.addresses[index].observation
         this.editIdAddress = this.addresses[index].id
         this.editAddressIdUser = this.addresses[index].idUser
         this.showCardAndAddress = false
