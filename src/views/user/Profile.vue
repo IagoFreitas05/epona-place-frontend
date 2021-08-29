@@ -364,15 +364,15 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="item in addresses" :key="item.id" >
-                <td>{{ item.address }}</td>
-                <td>{{ item.number }}</td>
-                <td><button
+              <tr v-for="item in addresses"  :key="item.id" >
+                <td v-if="item.category !== 'residencial' ">{{ item.address }}</td>
+                <td v-if="item.category !== 'residencial' ">{{ item.number }}</td>
+                <td v-if="item.category !== 'residencial' "><button
                     @click="removeAddresses(item.id)"
                       class="border-2 border-red-400 hover:bg-white
                         text-red-500 text-xs font-bold py-2 px-4 rounded
                           focus:outline-none focus:shadow-outline">desativar</button></td>
-                <td><button id="button_edit_address"
+                <td v-if="item.category !== 'residencial' "><button id="button_edit_address"
                             @click="showEditAddress(item.id)"
                             class="border-2 border-yellow-400 text-yellow-500 text-xs
                               font-bold py-2 px-4 rounded focus:outline-none
