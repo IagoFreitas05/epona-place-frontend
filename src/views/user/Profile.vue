@@ -1206,20 +1206,12 @@
               this.loadAddressesData()
             })
       },
-      verifyToken(){
-        if(Cookie.get('token') === " "){
-         this.$router.push("Login")
-        }else{
-          this.loadUserData()
-        }
-      },
     },
     beforeMount(){
-        this.verifyToken()
 
     },
     created() {
-
+      this.loadUserData()
     }
   }
 </script>

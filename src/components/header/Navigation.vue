@@ -1,10 +1,9 @@
 <template>
   <div id="nav" class="p-8 mt-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex justify-between space-x-4">
     <div ><router-link class="text-center" to="/store">loja</router-link></div>
-    <div ><router-link class="text-center" to="/about">sobre</router-link></div>
     <div ><router-link class="text-center" to="/register">registrar</router-link></div>
     <div ><router-link class="text-center" to="/login">login</router-link></div>
-
+    <div ><router-link class="text-center" to="/cart">carrinho</router-link></div>
   </div>
 
   <router-view/>
