@@ -1,11 +1,7 @@
 <template>
   <div class="flex">
       <div class="mt-12 p-2 w-1/12 text-left " >
-        <div class="flex-col flex gap-4 ">
-          <div class="bg-blue-500  text-sm text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            <router-link class="text-center" to="/login">sair</router-link>
-          </div>
-        </div>
+        <SideMenuUser></SideMenuUser>
       </div>
       <div class="mt-8 w-11/12 ">
       <div class="w-full mx-auto flex ">
@@ -828,9 +824,11 @@
   import Footer from "@/components/footer/Footer";
   import Cookie from "js-cookie";
   import swal from "sweetalert";
+  import SideMenuUser from "@/components/menu/SideMenuUser";
   export default{
     name: 'profile',
     components:{
+      SideMenuUser,
       Footer
     },
     data(){
@@ -1152,7 +1150,6 @@
         this.showFormEditAddress = false
       },
       showEditAddress(id){
-
         const index = this.addresses.findIndex( (addresses) => addresses.id === id)
         this.edittypeAddress= this.addresses[index].typeAddress
         this.editcountry= this.addresses[index].country

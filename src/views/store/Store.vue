@@ -14,7 +14,10 @@
         <div class="shadow-lg text-sm rounded py-3 px-6 bg-gray-800 mt-2" v-for="item in this.$store.state.cart" :key="item.id" >
           <span class=" text-white">{{item.name}}</span> <span class="bg-white pl-2 pr-2 rounded-full  font-bold ">{{item.qty}}</span>
         </div>
-        <div class="w-full"><button class="border flex justify-between w-full border-purple-100 font-bold mt-2 py-2 px-4 rounded text-purple-300 focus:outline-none focus:shadow-outline">pagamento
+        <div class="w-full"><button @click="goToTheCart" class="border flex
+        justify-between w-full border-purple-100 font-bold
+          mt-2 py-2 px-4 rounded text-purple-300 focus:outline-none
+            focus:shadow-outline">pagamento
           <img src="../../assets/icons/arrow-right.png" width="20" height="20" alt=""></button></div>
         <div class="text-black text-purple-200 mt-2 text-sm" @click="removeAllCart">remover todos </div>
       </div>
@@ -31,7 +34,7 @@ export default {
 data:function() {
     return {
     products:[
-      {id:"1", value:"200",name:"jordan",category:"corrida", img:"https://images.unsplash.com/photo-1577982787983-e07c6730f2d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2059&q=80"},
+      {id:"1", value:"200", name:"jordan",category:"corrida", img:"https://images.unsplash.com/photo-1577982787983-e07c6730f2d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2059&q=80"},
       {id:"2", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"},
       {id:"3", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"},
       {id:"4", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"},
@@ -42,6 +45,9 @@ data:function() {
   methods:{
     removeAllCart(){
       this.$store.commit('removeAllProducts')
+    },
+    goToTheCart(){
+      this.$router.push("Cart")
     }
   }
 

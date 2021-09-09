@@ -1,4 +1,5 @@
-<template>
+
+  <template>
     <div class="max-w-md w-full bg-gray-900 shadow-lg rounded-xl p-6 mt-1">
       <div class="flex flex-col ">
         <div class="">
@@ -13,11 +14,9 @@
           <div class="flex-auto justify-evenly">
             <div class="flex flex-wrap ">
               <div class="flex items-center w-full justify-between min-w-0 ">
-                <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate ">{{
-                    name
-                  }}</h2>
-                <div class="flex items-center bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
-                  DISPONÍVEL</div>
+                <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate "> {{ name }}</h2>
+                <div class="flex items-center bg-red-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
+                  cancelar item</div>
               </div>
             </div>
             <div class="text-xl text-white font-semibold mt-1">R$ {{product.value}}</div>
@@ -34,8 +33,8 @@
               </div>
             </div>
             <div class="flex space-x-2 text-sm font-medium justify-start">
-              <button @Click="addToCart(product)" class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
-                <span>adicionar ao carrinho {{product.qty}}</span>
+              <button  class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
+                <span>quantidade: {{product.qty}}</span>
               </button>
               <!-- <button class="transition ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-gray-500 border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,23 +47,25 @@
         </div>
       </div>
     </div>
-</template>
+  </template>
+
+
 <script>
 export default {
+  name: "ProductOrderDetail",
   props: {
     product: {
       img: String,
       name: String,
       value: String,
       id: String,
-      category: String
-    }
-  },
-  methods:{
-    addToCart(product){
-      this.$store.commit('addProduct', product)
+      category: String,
+      qty:''
     }
   }
 }
-
 </script>
+
+<style scoped>
+
+</style>

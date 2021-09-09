@@ -17,6 +17,7 @@ const routes = [
     path: '/store',
     name: 'Store',
     component: () => import(/* webpackChunkName: "about" */ '../views/store/Store.vue')
+    //beforeEnter: Guard.auth
   },
   {
     path: '/login',
@@ -34,6 +35,16 @@ const routes = [
     name:'Cart',
     component: () => import('../views/store/Cart'),
     //beforeEnter: Guard.auth
+  },
+  {
+    path:"/userShop",
+    name:'UserShop',
+    component: () => import('../views/user/UserShop')
+  },
+  {
+    path:"/userOrderDetail/:id",
+    name:'userOrderDetail',
+    component: () => import('../views/user/UserOrderDetail')
   }
 ]
 

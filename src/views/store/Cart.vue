@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mt-8">
+  <div class="w-full mt-8" v-on:click="calculateTotal">
     <div v-if="this.$store.state.cart != ''" class="grid sm:grid-cols-1 md:grid-cols-2 ">
       <div class="w-full" >
         <h4 class="text-xl font-sans text-center font-bold text-purple-600 my-4 flex justify-center items-center ">formas de pagamento &nbsp;<img src="../../assets/icons/credit-card.png" width="50" height="50" alt=""></h4>
@@ -17,8 +17,31 @@
         <div v-else class="items-center flex justify-center">
           <p class="font-sans font-md text-center font-bold text-purple-400 ">parece que você não tem nenhum cartão de crédito cadastro, por favor cadastre um para finalizar sua compra</p>
         </div>
+        <h4 class="font-sans font-xl font-black mt-5 ">caso tenha um cupom de desconto, digite o código aqui </h4>
+        <div class="w-6/12 mt-4 ">
+          <input
+              class="shadow-lg appearance-none
+                border-2 border-purple-400 rounded w-full py-2 px-3 text-gray-700
+                  leading-tight focus:outline-none
+                    focus:shadow-outline required pt-4 pb-4"
+              name="cupom"
+              id="cupom"
+              type="text"
+              placeholder="cupom"
+              required
+          >
+          <button @click="submitCupom" id="enter"
+                  class="bg-blue-500 hover:bg-purple-600
+            text-white font-bold py-2 px-4 rounded mt-4
+              focus:outline-none
+                focus:shadow-outline" name="login" type="button">
+            aplicar cupom
+            <span v-if="charge ===  true ">acessando...</span>
+            <span v-else-if="charge === false">acessar</span>
+          </button>
+        </div>
       </div>
-      <div class="w-full "  >
+      <div class="w-full" >
         <h4 class="text-xl text-center font-bold text-purple-600 my-4 flex justify-center items-center font-sans">items do carrinho  &nbsp;<img src="../../assets/icons/carrinho-de-carrinho.png" width="50" height="50" alt=""></h4>
         <div class="grid md:grid-cols-1 md:grid-cols-3 gap-2 ">
           <span v-for="item in this.$store.state.cart"  :key="item.id">
@@ -27,6 +50,16 @@
         </div>
       </div>
     </div>
+
+    <div v-if="this.$store.state.cart != ''" class="">
+        <div class="w-full bg-green-600 text-white rounded shadow p-4 mt-6 grid sm:grid-cols-1 md:grid-cols-2 text-center justify-beetwen">
+          <button class="bg-green-600 border-2  focus:outline-none
+                focus:shadow-outline  rounded p-3 font-bold w-6/12" @click="purchase">finalizar pedido</button>
+
+          <div class="p-4 font-bold">total: {{totalPrice}} </div>
+        </div>
+    </div>
+
       <div v-else class="w-9/12 m-auto py-16  flex items-center justify-center">
         <div class="bg-white shadow-lg overflow-hidden sm:rounded-lg pb-8">
           <div class="border-t border-gray-200 text-center pt-8">
@@ -51,6 +84,7 @@ export default {
   components: {ProductCard},
   data:function() {
     return {
+      totalPrice:0,
       creditCard:[
         {id:"1",name:"IAGO F C SOUZA", flag:"mastercard", numero:"5541 1123 1231 1233"},
         {id:"2",name:"GABI DO PRADO OLIVEIRA", flag:"mastercard", numero:"5541 1123 1231 1233"}
@@ -65,8 +99,22 @@ export default {
     selectCreditCard(item){
       swal( "cartão selecionado "+ item.numero +" " + item.flag)
       this.selectCreditCard = item;
+    },
+    calculateTotal(){
+      this.totalPrice = 0;
+      if(this.$store.state.cart != ''){
+          for(var item in this.$store.state.cart ){
+            this.totalPrice = this.totalPrice + parseFloat(this.$store.state.cart[item].value * this.$store.state.cart[item].qty);
+          }
+      }
+    },
+    purchase(){
+      swal("uhuuu!","seu pedido foi processado com sucesso","success");
+      this.$router.push("Profile")
     }
+  },
+  mounted() {
+    this.calculateTotal();
   }
-
 }
 </script>
