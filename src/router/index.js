@@ -45,6 +45,32 @@ const routes = [
     path:"/userOrderDetail/:id",
     name:'userOrderDetail',
     component: () => import('../views/user/UserOrderDetail')
+  },
+  {
+    path:"/adminLogin",
+    name:'adminLogin',
+    component: () => import('../views/admin/AdminLogin')
+
+  },
+  {
+    path:'/adminProfile',
+    name:'adminProfile',
+    component: () => import('../views/admin/ProfileAdmin')
+  },
+  {
+    path:'/orders',
+    name:'orders',
+    component: () => import('../views/admin/Orders')
+  },
+  {
+    path: '/ordersDetail/:id',
+    name:'ordersDetail',
+    component: () => import('../views/admin/OrdersDetail')
+  },
+  {
+    path:'/canceledOrders',
+    name:'canceledOrders',
+    component: () => import('../views/admin/CanceledOrders')
   }
 ]
 
