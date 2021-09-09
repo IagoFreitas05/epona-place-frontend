@@ -34,7 +34,7 @@ export default {
   },
   methods:{
     seeOrderDetail(id){
-      this.$router.push(`/ordersDetail/${id}`)
+      this.$router.push(`/canceledOrderDetail/${id}`)
     }
   }
 }

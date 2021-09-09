@@ -9,7 +9,7 @@
             text-purple-300 bg-purple-600 grid grid-cols-3
           ">pedido número: #{{id}}
           <span>status: {{ order.status }}</span>
-          <button @click="confirmTotalOrderCancel" class="border border-purple-300
+          <button  class="border border-purple-300
             rounded hover:border-white
               hover:text-white w-1/2 "> <p v-if="order.status === 'cancelado'">pedido cancelado</p> <p   v-else>declarar envio</p></button>
         </h4>
@@ -25,14 +25,13 @@
 
 <script>
 import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
-import swal from "sweetalert";
 import ProductOrderDetail from "@/components/store/ProductOrderDetail";
 export default {
-  name: "OrdersDetail",
+  name: "CanceledOrdersDetail",
   components: {ProductOrderDetail, SideMenuAdmin},
   data(){
     return{
-      order:{id:"3103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'em andamento'},
+      order:{id:"3103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'cancelado'},
       id :  this.$route.params.id,
       products:[
         {id:"1",
@@ -76,26 +75,6 @@ export default {
           status:''
         }
       ]
-    }
-  },
-  methods:{
-    confirmTotalOrderCancel(){
-      swal({
-        title: "tem certeza?",
-        text: "o usuário receberá um alerta de que esse pedido já saiu para entrega!",
-        icon: "warning",
-        buttons: ["cancelar", "tenho certeza"],
-        dangerMode: true,
-      })
-          .then((willDelete) => {
-            if (willDelete) {
-              swal("pedido enviado com sucesso!", {
-                icon: "success",
-              });
-            } else {
-              swal("uffa, nada aconteceu!");
-            }
-          });
     }
   }
 }
