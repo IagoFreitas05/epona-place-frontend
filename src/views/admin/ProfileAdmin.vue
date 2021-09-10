@@ -4,7 +4,9 @@
       <SideMenuAdmin></SideMenuAdmin>
     </div>
     <div class="mt-8 w-10/12">
-      menu administrativo
+      <h4 class="p-4 font-bold text-xl text-purple-600">
+        menu administrativo
+      </h4>
     </div>
   </div>
 </template>

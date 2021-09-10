@@ -9,14 +9,14 @@
             text-purple-300 bg-purple-600 grid grid-cols-3
           ">pedido número: #{{id}}
           <span>status: {{ order.status }}</span>
-          <button  class="border border-purple-300
+          <button @click="confirmTotalOrderCancel" class="border border-purple-300
             rounded hover:border-white
-              hover:text-white w-1/2 "> <p v-if="order.status === 'cancelado'">pedido cancelado</p> <p   v-else>declarar envio</p></button>
+              hover:text-white w-1/2 "> <p v-if="order.status === 'cancelado'">recebi os items</p> <p   v-else>declarar envio</p></button>
         </h4>
       </div>
       <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-2">
         <span v-for="item in products"  :key="item.id">
-          <ProductOrderDetail :product="item"></ProductOrderDetail>
+          <ProductAdminDetail :product="item"></ProductAdminDetail>
         </span>
       </div>
     </div>
@@ -25,10 +25,11 @@
 
 <script>
 import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
-import ProductOrderDetail from "@/components/store/ProductOrderDetail";
+import ProductAdminDetail from "@/components/store/ProductAdminDetail";
+import swal from "sweetalert";
 export default {
   name: "CanceledOrdersDetail",
-  components: {ProductOrderDetail, SideMenuAdmin},
+  components: {ProductAdminDetail, SideMenuAdmin},
   data(){
     return{
       order:{id:"3103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'cancelado'},
@@ -75,6 +76,26 @@ export default {
           status:''
         }
       ]
+    }
+  },
+  methods:{
+    confirmTotalOrderCancel(){
+      swal({
+        title: "tem certeza?",
+        text: "você declara o recebimento dos items enviados através da revolução?!",
+        icon: "warning",
+        buttons: ["cancelar", "tenho certeza"],
+        dangerMode: true,
+      })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("ação feita com sucesso!", {
+                icon: "success",
+              });
+            } else {
+              swal("uffa, nada aconteceu!");
+            }
+          });
     }
   }
 }

@@ -4,7 +4,7 @@
       <SideMenuUser></SideMenuUser>
     </div>
     <div class="mt-2 w-11/12 p-6 ">
-      <div @click="seeOrderDetail(item.id)" class=" shadow bg-gradient-to-r from-purple-600 to-purple-800
+      <div @click="seeOrderDetail(item.id)" v-bind:class="item.status =='active'?'bg-gradient-to-r from-purple-600 to-purple-800':'bg-gradient-to-r from-red-600 to-red-800'" class=" shadow
         grid grid-cols-4 justify-between
           mt-6 p-4 cursor-pointer
             rounded font-sans text-white " v-for="item in orders" :key="item.id">
@@ -25,9 +25,9 @@ export default {
   data(){
     return{
       orders:[
-        {id:"3103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200'},
-        {id:"3104",date:"28/01/2020", idUser:"1",idManager:"12", paymentType: 'cupom', totalValue: '330'},
-        {id:"3105",date:"28/01/2021", idUser:"1",idManager:"12", paymentType: 'cartão de crédito', totalValue: '299'},
+        {id:"3103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'active'},
+        {id:"3104",date:"28/01/2020", idUser:"1",idManager:"12", paymentType: 'cupom', totalValue: '330', status: 'cancelado'},
+        {id:"3105",date:"28/01/2021", idUser:"1",idManager:"12", paymentType: 'cartão de crédito', totalValue: '299',status: 'active'},
       ]
     }
   },

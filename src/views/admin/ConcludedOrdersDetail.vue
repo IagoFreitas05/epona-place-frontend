@@ -6,12 +6,10 @@
     <div class="mt-2 w-10/12 p-6 ">
       <div class="mt-6 mb-5 ">
         <h4 class="font-bold p-4 items-center content-center text-center justify-between rounded text-xl
-            text-purple-300 bg-purple-600 grid grid-cols-3
+            text-purple-300 bg-purple-600 grid grid-cols-2
           ">pedido número: #{{id}}
           <span>status: {{ order.status }}</span>
-          <button @click="confirmTotalOrderCancel" class="border border-purple-300
-            rounded hover:border-white
-              hover:text-white w-1/2 "> <p v-if="order.status === 'cancelado'">pedido cancelado</p> <p   v-else>declarar envio</p></button>
+
         </h4>
       </div>
       <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-2">
@@ -27,13 +25,12 @@
 import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
 import swal from "sweetalert";
 import ProductAdminDetail from "@/components/store/ProductAdminDetail";
-
 export default {
-  name: "OrdersDetail",
+  name: "ConcludedOrdersDetail",
   components: {ProductAdminDetail, SideMenuAdmin},
   data(){
     return{
-      order:{id:"2103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'em andamento'},
+      order:{id:"3103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'concluído'},
       id :  this.$route.params.id,
       products:[
         {id:"1",
@@ -83,14 +80,14 @@ export default {
     confirmTotalOrderCancel(){
       swal({
         title: "tem certeza?",
-        text: "o usuário receberá um alerta de que esse pedido já saiu para entrega!",
+        text: "você declara o recebimento dos items enviados através da revolução?!",
         icon: "warning",
         buttons: ["cancelar", "tenho certeza"],
         dangerMode: true,
       })
           .then((willDelete) => {
             if (willDelete) {
-              swal("pedido enviado com sucesso!", {
+              swal("ação feita com sucesso!", {
                 icon: "success",
               });
             } else {

@@ -19,10 +19,9 @@
           mt-2 py-2 px-4 rounded text-purple-300 focus:outline-none
             focus:shadow-outline">pagamento
           <img src="../../assets/icons/arrow-right.png" width="20" height="20" alt=""></button></div>
-        <div class="text-black text-purple-200 mt-2 text-sm" @click="removeAllCart">remover todos </div>
+        <div class="text-black text-purple-200 mt-2 cursor-pointer text-sm" @click="removeAllCart">remover todos </div>
       </div>
     </div>
-
   </div>
 </template>
 

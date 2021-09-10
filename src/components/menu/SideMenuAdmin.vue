@@ -5,13 +5,19 @@
         from-blue-500  to-blue-600  text-sm
           text-white font-bold py-2 px-4 rounded
             focus:outline-none focus:shadow-outline">
-        <router-link class="text-center " to="/orders">compras</router-link>
+        <router-link class="text-center " to="/orders">vendas em andamento</router-link>
       </div>
       <div class="cursor-pointer bg-gradient-to-r
           from-blue-500  to-blue-600  text-sm
             text-white font-bold py-2 px-4
               rounded focus:outline-none focus:shadow-outline">
-        <router-link class="text-center" to="/canceledOrders">cancelamentos</router-link>
+        <router-link class="text-center" to="/concludedOrders">vendas concluídas</router-link>
+      </div>
+      <div class="cursor-pointer bg-gradient-to-r
+          from-blue-500  to-blue-600  text-sm
+            text-white font-bold py-2 px-4
+              rounded focus:outline-none focus:shadow-outline">
+        <router-link class="text-center" to="/canceledOrders">vendas canceladas</router-link>
       </div>
       <div class="cursor-pointer bg-gradient-to-r
           from-blue-500  to-blue-600  text-sm text-white

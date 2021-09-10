@@ -76,6 +76,16 @@ const routes = [
     path:'/canceledOrderDetail/:id',
     name:'canceledOrderDetail',
     component: () => import('../views/admin/CanceledOrdersDetail')
+  },
+  {
+    path:'/concludedOrders',
+    name:'concludedOrders',
+    component: () => import('../views/admin/ConcludedOrders')
+  },
+  {
+    path:'/concludedOrdersDetail/:id',
+    name:'concludedOrdersDetail',
+    component: () => import('../views/admin/ConcludedOrdersDetail')
   }
 ]
 

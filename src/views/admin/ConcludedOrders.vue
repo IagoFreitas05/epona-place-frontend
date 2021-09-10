@@ -4,7 +4,7 @@
       <SideMenuAdmin></SideMenuAdmin>
     </div>
     <div class="mt-2 w-10/12 p-6 ">
-      <div @click="seeOrderDetail(item.id)" class=" shadow bg-gradient-to-r from-red-600 to-red-800
+      <div @click="seeOrderDetail(item.id)" class=" shadow bg-gradient-to-r from-green-600 to-green-800
         grid grid-cols-4 justify-between
           mt-6 p-4 cursor-pointer
             rounded font-sans text-white " v-for="item in orders" :key="item.id">
@@ -18,23 +18,23 @@
 </template>
 
 <script>
-
 import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
+
 export default {
-  name: "CanceledOrders",
+  name: "ConcludedOrders",
   components: {SideMenuAdmin},
   data(){
     return{
       orders:[
-        {id:"1103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'cancelado'},
-        {id:"2104",date:"28/01/2020", idUser:"1",idManager:"12", paymentType: 'cupom', totalValue: '330', status:'cancelado'},
-        {id:"5105",date:"28/01/2021", idUser:"1",idManager:"12", paymentType: 'cartão de crédito', totalValue: '299', status:'aguardando envio'},
+        {id:"3103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'aguardando envio'},
+        {id:"3104",date:"28/01/2020", idUser:"1",idManager:"12", paymentType: 'cupom', totalValue: '330' , status:'aguardando envio'},
+        {id:"3105",date:"28/01/2021", idUser:"1",idManager:"12", paymentType: 'cartão de crédito', totalValue: '299' , status:'aguardando envio'},
       ]
     }
   },
   methods:{
     seeOrderDetail(id){
-      this.$router.push(`/canceledOrderDetail/${id}`)
+      this.$router.push(`/concludedOrdersDetail/${id}`)
     }
   }
 }
