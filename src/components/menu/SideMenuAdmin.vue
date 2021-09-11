@@ -20,6 +20,12 @@
         <router-link class="text-center" to="/canceledOrders">vendas canceladas</router-link>
       </div>
       <div class="cursor-pointer bg-gradient-to-r
+          from-blue-500  to-blue-600  text-sm
+            text-white font-bold py-2 px-4
+              rounded focus:outline-none focus:shadow-outline">
+        <router-link class="text-center" to="/cupons">gerenciar cupons</router-link>
+      </div>
+      <div class="cursor-pointer bg-gradient-to-r
           from-blue-500  to-blue-600  text-sm text-white
             font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
         <router-link class="text-center" to="/login">sair</router-link>

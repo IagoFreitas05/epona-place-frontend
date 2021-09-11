@@ -86,6 +86,16 @@ const routes = [
     path:'/concludedOrdersDetail/:id',
     name:'concludedOrdersDetail',
     component: () => import('../views/admin/ConcludedOrdersDetail')
+  },
+  {
+    path:'/userCupons',
+    name:'userCupons',
+    component: () => import('../views/user/UserCupons')
+  },
+  {
+    path:'/cupons',
+    name: 'cupons',
+    component: () => import('../views/admin/Cupons')
   }
 ]
 

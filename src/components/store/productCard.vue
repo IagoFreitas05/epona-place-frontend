@@ -14,7 +14,7 @@
             <div class="flex flex-wrap ">
               <div class="flex items-center w-full justify-between min-w-0 ">
                 <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate ">{{
-                    name
+                    product.name
                   }}</h2>
                 <div class="flex items-center bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
                   DISPONÍVEL</div>

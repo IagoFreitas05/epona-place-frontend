@@ -12,7 +12,8 @@
       <div class="w-full mx-auto text-center bg-gray-700 border-gray-500 shadow-lg rounded-l-xl p-6 mt-1 " >
         <h4 class="text-xl font-bold text-purple-300 my-4 flex justify-between items-center ">carrinho <img src="../../assets/icons/carrinho-de-carrinho.png" width="50" height="50" alt=""></h4>
         <div class="shadow-lg text-sm rounded py-3 px-6 bg-gray-800 mt-2" v-for="item in this.$store.state.cart" :key="item.id" >
-          <span class=" text-white">{{item.name}}</span> <span class="bg-white pl-2 pr-2 rounded-full  font-bold ">{{item.qty}}</span>
+          <span class=" text-white">{{item.name}}</span> <span class="bg-white pl-2 pr-2 rounded-full  font-bold ">{{item.qty}} </span>
+          <p class="text-white cursor-pointer text-gray-500" @click="removeProduct(item.id)">remover</p>
         </div>
         <div class="w-full"><button @click="goToTheCart" class="border flex
         justify-between w-full border-purple-100 font-bold
@@ -47,6 +48,9 @@ data:function() {
     },
     goToTheCart(){
       this.$router.push("Cart")
+    },
+    removeProduct(item){
+      this.$store.commit('removeProduct', item)
     }
   }
 

@@ -16,6 +16,10 @@ export default createStore({
     },
     removeAllProducts(){
       this.state.cart = []
+    },
+    removeProduct(state, payload){
+      const existInProduct =  state.cart.findIndex( o => o.id === payload.id)
+      state.cart.splice(existInProduct,1)
     }
   },
   actions: {
