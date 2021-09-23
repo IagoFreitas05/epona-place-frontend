@@ -26,14 +26,14 @@ export default {
 }
 </script>
 
+
 <style scoped>
 #nav a.router-link-exact-active {
-  color: #42b983 ;
+  color: #FFFFFF ;
 
 }
 
 #nav a {
-  font-weight: bold;
-  color: white;
+  color: lightskyblue;
 }
 </style>

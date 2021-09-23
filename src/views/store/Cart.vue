@@ -1,77 +1,86 @@
 <template>
   <div class="w-full mt-8" v-on:click="calculateTotal">
-    <div v-if="this.$store.state.cart != ''" class="grid sm:grid-cols-1 md:grid-cols-2 ">
+    <div v-if="this.$store.state.cart != ''" class="grid sm:grid-cols-1 md:grid-cols-1 ">
       <div class="w-full" >
-        <h4 class="text-xl font-sans text-center font-bold
-          text-purple-600 my-4 flex justify-left items-center ">
-            formas de pagamento &nbsp;
-          <img src="../../assets/icons/credit-card.png" width="50" height="50" alt=""></h4>
-        <div class="w-10/12" v-if="creditCard != ''">
-          <h4 class="font-sans font-xl font-black ">selecione um cartão de crédito</h4>
-          <div   v-for="item in creditCard"
-                  @click="selectCreditCard(item)" :key="item.id" v-bind:class="this.selectedCreditCard.id === item.id?' text-white bg-purple-600 bg-opacity-100  ':'border-2 border-purple-200'"
-            class="transition ease-in duration-200
-            shadow-lg grid grid-cols-3 items-center
-             cursor-pointer hover:bg-purple-800 hover:text-white
-                 rounded  p-4 mt-5">
-            <span class="font-sans font-bold"> {{item.name}} </span>
-            <span class="font-sans font-bold"> {{item.numero.substr(9)}} **** **** </span>
-            <span  class="font-sans font-bold "> {{item.flag}}  </span>
-          </div>
-        </div>
-        <div v-else class="items-center flex justify-center">
-          <p class="font-sans font-md text-center font-bold text-purple-400 ">parece que você não tem nenhum cartão de crédito cadastro, por favor cadastre um para finalizar sua compra</p>
-        </div>
-        <h4 class="font-sans font-xl font-black mt-5 ">caso tenha um cupom de desconto, digite o código aqui </h4>
-        <div class="w-10/12 mt-4 ">
-          <input
-              class="shadow-lg appearance-none
-                border-2 border-purple-400 rounded w-full py-2 px-3 text-gray-700
-                  leading-tight focus:outline-none
-                    focus:shadow-outline required pt-4 pb-4"
-              name="cupom"
-              id="cupom"
-              type="text"
-              placeholder="cupom"
-              required
-          >
-          <button id="enter"
-                  class="bg-blue-500 hover:bg-purple-600
-            text-white font-bold py-2 px-4 rounded mt-4
-              focus:outline-none
-                focus:shadow-outline" name="login" type="button">
-            aplicar cupom
-          </button>
-        </div>
-        <h4 class="text-xl font-sans
-          text-center font-bold text-purple-600
-            my-4 flex justify-left items-center mt-8 ">endereço de entrega &nbsp;
-          <img src="../../assets/icons/caminhao-de-entrega.png" width="50" height="50" alt=""></h4>
-        <div   v-for="item in deliverAddress" @click="selectAddress(item)" :key="item.id"
-                v-bind:class="this.selectedAddress.id === item.id?' text-white bg-purple-600 bg-opacity-100  ':'border-2 border-purple-200'" class="transition ease-in duration-200
-            shadow-lg grid grid-cols-3 items-center
-             cursor-pointer hover:bg-purple-800 hover:text-white
-                 rounded  p-4 mt-5">
-          <span class="font-sans font-bold"> {{item.name}} </span>
-          <span class="font-sans font-bold"> {{item.logradouro}} </span>
-        </div>
-        <button @click="goToProfile" class="bg-blue-500 hover:bg-purple-600
-            text-white font-bold py-2 px-4 rounded mt-4
-              focus:outline-none
-                focus:shadow-outline">
-          adicionar novo endereço
-        </button>
-      </div>
-
-      <div class="w-full" >
+        <hr>
         <h4 class="text-xl text-center font-bold text-purple-600 my-4 flex justify-left items-center font-sans">items do carrinho  &nbsp;<img src="../../assets/icons/carrinho-de-carrinho.png" width="50" height="50" alt=""></h4>
-        <div class="grid md:grid-cols-1 md:grid-cols-3 gap-2 ">
+        <div class="grid md:grid-cols-1 md:grid-cols-6 gap-2 ">
           <span v-for="item in this.$store.state.cart"  :key="item.id">
            <ProductCard :product="item"></ProductCard>
           </span>
         </div>
       </div>
     </div>
+
+      <div class="w-full grid sm:grid-cols-1 mt-8 md:grid-cols-2 gap-4" v-if="this.$store.state.cart != ''" >
+
+        <div class="w-full  p-4">
+          <hr>
+          <h4 class="text-xl font-sans text-center font-bold
+          text-purple-600 my-4 flex justify-left items-center ">
+            formas de pagamento &nbsp;
+            <img src="../../assets/icons/credit-card.png" width="50" height="50" alt=""></h4>
+          <div class="w-full" v-if="creditCard != ''">
+
+            <div   v-for="item in creditCard"
+                   @click="selectCreditCard(item)" :key="item.id" v-bind:class="this.selectedCreditCard.id === item.id?' text-white bg-purple-600 bg-opacity-100  ':'border-2 border-purple-200'"
+                   class="transition ease-in duration-200
+            shadow-lg grid grid-cols-3 items-center
+             cursor-pointer hover:bg-purple-800 hover:text-white
+                 rounded  p-4 mt-10">
+              <span class="font-sans font-bold"> {{item.name}} </span>
+              <span class="font-sans font-bold"> {{item.numero.substr(9)}} **** **** </span>
+              <span  class="font-sans font-bold "> {{item.flag}}  </span>
+            </div>
+          </div>
+          <div v-else class="items-center flex justify-center">
+            <p class="font-sans font-md text-center font-bold text-purple-400 ">parece que você não tem nenhum cartão de crédito cadastro, por favor cadastre um para finalizar sua compra</p>
+          </div>
+          <h4 class="font-sans font-xl font-light mt-5 ">caso tenha um cupom de desconto, digite o código aqui </h4>
+          <div class=" mt-4 ">
+            <input
+                class="shadow-lg appearance-none
+                border-2 border-purple-200 rounded w-full py-2 px-3 text-gray-700
+                  leading-tight focus:outline-none
+                    focus:shadow-outline required pt-4 pb-4"
+                name="cupom"
+                id="cupom"
+                type="text"
+                placeholder="cupom"
+                required
+            >
+            <button id="enter"
+                    class="bg-blue-500 hover:bg-purple-600
+            text-white font-bold py-2 px-4 rounded mt-4
+              focus:outline-none
+                focus:shadow-outline" name="login" type="button">
+              aplicar cupom
+            </button>
+          </div>
+        </div>
+        <div class="w-full p-4 ">
+          <hr>
+          <h4 class="text-xl font-sans
+          text-center font-bold text-purple-600
+            my-4 flex justify-left items-center mt-8 ">endereços de entrega &nbsp;
+            <img src="../../assets/icons/caminhao-de-entrega.png" width="50" height="50" alt=""></h4>
+          <div   v-for="item in deliverAddress" @click="selectAddress(item)" :key="item.id"
+                 v-bind:class="this.selectedAddress.id === item.id?' text-white bg-purple-600 bg-opacity-100  ':'border-2 border-purple-200'" class="transition ease-in duration-200
+            shadow-lg grid grid-cols-3 items-center
+             cursor-pointer hover:bg-purple-800 hover:text-white
+                 rounded  p-4 mt-6">
+            <span class="font-sans font-bold"> {{item.name}} </span>
+            <span class="font-sans font-bold"> {{item.logradouro}} </span>
+          </div>
+          <button @click="goToProfile" class="bg-blue-500 hover:bg-purple-600
+            text-white font-bold py-2 px-4 rounded mt-4
+              focus:outline-none
+                focus:shadow-outline">
+            adicionar novo endereço
+          </button>
+        </div>
+      </div>
+
     <div v-if="this.$store.state.cart != ''" class="">
         <div class="w-full bg-green-600 text-white rounded shadow p-4 mt-6 grid sm:grid-cols-1 md:grid-cols-2 text-center justify-beetwen">
           <button class="bg-green-600 border-2  focus:outline-none

@@ -34,7 +34,7 @@ const routes = [
     path:'/cart',
     name:'Cart',
     component: () => import('../views/store/Cart'),
-    //beforeEnter: Guard.auth
+    beforeEnter: Guard.auth
   },
   {
     path:"/userShop",
@@ -55,12 +55,14 @@ const routes = [
   {
     path:'/adminProfile',
     name:'adminProfile',
-    component: () => import('../views/admin/ProfileAdmin')
+    component: () => import('../views/admin/ProfileAdmin'),
+    beforeEnter: Guard.auth
   },
   {
     path:'/orders',
     name:'orders',
-    component: () => import('../views/admin/Orders')
+    component: () => import('../views/admin/Orders'),
+    beforeEnter: Guard.auth
   },
   {
     path: '/ordersDetail/:id',
@@ -96,6 +98,16 @@ const routes = [
     path:'/cupons',
     name: 'cupons',
     component: () => import('../views/admin/Cupons')
+  },
+  {
+    path:'/newProduct',
+    name:'newProduct',
+    component: () => import('../views/admin/NewProduct')
+  },
+  {
+    path:'/categories',
+    name:'categories',
+    component: () => import('../views/admin/Categories')
   }
 ]
 

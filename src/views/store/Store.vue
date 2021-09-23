@@ -1,7 +1,7 @@
 <template>
   <div class="md:flex md:gap-4 sm:grid-1">
     <div  class="sm:w-full " v-bind:class="this.$store.state.cart != ''?' md:w-10/12':'md:w-12/12'">
-      <div class="container mx-auto mt-8 grid sm:grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="container mx-auto mt-8 grid sm:grid-cols-1 md:grid-cols-4 gap-4">
       <span v-for="item in products" :key="item.id">
         <ProductCard :product="item"></ProductCard>
       </span>

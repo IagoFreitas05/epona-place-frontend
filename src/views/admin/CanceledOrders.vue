@@ -3,7 +3,7 @@
     <div class="mt-12 p-2 w-2/12 text-left " >
       <SideMenuAdmin></SideMenuAdmin>
     </div>
-    <div class="mt-2 w-10/12 p-6 ">
+    <div class="mt-12 w-10/12 p-6 ">
       <div @click="seeOrderDetail(item.id)" class=" shadow bg-gradient-to-r from-red-600 to-red-800
         grid grid-cols-4 justify-between
           mt-6 p-4 cursor-pointer
