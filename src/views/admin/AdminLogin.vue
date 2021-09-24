@@ -86,7 +86,21 @@ export default {
           }).catch(() =>{
         swal("Oops :(","parece que seus dados estão incorretos.","error")
       })
+    },
+    loadUserData(){
+      let config = {
+        headers:{
+          Authorization:"Bearer " + Cookie.get('token')
+        }
+      }
+      this.axios.get("http://localhost:8080/place/auth",config)
+          .then((response)=>{
+            Cookie.set('idUser', response.data.idUser)
+          })
     }
+  },
+  created() {
+
   }
 }
 </script>

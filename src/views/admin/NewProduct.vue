@@ -47,12 +47,12 @@
                   <label class="block text-gray-700 text-sm font-bold mb-2">
                     categoria
                   </label>
-                  <select  v-model="selectCategory" id="" class="shadow appearance-none border
+                  <select v-on:change="calculateSalePrice(selectCategory)"  v-model="selectCategory" id="" class="shadow appearance-none border
                                   rounded w-full py-2 px-3
                                     text-gray-700 leading-tight
                                       focus:outline-none
                                         focus:shadow-outline">
-                    <option v-for="item in category" :key="item.id" :value="item.id">{{item.name}}</option>
+                    <option v-for="item in categories" :key="item.id" :value="item.id">{{item.category}}</option>
                   </select>
                 </div>
               </div>
@@ -162,26 +162,14 @@
 <script>
 import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
 import swal from "sweetalert";
+import Cookie from "js-cookie";
 export default {
   components:{SideMenuAdmin},
   name: "NewProduct",
   data(){
     return{
       selectCategory:"",
-      category:[
-        {
-          name:'corrida',
-          id:"1"
-        },
-        {
-          name:'luta',
-          id:"2"
-        },
-        {
-          name:'musculação',
-          id:"3"
-        }
-      ],
+      categories:[],
       productName:"",
       value:"",
       salePrice:"",
@@ -192,9 +180,61 @@ export default {
     }
   },
   methods:{
+    calculateSalePrice(id){
+      const existInProduct =  this.categories.findIndex( (obj) => obj.id === id)
+      this.salePrice = (this.value * (( this.categories[existInProduct].profit / 100) + 1)).toFixed(2)
+    },
+    loadCategory(){
+      let url = `/findByIdManager/${Cookie.get('idUser')}`
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/category',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+
+          })
+          .then(response => {
+            this.categories = response.data
+          })
+    },
     saveProduct(){
-      swal("salvo")
+      let config = {
+        headers:{
+          "Authorization":"Bearer " + Cookie.get('token'),
+          "Content-type":"Application/json"
+        }
+      }
+      this.axios.post("http://localhost:8080/place/product",{
+        name:this.productName,
+        category: this.selectCategory,
+        value: this.value,
+        description: this.description,
+        size: this.size,
+        salePrice: this.salePrice,
+        quantity: this.quantity,
+        image: this.image
+      }, config)
+          .then((response)=>{
+            if(response.data === " "){
+              swal("Salvo com sucesso", "suas informações sempre estarão seguras conosco", "success");
+              this.loadCategories()
+            }
+            else{
+              swal(response.data)
+            }
+          }).catch(() =>{
+        swal("Oops :(","alguma coisa deu errado na sua requisição","error")
+      })
+
     }
+  },
+  created() {
+    this.loadCategory()
   }
 }
 </script>
