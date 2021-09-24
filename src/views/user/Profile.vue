@@ -1199,6 +1199,7 @@
               this.city = response.data.city
               this.actualPassword = response.data.actualPassword
               Cookie.set('idUser', response.data.idUser)
+              Cookie.set('role', response.data.role)
               this.loadCreditCardData()
               this.loadAddressesData()
             })

@@ -13,10 +13,16 @@
 
 <script>
 import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
+
 export default {
   name: "ProfileAdmin",
   components: {SideMenuAdmin},
+  methods:{
 
+  },
+  created() {
+
+  }
 }
 </script>
 

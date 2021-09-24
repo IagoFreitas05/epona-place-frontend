@@ -28,21 +28,35 @@
 
 <script>
 import ProductCard from "@/components/store/productCard";
+import Cookie from "js-cookie";
 export default {
   components: {ProductCard},
 
 data:function() {
     return {
     products:[
-      {id:"1", value:"200", name:"jordan",category:"corrida", img:"https://images.unsplash.com/photo-1577982787983-e07c6730f2d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2059&q=80"},
-      {id:"2", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"},
-      {id:"3", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"},
-      {id:"4", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"},
-      {id:"5", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"}
+
     ]
   };
 },
   methods:{
+    loadProduct(){
+      let url = ``
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/product',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+           this.products = response.data
+          })
+    },
     removeAllCart(){
       this.$store.commit('removeAllProducts')
     },
@@ -52,7 +66,9 @@ data:function() {
     removeProduct(item){
       this.$store.commit('removeProduct', item)
     }
+  },
+  created() {
+    this.loadProduct();
   }
-
 }
 </script>

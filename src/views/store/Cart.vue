@@ -28,8 +28,8 @@
             shadow-lg grid grid-cols-3 items-center
              cursor-pointer hover:bg-purple-800 hover:text-white
                  rounded  p-4 mt-10">
-              <span class="font-sans font-bold"> {{item.name}} </span>
-              <span class="font-sans font-bold"> {{item.numero.substr(9)}} **** **** </span>
+              <span class="font-sans font-bold"> {{item.cardName}} </span>
+              <span class="font-sans font-bold"> {{item.cardNumber.substr(9)}} **** **** </span>
               <span  class="font-sans font-bold "> {{item.flag}}  </span>
             </div>
           </div>
@@ -69,8 +69,8 @@
             shadow-lg grid grid-cols-3 items-center
              cursor-pointer hover:bg-purple-800 hover:text-white
                  rounded  p-4 mt-6">
-            <span class="font-sans font-bold"> {{item.name}} </span>
-            <span class="font-sans font-bold"> {{item.logradouro}} </span>
+            <span class="font-sans font-bold"> {{item.nameAddress}} </span>
+            <span class="font-sans font-bold"> {{item.address}} </span>
           </div>
           <button @click="goToProfile" class="bg-blue-500 hover:bg-purple-600
             text-white font-bold py-2 px-4 rounded mt-4
@@ -111,24 +111,59 @@
 <script>
 import ProductCard from "@/components/store/productCard";
 import swal from "sweetalert";
+import Cookie from "js-cookie";
 export default {
   components: {ProductCard},
   data:function() {
     return {
       totalPrice:0,
       creditCard:[
-        {id:"1",name:"IAGO F C SOUZA", flag:"mastercard", numero:"5541 1123 1231 1233"},
-        {id:"2",name:"GABI DO PRADO OLIVEIRA", flag:"visa", numero:"5541 1123 8312 9821"}
       ],
       deliverAddress:[
-        {id:"1", name:'casa', logradouro:'Rua Augusto'},
-        {id:"2", name:'trabalho', logradouro:'Rua das Couves'}
       ],
       selectedCreditCard:{},
       selectedAddress:{}
     };
   },
   methods:{
+    loadUserAddress(){
+      this.loading = true
+      let url = `/findByUserId/${Cookie.get('idUser')}`
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/address',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            console.table(response.data)
+            this.deliverAddress = response.data
+          })
+    },
+    loadUserCreditCard(){
+      this.loading = true
+      let url = `/findByUserId/${Cookie.get('idUser')}`
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/creditCard',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            console.table(response.data)
+            this.creditCard = response.data
+          })
+    },
     goToProfile(){
       this.$router.push("Profile")
     },
@@ -136,11 +171,11 @@ export default {
       this.$router.push("Store")
     },
     selectCreditCard(item){
-      swal( "cartão selecionado: "+ item.numero +" " + item.flag)
+      swal( "cartão selecionado: "+ item.cardNumber +" " + item.flag)
       this.selectedCreditCard = item;
     },
     selectAddress(item){
-      swal("endereço selecionado: " + item.name)
+      swal("endereço selecionado: " + item.nameAddress)
       this.selectedAddress = item
     },
     calculateTotal(){
@@ -158,6 +193,10 @@ export default {
   },
   mounted() {
     this.calculateTotal();
+  },
+  created() {
+    this.loadUserCreditCard()
+    this.loadUserAddress()
   }
 }
 </script>

@@ -82,6 +82,7 @@ export default {
                   this.token = response.data.token
                   Cookie.set('token', response.data.token)
                   this.$router.push("adminProfile")
+                  this.loadUserData()
                 });
           }).catch(() =>{
         swal("Oops :(","parece que seus dados estão incorretos.","error")
@@ -96,6 +97,7 @@ export default {
       this.axios.get("http://localhost:8080/place/auth",config)
           .then((response)=>{
             Cookie.set('idUser', response.data.idUser)
+            Cookie.set('role', response.data.role)
           })
     }
   },
