@@ -47,9 +47,10 @@
                 id="cupom"
                 type="text"
                 placeholder="cupom"
-                required
+                v-model="cupomName"
             >
-            <button id="enter"
+            <button  @click="applyCupom(cupomName)"
+                id="enter"
                     class="bg-blue-500 hover:bg-purple-600
             text-white font-bold py-2 px-4 rounded mt-4
               focus:outline-none
@@ -82,12 +83,15 @@
       </div>
 
     <div v-if="this.$store.state.cart != ''" class="">
-        <div class="w-full bg-green-600 text-white rounded shadow p-4 mt-6 grid sm:grid-cols-1 md:grid-cols-2 text-center justify-beetwen">
+        <div class="w-full bg-green-600 text-white rounded shadow p-4 mt-6 grid sm:grid-cols-1 md:grid-cols-3 text-center justify-beetwen">
           <button class="bg-green-600 border-2  focus:outline-none
                 focus:shadow-outline  rounded p-3 font-bold w-6/12"
                   @click="purchase">
             finalizar pedido
           </button>
+          <p v-if="!Object.keys(this.cupom).length === false" class="p-4 font-bold">
+            cupom aplicado: {{cupom.name}} - R$ {{cupom.value}}
+          </p>
           <div class="p-4 font-bold">total: {{totalPrice}} </div>
         </div>
     </div>
@@ -101,6 +105,7 @@
              <div class="flex gap-4 justify-between">
                quero comprar! <img src="../../assets/icons/arrow-right.png" width="20" height="20" alt="">
              </div>
+
             </button>
           </div>
         </div>
@@ -116,6 +121,8 @@ export default {
   components: {ProductCard},
   data:function() {
     return {
+      cupomName:'',
+      cupom:{},
       totalPrice:0,
       creditCard:[
       ],
@@ -180,7 +187,7 @@ export default {
     },
     calculateTotal(){
       this.totalPrice = 0;
-      if(this.$store.state.cart != ''){
+      if(this.$store.state.cart !== ''){
           for(let item in this.$store.state.cart ){
             this.totalPrice = this.totalPrice + parseFloat(this.$store.state.cart[item].value * this.$store.state.cart[item].qty);
           }
@@ -189,6 +196,63 @@ export default {
     purchase(){
       swal("uhuuu!","seu pedido foi processado com sucesso","success");
       this.$router.push("Profile")
+    },
+    applyCupom(name){
+      this.loading = true
+      let url = `/findByName/${name}`
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/cupons',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            if(!Object.keys(this.cupom). length === false ){
+              swal("Opa!","você já aplicou um cupom a essa compra","error");
+              return
+            }
+            this.cupom = response.data
+            if(this.cupom.quantity === this.cupom.countUsing){
+              swal("Opa!","Esse cupom não está disponível","error");
+              this.cupom = []
+              return;
+            }
+            swal({
+              title: "encontramos seu cupom!",
+              text: `gostaria de aplicar esse cupom: ${this.cupom.name}, no valor de: ${this.cupom.value} reais`,
+              icon: "success",
+              buttons: ["cancelar", "tenho certeza"],
+              dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                  let url = `/${this.cupom.id}`
+                  this.axios
+                      .request({
+                        url:url,
+                        method: 'get',
+                        baseURL: 'http://localhost:8080/place/cupons/useCupom',
+                        headers: {
+                          'Authorization': 'Bearer ' + Cookie.get('token')
+                        }
+                      })
+                      .then(response => {
+                        response.data
+                        this.totalPrice = this.totalPrice - this.cupom.value
+                        swal("cupom aplicado com sucesso!", {
+                          icon: "success",
+                        });
+                      })
+                } else {
+                  swal("uffa, nada aconteceu!");
+                  this.cupom = []
+                }
+              });
+          })
     }
   },
   mounted() {
