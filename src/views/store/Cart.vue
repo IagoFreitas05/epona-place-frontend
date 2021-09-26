@@ -34,7 +34,7 @@
             </div>
           </div>
           <div v-else class="items-center flex justify-center">
-            <p class="font-sans font-md text-center font-bold text-purple-400 ">parece que você não tem nenhum cartão de crédito cadastro, por favor cadastre um para finalizar sua compra</p>
+            <p class="font-sans font-md text-center font-bold text-purple-400 ">parece que você não tem nenhum cartão de crédito</p>
           </div>
           <h4 class="font-sans font-xl font-light mt-5 ">caso tenha um cupom de desconto, digite o código aqui </h4>
           <div class=" mt-4 ">
@@ -194,8 +194,29 @@ export default {
       }
     },
     purchase(){
-      swal("uhuuu!","seu pedido foi processado com sucesso","success");
-      this.$router.push("Profile")
+      let config = {
+        headers:{
+          "Authorization":"Bearer " + Cookie.get('token'),
+          "Content-type":"Application/json"
+        }
+      }
+      this.axios.post("http://localhost:8080/place/order",{
+        idAddress : this.selectedAddress.id,
+        idCreditCard: this.selectedCreditCard.id,
+
+
+      }, config)
+          .then((response)=>{
+            if(response.data === " "){
+              swal("Pedido feito com sucesso!", "acompanhe o status da sua compra", "success");
+              this.$router.push("Profile")
+            }
+            else{
+              swal(response.data)
+            }
+          }).catch(() =>{
+        swal("Oops :(","alguma coisa deu errado na sua requisição","error")
+      })
     },
     applyCupom(name){
       this.loading = true

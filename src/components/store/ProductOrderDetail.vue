@@ -19,7 +19,7 @@
                   cancelar item</div>
               </div>
             </div>
-            <div class="text-xl text-white font-semibold mt-1">R$ {{product.value}}</div>
+            <div class="text-xl text-white font-semibold mt-1">R$ {{product.salePrice}}</div>
             <div class="lg:flex  py-4  text-sm text-gray-600">
               <div class="flex-1 inline-flex items-center  mb-3">
                 <div class="w-full flex-none text-sm flex items-center text-gray-600">
@@ -55,9 +55,9 @@ export default {
   name: "ProductOrderDetail",
   props: {
     product: {
-      img: String,
+      image: String,
       name: String,
-      value: String,
+      salePrice: String,
       id: String,
       category: String,
       qty:''
