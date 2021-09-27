@@ -35,7 +35,7 @@
             </div>
             <div class="flex space-x-2 text-sm font-medium justify-start">
               <button @Click="addToCart(product)" class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
-                <span>adicionar ao carrinho {{product.qty}}</span>
+                <span>adicionar ao carrinho {{product.quantity}}</span>
               </button>
               <!-- <button class="transition ease-in duration-300 bg-gray-700 hover:bg-gray-800 border hover:border-gray-500 border-gray-700 hover:text-white  hover:shadow-lg text-gray-400 rounded-full w-9 h-9 text-center p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="" fill="none" viewBox="0 0 24 24" stroke="currentColor">

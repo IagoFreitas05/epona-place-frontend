@@ -121,6 +121,7 @@ export default {
   components: {ProductCard},
   data:function() {
     return {
+      paymentType:'',
       cupomName:'',
       cupom:{},
       totalPrice:0,
@@ -189,11 +190,39 @@ export default {
       this.totalPrice = 0;
       if(this.$store.state.cart !== ''){
           for(let item in this.$store.state.cart ){
-            this.totalPrice = this.totalPrice + parseFloat(this.$store.state.cart[item].value * this.$store.state.cart[item].qty);
+            this.totalPrice = this.totalPrice + parseFloat(this.$store.state.cart[item].salePrice * this.$store.state.cart[item].quantity);
           }
       }
     },
     purchase(){
+      const orderItem = [];
+      const len =  this.$store.state.cart.length;
+      for(var i = 0;i<len;i++){
+        orderItem.push({
+          idProduto:this.$store.state.cart[i].id,
+          value: this.$store.state.cart[i].salePrice,
+          quantity: this.$store.state.cart[i].quantity,
+          idManager: this.$store.state.cart[i].idManager,
+          status: "em andamento",
+          productImage: this.$store.state.cart[i].image
+        })
+      }
+
+      if(!Object.keys(this.cupom). length === false && !Object.keys(this.selectedCreditCard).length === false){
+        this.paymentType = "CREDITCARDANDCUPOM";
+        swal("método de pagamento:  CREDITCARDANDCUPOM")
+      }
+
+      if(!Object.keys(this.selectedCreditCard).length === false && Object.keys(this.cupom).length === false){
+        this.paymentType = "CREDITCARD"
+        swal("método de pagamento: cartão de crédito")
+      }
+
+      if(Object.keys(this.selectedCreditCard).length === false && !Object.keys(this.cupom).length === false){
+        this.paymentType = "CUPOM"
+        swal("método de pagamento: CUPOM")
+      }
+
       let config = {
         headers:{
           "Authorization":"Bearer " + Cookie.get('token'),
@@ -203,13 +232,16 @@ export default {
       this.axios.post("http://localhost:8080/place/order",{
         idAddress : this.selectedAddress.id,
         idCreditCard: this.selectedCreditCard.id,
-
-
+        paymentType: this.paymentType,
+        idCupom : this.cupom.id,
+        totalValue: this.totalPrice,
+        status:"em andamento",
+        orderItems:orderItem
       }, config)
           .then((response)=>{
-            if(response.data === " "){
+            if(response.data === " " ){
               swal("Pedido feito com sucesso!", "acompanhe o status da sua compra", "success");
-              this.$router.push("Profile")
+              this.$router.push("userShop")
             }
             else{
               swal(response.data)

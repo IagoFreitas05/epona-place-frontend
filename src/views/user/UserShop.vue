@@ -4,13 +4,13 @@
       <SideMenuUser></SideMenuUser>
     </div>
     <div class="mt-2 w-11/12 p-6 ">
-      <div @click="seeOrderDetail(item.id)" v-bind:class="item.status =='active'?'bg-gradient-to-r from-purple-600 to-purple-800':'bg-gradient-to-r from-red-600 to-red-800'" class=" shadow
+      <div @click="seeOrderDetail(item.id)" v-bind:class="item.status == 'em andamento'?'bg-gradient-to-r from-purple-600 to-purple-800':'bg-gradient-to-r from-red-600 to-red-800'" class=" shadow
         grid grid-cols-4 justify-between
           mt-6 p-4 cursor-pointer
             rounded font-sans text-white " v-for="item in orders" :key="item.id">
         <p>pedido: <span class="font-bold">#{{item.id}}</span> </p>
-        <p>data: <span class="font-bold">{{item.date}}</span> </p>
-        <p>pago com: <span class="font-bold">{{item.paymentType}}</span> </p>
+        <p>data: <span class="font-bold">{{item.data.replace("T", " ")}}</span> </p>
+        <p>status: <span class="font-bold">{{item.status}}</span> </p>
         <p>total: <span class="font-bold">R$ {{item.totalValue}}</span> </p>
       </div>
     </div>
@@ -19,22 +19,42 @@
 
 <script>
 import SideMenuUser from "@/components/menu/SideMenuUser";
+import Cookie from "js-cookie";
 export default {
   name: "UserShop",
   components: {SideMenuUser},
   data(){
     return{
       orders:[
-        {id:"3103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'active'},
-        {id:"3104",date:"28/01/2020", idUser:"1",idManager:"12", paymentType: 'cupom', totalValue: '330', status: 'cancelado'},
-        {id:"3105",date:"28/01/2021", idUser:"1",idManager:"12", paymentType: 'cartão de crédito', totalValue: '299',status: 'active'},
+
       ]
     }
   },
   methods:{
     seeOrderDetail(id){
       this.$router.push(`/userOrderDetail/${id}`)
+    },
+    loadOrders(){
+      let url = `/findByIdUser/${Cookie.get('idUser')}`
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/order',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+
+          })
+          .then(response => {
+            this.orders = response.data
+          })
     }
+  },
+  created(){
+    this.loadOrders()
   }
 }
 </script>

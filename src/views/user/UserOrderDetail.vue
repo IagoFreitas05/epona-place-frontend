@@ -8,7 +8,8 @@
         <h4 class="font-bold p-4 items-center content-center text-center justify-between rounded text-xl
             text-purple-300 bg-purple-600 grid grid-cols-3
           ">pedido número: #{{id}}
-          <span>status: em faturamento</span>
+          <span>status: {{ order.status }}</span>
+
           <button @click="confirmTotalOrderCancel" class="border border-purple-300
             rounded hover:border-white
               hover:text-white w-1/2 ">cancelar pedido</button>
@@ -27,6 +28,7 @@
 import SideMenuUser from "@/components/menu/SideMenuUser";
 import ProductOrderDetail from "@/components/store/ProductOrderDetail";
 import swal from "sweetalert";
+import Cookie from "js-cookie";
 
 export default {
 
@@ -34,23 +36,10 @@ export default {
   components: {ProductOrderDetail, SideMenuUser},
   data(){
     return{
+      order:{},
       id :  this.$route.params.id,
       products:[
-        {id:"1",
-          value:"200",
-          name:"jordan",
-          category:"corrida",
-          img:"https://images.unsplash.com/photo-1577982787983-e07c6730f2d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2059&q=80",
-          qty:'1',
-        },
-        {id:"2",
-          value:"100",
-          name:"corrida",
-          category:"corrida",
-          img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80", qty:'2'},
-        {id:"3", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80", qty:'4'},
-        {id:"4", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80", qty:'1'},
-        {id:"5", value:"100", name:"corrida",category:"corrida", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80" , qty:'1'}
+
       ]
     }
   },
@@ -72,7 +61,47 @@ export default {
               swal("uffa, nada aconteceu!");
             }
           });
-    }
+    },
+    loadOrderItem(){
+      let url = `/findOrderItemsByIdOrder/${this.order.id}`
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/order',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            this.products = response.data
+          })
+    },
+    loadOrder(){
+      let url = `/${this.id}`
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/order',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+
+          })
+          .then(response => {
+            this.order = response.data
+            this.loadOrderItem()
+          })
+      }
+    },
+  created(){
+    this.loadOrder()
+
   }
 }
 </script>

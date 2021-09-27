@@ -32,7 +32,7 @@
           </div>
           <div class="flex space-x-2 text-sm font-medium justify-start">
             <button  class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
-              <span>quantidade: {{product.qty}}</span>
+              <span>quantidade: {{product.quantity}}</span>
             </button>
           </div>
         </div>
@@ -52,7 +52,7 @@ export default {
       salePrice: String,
       id: String,
       category: String,
-      qty:''
+      quantity:''
     }
   }
 }
