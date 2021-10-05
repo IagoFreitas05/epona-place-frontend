@@ -203,7 +203,7 @@ export default {
           value: this.$store.state.cart[i].salePrice,
           quantity: this.$store.state.cart[i].quantity,
           idManager: this.$store.state.cart[i].idManager,
-          status: "em andamento",
+          status: "andamento",
           productImage: this.$store.state.cart[i].image
         })
       }

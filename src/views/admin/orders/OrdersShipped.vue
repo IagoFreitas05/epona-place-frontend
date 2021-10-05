@@ -1,10 +1,10 @@
 <template>
   <div class="flex">
-    <div class="mt-12 p-2 w-1/12 text-left " >
-      <SideMenuUser></SideMenuUser>
+    <div class="mt-12 p-2 w-2/12 text-left " >
+      <SideMenuAdmin></SideMenuAdmin>
     </div>
-    <div class="mt-2 w-11/12 p-6 ">
-      <div @click="seeOrderDetail(item.id)" v-bind:class="item.status == 'em andamento'?'bg-gradient-to-r from-purple-600 to-purple-800':'bg-gradient-to-r from-red-600 to-red-800'" class=" shadow
+    <div class="mt-12 w-10/12 p-6 ">
+      <div @click="seeOrderDetail(item.id)" class=" shadow bg-gradient-to-r from-purple-600 to-purple-800
         grid grid-cols-4 justify-between
           mt-6 p-4 cursor-pointer
             rounded font-sans text-white " v-for="item in orders" :key="item.id">
@@ -18,11 +18,12 @@
 </template>
 
 <script>
-import SideMenuUser from "@/components/menu/SideMenuUser";
+import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
 import Cookie from "js-cookie";
+
 export default {
-  name: "UserShop",
-  components: {SideMenuUser},
+  name: "ConcludedOrders",
+  components: {SideMenuAdmin},
   data(){
     return{
       orders:[
@@ -32,10 +33,11 @@ export default {
   },
   methods:{
     seeOrderDetail(id){
-      this.$router.push(`/userOrderDetail/${id}`)
+      this.$router.push(`/ordersDetail/${id}`)
     },
     loadOrders(){
-      let url = `/findByIdUser/${Cookie.get('idUser')}`
+      this.loading = true
+      let url = `/findByStatus/enviado`
       this.axios
           .request({
             url:url,
@@ -50,10 +52,12 @@ export default {
           })
           .then(response => {
             this.orders = response.data
+            this.loading = false;
           })
     }
-  },
-  created(){
+  }
+  ,
+  created() {
     this.loadOrders()
   }
 }

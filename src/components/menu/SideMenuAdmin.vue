@@ -6,19 +6,31 @@
         from-blue-500  to-blue-600  text-sm
           text-white  py-2 px-4 rounded
             focus:outline-none focus:shadow-outline">
-        <router-link class="text-center " to="/orders">vendas em andamento</router-link>
+        <router-link class="text-center " to="/orders">aguardando envio</router-link>
       </div>
       <div class="cursor-pointer bg-gradient-to-r
           from-blue-500  to-blue-600  text-sm
             text-white py-2 px-4
               rounded focus:outline-none focus:shadow-outline">
-        <router-link class="text-center" to="/concludedOrders">vendas concluídas</router-link>
+        <router-link class="text-center" to="/concludedOrders">enviados</router-link>
       </div>
       <div class="cursor-pointer bg-gradient-to-r
           from-blue-500  to-blue-600  text-sm
             text-white  py-2 px-4
               rounded focus:outline-none focus:shadow-outline">
-        <router-link class="text-center" to="/canceledOrders">vendas canceladas</router-link>
+        <router-link class="text-center" to="/receivedOrders">recebidos pelo cliente</router-link>
+      </div>
+      <div class="cursor-pointer bg-gradient-to-r
+          from-blue-500  to-blue-600  text-sm
+            text-white  py-2 px-4
+              rounded focus:outline-none focus:shadow-outline">
+        <router-link class="text-center" to="/requestCanceledOrders">solicitações de cancelamento</router-link>
+      </div>
+      <div class="cursor-pointer bg-gradient-to-r
+          from-blue-500  to-blue-600  text-sm
+            text-white  py-2 px-4
+              rounded focus:outline-none focus:shadow-outline">
+        <router-link class="text-center" to="/canceledOrders">cancelados </router-link>
       </div>
       <div class="cursor-pointer bg-gradient-to-r
           from-blue-500  to-blue-600  text-sm

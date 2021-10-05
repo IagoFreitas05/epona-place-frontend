@@ -39,12 +39,12 @@ const routes = [
   {
     path:"/userShop",
     name:'UserShop',
-    component: () => import('../views/user/UserShop')
+    component: () => import('../views/user/orders/UserShop')
   },
   {
     path:"/userOrderDetail/:id",
     name:'userOrderDetail',
-    component: () => import('../views/user/UserOrderDetail')
+    component: () => import('../views/user/orders/UserOrderDetail')
   },
   {
     path:"/adminLogin",
@@ -61,33 +61,33 @@ const routes = [
   {
     path:'/orders',
     name:'orders',
-    component: () => import('../views/admin/Orders'),
+    component: () => import('../views/admin/orders/Orders'),
     beforeEnter: Guard.auth
   },
   {
     path: '/ordersDetail/:id',
     name:'ordersDetail',
-    component: () => import('../views/admin/OrdersDetail')
+    component: () => import('../views/admin/orders/OrdersDetail')
   },
   {
     path:'/canceledOrders',
     name:'canceledOrders',
-    component: () => import('../views/admin/CanceledOrders')
-  },
-  {
-    path:'/canceledOrderDetail/:id',
-    name:'canceledOrderDetail',
-    component: () => import('../views/admin/CanceledOrdersDetail')
+    component: () => import('../views/admin/orders/CanceledOrders')
   },
   {
     path:'/concludedOrders',
     name:'concludedOrders',
-    component: () => import('../views/admin/ConcludedOrders')
+    component: () => import('../views/admin/orders/OrdersShipped')
   },
   {
-    path:'/concludedOrdersDetail/:id',
-    name:'concludedOrdersDetail',
-    component: () => import('../views/admin/ConcludedOrdersDetail')
+    path:'/receivedOrders',
+    name:'receivedOrders',
+    component: () => import('../views/admin/orders/ReceivedOrders')
+  },
+  {
+    path:'/requestCanceledOrders',
+    name:'requestCanceledOrders',
+    component: () => import('../views/admin/orders/RequestCanceledOrders')
   },
   {
     path:'/userCupons',
@@ -97,17 +97,17 @@ const routes = [
   {
     path:'/cupons',
     name: 'cupons',
-    component: () => import('../views/admin/Cupons')
+    component: () => import('../views/admin/products/Cupons')
   },
   {
     path:'/newProduct',
     name:'newProduct',
-    component: () => import('../views/admin/NewProduct')
+    component: () => import('../views/admin/products/NewProduct')
   },
   {
     path:'/categories',
     name:'categories',
-    component: () => import('../views/admin/Categories')
+    component: () => import('../views/admin/products/Categories')
   }
 ]
 

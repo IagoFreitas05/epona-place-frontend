@@ -9,8 +9,8 @@
           mt-6 p-4 cursor-pointer
             rounded font-sans text-white " v-for="item in orders" :key="item.id">
         <p>pedido: <span class="font-bold">#{{item.id}}</span> </p>
-        <p>data: <span class="font-bold">{{item.date}}</span> </p>
-        <p>pago com: <span class="font-bold">{{item.paymentType}}</span> </p>
+        <p>data: <span class="font-bold">{{item.data.replace("T", " ")}}</span> </p>
+        <p>status: <span class="font-bold">{{item.status}}</span> </p>
         <p>total: <span class="font-bold">R$ {{item.totalValue}}</span> </p>
       </div>
     </div>
@@ -20,22 +20,44 @@
 <script>
 
 import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
+import Cookie from "js-cookie";
 export default {
   name: "CanceledOrders",
   components: {SideMenuAdmin},
   data(){
     return{
       orders:[
-        {id:"1103",date:"28/01/2019", idUser:"1",idManager:"12", paymentType:'cartão de crédito', totalValue:'200', status:'cancelado'},
-        {id:"2104",date:"28/01/2020", idUser:"1",idManager:"12", paymentType: 'cupom', totalValue: '330', status:'cancelado'},
-        {id:"5105",date:"28/01/2021", idUser:"1",idManager:"12", paymentType: 'cartão de crédito', totalValue: '299', status:'aguardando envio'},
+
       ]
     }
   },
   methods:{
     seeOrderDetail(id){
-      this.$router.push(`/canceledOrderDetail/${id}`)
+      this.$router.push(`/ordersDetail/${id}`)
+    },
+    loadOrders(){
+      this.loading = true
+      let url = `/findByStatus/cancelado`
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/order',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+
+          })
+          .then(response => {
+            this.orders = response.data
+            this.loading = false;
+          })
     }
+  },
+created() {
+  this.loadOrders()
   }
 }
 </script>

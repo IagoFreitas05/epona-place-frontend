@@ -9,15 +9,15 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg></button>
           </div>
-          <img :src="product.img" alt="Just a flower" class=" w-full   object-fill  rounded-2xl">
+          <img :src="product.productImage" alt="Just a flower" class=" w-full   object-fill  rounded-2xl">
         </div>
         <div class="flex-auto justify-evenly">
           <div class="flex flex-wrap ">
             <div class="flex items-center w-full justify-between min-w-0 ">
-              <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate "> {{ name }}</h2>
+              <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate "> {{ product.name }}</h2>
             </div>
           </div>
-          <div class="text-xl text-white font-semibold mt-1">R$ {{product.salePrice}}</div>
+          <div class="text-xl text-white font-semibold mt-1">R$ {{product.value}}</div>
           <div class="lg:flex  py-4  text-sm text-gray-600">
             <div class="flex-1 inline-flex items-center  mb-3">
               <div class="w-full flex-none text-sm flex items-center text-gray-600">
@@ -47,9 +47,9 @@ export default {
   name: "ProductAdminDetail",
   props: {
     product: {
-      image: String,
+      productImage: String,
       name: String,
-      salePrice: String,
+      value: String,
       id: String,
       category: String,
       quantity:''
