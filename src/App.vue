@@ -1,5 +1,5 @@
 <template>
-  <div class="m-8">
+  <div class="w-12/12">
     <Navigation></Navigation>
   </div>
 </template>

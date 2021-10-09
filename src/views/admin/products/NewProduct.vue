@@ -1,17 +1,12 @@
 <template>
-  <div class="flex">
-    <div class="mt-12 p-2 w-2/12 text-left " >
-      <SideMenuAdmin></SideMenuAdmin>
-    </div>
-    <div class="mt-2 w-10/12 p-6 ">
-      <div class="w-10/12 mx-auto mt-6  ">
+  <AdminTemplate>
         <div class="items-center border-2  border-purple-200 shadow-lg rounded-md p-5 ">
           <form class="bg-white flex  rounded grid  pb-4 " @submit.prevent="saveProduct" autocomplete="on">
             <div class="mb-4">
               <h4 class="text-md font-bold text-purple-600 my-4"> cadastro de novo produto</h4>
               <div class="flex">
                 <div class="w-1/3 p-1">
-                  <label class="block text-gray-700 text-sm font-bold mb-2" >
+                  <label class="block text-gray-700 text-sm font-bold mb-2">
                     nome do produto
                   </label>
                   <input
@@ -47,12 +42,12 @@
                   <label class="block text-gray-700 text-sm font-bold mb-2">
                     categoria
                   </label>
-                  <select v-on:change="calculateSalePrice(selectCategory)"  v-model="selectCategory" id="" class="shadow appearance-none border
+                  <select v-on:change="calculateSalePrice(selectCategory)" v-model="selectCategory" id="" class="shadow appearance-none border
                                   rounded w-full py-2 px-3
                                     text-gray-700 leading-tight
                                       focus:outline-none
                                         focus:shadow-outline">
-                    <option v-for="item in categories" :key="item.id" :value="item.id">{{item.category}}</option>
+                    <option v-for="item in categories" :key="item.id" :value="item.id">{{ item.category }}</option>
                   </select>
                 </div>
               </div>
@@ -115,7 +110,7 @@
                     descrição
                   </label>
                   <textarea name="description"
-                        placeholder="descrição do produto" id="description" class="shadow appearance-none border
+                            placeholder="descrição do produto" id="description" class="shadow appearance-none border
                         rounded w-full py-2 px-3
                           text-gray-700 leading-tight
                             focus:outline-none
@@ -143,56 +138,59 @@
                 >
               </div>
             </div>
-            <button  id="save"
-                     class="bg-blue-500
+            <button id="save"
+                    class="bg-blue-500
                           hover:bg-purple-600
                           text-white font-bold py-2
                           px-4 rounded focus:outline-none
                           focus:shadow-outline"
-                     type="submit">
+                    type="submit">
               adicionar novo produto
             </button>
           </form>
         </div>
-      </div>
-    </div>
-  </div>
+
+  </AdminTemplate>
+
 </template>
 
 <script>
-import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
+
+
+import AdminTemplate from "@/views/templates/AdminTemplate";
 import swal from "sweetalert";
 import Cookie from "js-cookie";
+
 export default {
-  components:{SideMenuAdmin},
+  components: { AdminTemplate},
   name: "NewProduct",
-  data(){
-    return{
-      selectCategory:"",
-      categories:[],
-      productName:"",
-      value:"",
-      salePrice:"",
-      description:"",
-      size:"",
-      quantity:"",
-      image:""
+  data() {
+    return {
+      selectCategory: "",
+      categories: [],
+      productName: "",
+      value: "",
+      salePrice: "",
+      description: "",
+      size: "",
+      quantity: "",
+      image: ""
     }
   },
-  methods:{
-    calculateSalePrice(id){
-      const existInProduct =  this.categories.findIndex( (obj) => obj.id === id)
-      this.salePrice = (this.value * (( this.categories[existInProduct].profit / 100) + 1)).toFixed(2)
+  methods: {
+    calculateSalePrice(id) {
+      const existInProduct = this.categories.findIndex((obj) => obj.id === id)
+      this.salePrice = (this.value * ((this.categories[existInProduct].profit / 100) + 1)).toFixed(2)
     },
-    loadCategory(){
+    loadCategory() {
       let url = `/findByIdManager/${Cookie.get('idUser')}`
       this.axios
           .request({
-            url:url,
+            url: url,
             method: 'GET',
             baseURL: 'http://localhost:8080/place/category',
             headers: {
-              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Authorization": "Bearer  " + Cookie.get('token'),
               "Access-Control-Allow-Origin": '*',
               "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
             }
@@ -202,15 +200,15 @@ export default {
             this.categories = response.data
           })
     },
-    saveProduct(){
+    saveProduct() {
       let config = {
-        headers:{
-          "Authorization":"Bearer " + Cookie.get('token'),
-          "Content-type":"Application/json"
+        headers: {
+          "Authorization": "Bearer " + Cookie.get('token'),
+          "Content-type": "Application/json"
         }
       }
-      this.axios.post("http://localhost:8080/place/product",{
-        name:this.productName,
+      this.axios.post("http://localhost:8080/place/product", {
+        name: this.productName,
         category: this.selectCategory,
         value: this.value,
         description: this.description,
@@ -219,16 +217,15 @@ export default {
         quantity: this.quantity,
         image: this.image
       }, config)
-          .then((response)=>{
-            if(response.data === " "){
+          .then((response) => {
+            if (response.data === " ") {
               swal("Salvo com sucesso", "suas informações sempre estarão seguras conosco", "success");
               this.loadCategories()
-            }
-            else{
+            } else {
               swal(response.data)
             }
-          }).catch(() =>{
-        swal("Oops :(","alguma coisa deu errado na sua requisição","error")
+          }).catch(() => {
+        swal("Oops :(", "alguma coisa deu errado na sua requisição", "error")
       })
 
     }

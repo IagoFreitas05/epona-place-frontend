@@ -3,7 +3,7 @@
     <template v-slot:content>
       <div @click="seeOrderDetail(item.id)" v-bind:class="item.status !== 'cancelado' ?' bg-gradient-to-r from-purple-500 to-purple-700':' bg-gradient-to-r from-red-500 to-red-700'" class=" shadow
         grid grid-cols-4 justify-between
-          mt-6 p-4 cursor-pointer
+          mb-4 p-4 cursor-pointer
             rounded font-sans text-white " v-for="item in orders" :key="item.id">
         <p>pedido: <span class="font-bold">#{{item.id}}</span> </p>
         <p>data: <span class="font-bold">{{item.data.replace("T", " ")}}</span> </p>

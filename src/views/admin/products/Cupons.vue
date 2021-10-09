@@ -1,84 +1,77 @@
 <template>
-  <div class="flex">
-    <div class="mt-12 sm:w-full p-2 md:w-2/12 text-left " >
-      <SideMenuAdmin></SideMenuAdmin>
-    </div>
-    <div class="mt-8 mt-11 p-6 w-10/12">
-      <div class="w-full ">
-          <div class="w-8/12 mt-6  ">
-            <div class="items-center border-2  border-purple-200 shadow-lg rounded-md p-5 ">
-              <form class="bg-white flex  rounded grid  pb-4 " @submit.prevent="saveCupom()" autocomplete="on">
-                <div class="mb-4">
-                  <h4 class="text-md font-bold text-purple-600 my-4"> cadastro de novo cupom</h4>
-                  <div class="flex">
-                    <div class="w-1/3 p-1">
-                      <label class="block text-gray-700 text-sm font-bold mb-2" >
-                        nome do cupom
-                      </label>
-                      <input
-                          name="edit-name"
-                          class="shadow appearance-none
+    <AdminTemplate>
+      <div class="items-center border-2  border-purple-200 shadow-lg rounded-md p-5 ">
+        <form class="bg-white flex  rounded grid  pb-4 " @submit.prevent="saveCupom()" autocomplete="on">
+          <div class="mb-4">
+            <h4 class="text-md font-bold text-purple-600 my-4"> cadastro de novo cupom</h4>
+            <div class="flex">
+              <div class="w-1/3 p-1">
+                <label class="block text-gray-700 text-sm font-bold mb-2" >
+                  nome do cupom
+                </label>
+                <input
+                    name="edit-name"
+                    class="shadow appearance-none
                                 border rounded w-full py-2 px-3
                                   text-gray-700 leading-tight
                                     focus:outline-none focus:shadow-outline"
-                          id="name"
-                          type="text"
-                          placeholder="nome"
-                          v-model="name"
-                          required
-                      >
-                    </div>
-                    <div class="w-1/3 p-1">
-                      <label class="block text-gray-700 text-sm font-bold mb-2">
-                        valor
-                      </label>
-                      <input
-                          name="edit-lastname"
-                          class="shadow appearance-none border
+                    id="name"
+                    type="text"
+                    placeholder="nome"
+                    v-model="name"
+                    required
+                >
+              </div>
+              <div class="w-1/3 p-1">
+                <label class="block text-gray-700 text-sm font-bold mb-2">
+                  valor
+                </label>
+                <input
+                    name="edit-lastname"
+                    class="shadow appearance-none border
                                   rounded w-full py-2 px-3
                                     text-gray-700 leading-tight
                                       focus:outline-none
                                         focus:shadow-outline"
-                          id="last_name"
-                          type="text"
-                          placeholder="valor"
-                          v-model="value"
-                          required
-                      >
-                    </div>
-                    <div class="w-1/3 p-1">
-                      <label class="block text-gray-700 text-sm font-bold mb-2">
-                        quantidade
-                      </label>
-                      <input
-                          name="edit-lastname"
-                          class="shadow appearance-none border
+                    id="last_name"
+                    type="text"
+                    placeholder="valor"
+                    v-model="value"
+                    required
+                >
+              </div>
+              <div class="w-1/3 p-1">
+                <label class="block text-gray-700 text-sm font-bold mb-2">
+                  quantidade
+                </label>
+                <input
+                    name="edit-lastname"
+                    class="shadow appearance-none border
                                   rounded w-full py-2 px-3
                                     text-gray-700 leading-tight
                                       focus:outline-none
                                         focus:shadow-outline"
-                          id="quantity"
-                          type="number"
-                          placeholder="quantidade"
-                          v-model="quantity"
-                          required
-                      >
-                    </div>
-                  </div>
-                </div>
-                <button  id="save"
-                         class="bg-blue-500
+                    id="quantity"
+                    type="number"
+                    placeholder="quantidade"
+                    v-model="quantity"
+                    required
+                >
+              </div>
+            </div>
+          </div>
+          <button  id="save"
+                   class="bg-blue-500
                           hover:bg-purple-600
                           text-white font-bold py-2
                           px-4 rounded focus:outline-none
                           focus:shadow-outline"
-                         type="submit">
-                  adicionar novo cupom
-                </button>
-              </form>
-            </div>
-          </div>
+                   type="submit">
+            adicionar novo cupom
+          </button>
+        </form>
       </div>
+
       <div>
         <h4 class="p-4 font-bold text-xl text-purple-600">
           cupons
@@ -98,17 +91,17 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
+    </AdminTemplate>
 </template>
 
 <script>
-import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
+
+import AdminTemplate from "@/views/templates/AdminTemplate";
 import swal from "sweetalert";
 import Cookie from "js-cookie";
 export default {
   name: "Cupons",
-  components:{SideMenuAdmin},
+  components:{AdminTemplate},
   data(){
     return{
       name:'',

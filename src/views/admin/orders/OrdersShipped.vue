@@ -1,29 +1,24 @@
 <template>
-  <div class="flex">
-    <div class="mt-12 p-2 w-2/12 text-left " >
-      <SideMenuAdmin></SideMenuAdmin>
-    </div>
-    <div class="mt-12 w-10/12 p-6 ">
+    <AdminTemplate>
       <div @click="seeOrderDetail(item.id)" class=" shadow bg-gradient-to-r from-purple-600 to-purple-800
         grid grid-cols-4 justify-between
-          mt-6 p-4 cursor-pointer
+          mb-4 p-4 cursor-pointer
             rounded font-sans text-white " v-for="item in orders" :key="item.id">
         <p>pedido: <span class="font-bold">#{{item.id}}</span> </p>
         <p>data: <span class="font-bold">{{item.data.replace("T", " ")}}</span> </p>
         <p>status: <span class="font-bold">{{item.status}}</span> </p>
         <p>total: <span class="font-bold">R$ {{item.totalValue}}</span> </p>
       </div>
-    </div>
-  </div>
+    </AdminTemplate>
 </template>
 
 <script>
-import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
+import AdminTemplate from "@/views/templates/AdminTemplate";
 import Cookie from "js-cookie";
 
 export default {
   name: "ConcludedOrders",
-  components: {SideMenuAdmin},
+  components: {AdminTemplate},
   data(){
     return{
       orders:[

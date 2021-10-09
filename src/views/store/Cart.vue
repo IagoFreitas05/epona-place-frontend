@@ -235,7 +235,7 @@ export default {
         paymentType: this.paymentType,
         idCupom : this.cupom.id,
         totalValue: this.totalPrice,
-        status:"em andamento",
+        status:"andamento",
         orderItems:orderItem
       }, config)
           .then((response)=>{

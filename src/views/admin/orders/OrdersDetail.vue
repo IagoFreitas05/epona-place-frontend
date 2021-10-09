@@ -1,10 +1,7 @@
 <template>
-  <div class="flex">
-    <div class="mt-12 p-2 w-2/12 text-left " >
-      <SideMenuAdmin></SideMenuAdmin>
-    </div>
-    <div class="mt-2 w-10/12 p-6 ">
-      <div class="mt-6 mb-5 ">
+  <AdminTemplate>
+
+      <div class=" mb-5 ">
         <h4 class="font-bold p-4 items-center content-center text-center justify-between rounded text-xl
             text-purple-300 bg-purple-600 grid grid-cols-3
           ">pedido número: #{{id}}
@@ -23,19 +20,20 @@
           <ProductAdminDetail :product="item"></ProductAdminDetail>
         </span>
       </div>
-    </div>
-  </div>
+
+  </AdminTemplate>
+
 </template>
 
 <script>
-import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
+import AdminTemplate from "@/views/templates/AdminTemplate";
 import swal from "sweetalert";
 import ProductAdminDetail from "@/components/store/ProductAdminDetail";
 import Cookie from "js-cookie";
 
 export default {
   name: "OrdersDetail",
-  components: {ProductAdminDetail, SideMenuAdmin},
+  components: {ProductAdminDetail, AdminTemplate},
   data(){
     return{
       order:{},

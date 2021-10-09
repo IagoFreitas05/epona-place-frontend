@@ -3,7 +3,7 @@
         <template v-slot:content>
           <div class="w-full mx-auto flex ">
             <div class=" w-full ">
-              <form class="bg-white flex  rounded grid gap-10    px-8 pt-6 pb-8 mb-4" @submit.prevent="editUserData()" autocomplete="on">
+              <form class="bg-white flex  rounded grid gap-10 mb-4" @submit.prevent="editUserData()" autocomplete="on">
                 <div class="sm:grid md:grid md:grid-cols-2 lg:grid-cols-2  sm:grid-cols-1 md:gap-4">
                   <div class="items-center border-2  border-purple-200 shadow-lg rounded-md p-5 ">
                     <div class="mb-4">
@@ -317,7 +317,7 @@
               </form>
             </div>
           </div>
-          <div class="w-full mx-auto rounded  bg-white   px-8 pt-6 pb-8 mb-4">
+          <div class="w-full mx-auto rounded  bg-white    mb-4">
             <div class="sm:grid sm:grid-cols-1 md:grid md:gap-4 md:grid-cols-3 mb-3">
               <h1 class="text-xl font-bold text-purple-600 my-4">informações adicionais</h1>
               <button @click="showCardModal" class=" border-2 border-purple-200 text-purple-400 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" id="new-credit-card">novo cartão de crédito</button>

@@ -1,19 +1,22 @@
 <template>
   <div class="flex w-12/12">
     <div class="mt-8  w-2/12 text-left " >
-      <SideMenuUser></SideMenuUser>
+      <SideMenuAdmin></SideMenuAdmin>
     </div>
     <div class="mt-2 w-10/12 p-6  ">
-      <slot name="content"></slot>
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
-import SideMenuUser from "@/components/menu/SideMenuUser";
+import SideMenuAdmin from "@/components/menu/SideMenuAdmin";
 export default {
-  components:{SideMenuUser},
-  name: "UserTemplate"
+  name: "AdminTemplate",
+  components:{SideMenuAdmin}
 }
 </script>
 
+<style scoped>
+
+</style>
