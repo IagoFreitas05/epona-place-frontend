@@ -1,7 +1,7 @@
 <template>
       <UserTemplate>
         <template v-slot:content>
-          <div class="mt-6 mb-5 ">
+          <div class=" mb-5 ">
             <h4 v-bind:class="order.status === 'recebido'?' bg-green-600  text-white ':'bg-purple-600   text-purple-300'" class="font-bold p-4 items-center content-center text-center justify-between rounded text-xl
              grid grid-cols-3
           ">pedido número: #{{id}}
@@ -23,7 +23,7 @@
               hover:text-white w-1/2 ">solicitar cancelamento
               </button>
 
-              <button v-if="order.status === 'cancelamento_solicitado' " @click="returnMade(id)" class="border border-purple-300
+              <button v-if="order.status === 'cancelamento_solicitado' && order.shippingStatus !== 'retorno_enviado' " @click="returnMade(id)" class="border border-purple-300
             rounded hover:border-white
               hover:text-white w-1/2 ">realizar devolução
               </button>
@@ -65,7 +65,7 @@ export default {
     returnMade(){
       swal({
         title: "tem certeza?",
-        text: "você declara que efetuou a devolução dos pedido completo?",
+        text: "você declara que foi até uma agência dos correios e efetuou a devolução dos pedido completo?",
         icon: "warning",
         buttons: ["cancelar", "tenho certeza"],
         dangerMode: true,
@@ -73,7 +73,7 @@ export default {
           .then((willDelete) => {
             if (willDelete) {
               this.loading = true
-              let url = `/requestCancel/${this.id}`
+              let url = `/returnMade/${this.id}`
               this.axios
                   .request({
                     url:url,
@@ -87,8 +87,7 @@ export default {
                   })
                   .then(response => {
                     response.data
-                    this.order.status = "cancelamento_solicitado"
-                    swal("Sua solicitação foi enviada!", {
+                    swal("Operação realizada com sucesso!", {
                       icon: "success",
                     });
                   })

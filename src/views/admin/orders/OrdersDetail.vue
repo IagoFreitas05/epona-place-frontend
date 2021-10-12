@@ -1,7 +1,6 @@
 <template>
   <AdminTemplate>
-
-      <div class=" mb-5 ">
+      <div class="mb-5 ">
         <h4 class="font-bold p-4 items-center content-center text-center justify-between rounded text-xl
             text-purple-300 bg-purple-600 grid grid-cols-3
           ">pedido número: #{{id}}
@@ -14,15 +13,15 @@
             rounded hover:border-white
               hover:text-white w-1/2 ">  aprovar cancelamento</button>
         </h4>
+        <p v-if="order.shippingStatus === 'retorno_enviado' && order.status === 'cancelamento_solicitado'" class="font-bold mt-1 bg-green-500 text-white rounded p-2">o cliente declarou que já enviou o retorno dos pedidos</p>
+        <p v-if="order.shippingStatus !== 'retorno_enviado' && order.status === 'cancelamento_solicitado'" class="font-bold bg-red-500 text-white rounded mt-1 p-2">o cliente ainda não declarou que enviou os produtos para devolução</p>
       </div>
       <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-2">
         <span v-for="item in products"  :key="item.id">
           <ProductAdminDetail :product="item"></ProductAdminDetail>
         </span>
       </div>
-
   </AdminTemplate>
-
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div class="w-full mt-8" v-on:click="calculateTotal">
-    <div v-if="this.$store.state.cart != ''" class="grid sm:grid-cols-1 md:grid-cols-1 ">
+    <div v-if="this.$store.state.cart != ''" class="grid sm:grid-cols-1 p-4 md:grid-cols-1 ">
       <div class="w-full" >
         <hr>
         <h4 class="text-xl text-center font-bold text-purple-600 my-4 flex justify-left items-center font-sans">items do carrinho  &nbsp;<img src="../../assets/icons/carrinho-de-carrinho.png" width="50" height="50" alt=""></h4>
@@ -13,7 +13,6 @@
     </div>
 
       <div class="w-full grid sm:grid-cols-1 mt-8 md:grid-cols-2 gap-4" v-if="this.$store.state.cart != ''" >
-
         <div class="w-full  p-4">
           <hr>
           <h4 class="text-xl font-sans text-center font-bold
@@ -21,7 +20,6 @@
             formas de pagamento &nbsp;
             <img src="../../assets/icons/credit-card.png" width="50" height="50" alt=""></h4>
           <div class="w-full" v-if="creditCard != ''">
-
             <div   v-for="item in creditCard"
                    @click="selectCreditCard(item)" :key="item.id" v-bind:class="this.selectedCreditCard.id === item.id?' text-white bg-purple-600 bg-opacity-100  ':'border-2 border-purple-200'"
                    class="transition ease-in duration-200
@@ -37,6 +35,7 @@
             <p class="font-sans font-md text-center font-bold text-purple-400 ">parece que você não tem nenhum cartão de crédito</p>
           </div>
           <h4 class="font-sans font-xl font-light mt-5 ">caso tenha um cupom de desconto, digite o código aqui </h4>
+
           <div class=" mt-4 ">
             <input
                 class="shadow-lg appearance-none
@@ -49,6 +48,14 @@
                 placeholder="cupom"
                 v-model="cupomName"
             >
+            <p class="font-sans font-xl font-light mt-5 ">caso você tenha algum cupom, copie o código abaixo:</p>
+            <br>
+            <p v-for="item in myCupons" :key="item.id"  >
+              <span v-if="item.isValid == 'true'" class="shadow-lg
+              p-2
+              rounded font-sans border-2
+              border-blue-300">código: {{item.name}} valor: R$ {{item.value}}</span>
+            </p>
             <button  @click="applyCupom(cupomName)"
                 id="enter"
                     class="bg-blue-500 hover:bg-purple-600
@@ -130,7 +137,8 @@ export default {
       deliverAddress:[
       ],
       selectedCreditCard:{},
-      selectedAddress:{}
+      selectedAddress:{},
+      myCupons:[]
     };
   },
   methods:{
@@ -306,6 +314,25 @@ export default {
                 }
               });
           })
+    },
+    loadCupons(){
+      this.loading = true
+      let url = `/findByIdUser/${Cookie.get('idUser')}`
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/cupons',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            this.myCupons = response.data
+            this.loading = false;
+          })
     }
   },
   mounted() {
@@ -314,6 +341,7 @@ export default {
   created() {
     this.loadUserCreditCard()
     this.loadUserAddress()
+    this.loadCupons()
   }
 }
 </script>

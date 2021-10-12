@@ -77,7 +77,6 @@ export default{
         token:""
       })
         .then((response)=>{
-
           response.data
           swal("Uhuu 0/","Login feito com sucesso","success")
               .then(() => {
