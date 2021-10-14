@@ -1,20 +1,28 @@
 <template>
   <AdminTemplate>
       <div class="mb-5 ">
-        <h4 class="font-bold p-4 items-center content-center text-center justify-between rounded text-xl
-            text-purple-300 bg-purple-600 grid grid-cols-3
+        <h4 class="font-bold p-2 items-center content-center text-center justify-between rounded text-md
+            text-purple-300 bg-purple-600 grid grid-cols-4
           ">pedido número: #{{id}}
           <span>status: {{ order.status }}</span>
           <button v-if="order.status === 'andamento'" @click="sendOrder()" class="border border-purple-300
             rounded hover:border-white
               hover:text-white w-1/2 ">  <p  >declarar envio</p></button>
           <p v-if="order.status === 'cancelado'">pedido cancelado</p> <p  v-if="order.status === 'enviado'">pedido enviado</p>
-          <button v-if="order.status === 'cancelamento_solicitado'" @click="cancelOrder()" class="border border-purple-300
+          <button v-if="order.status === 'aguardando_aprovacao'" @click="aprovedCancel()" class="border border-purple-300
             rounded hover:border-white
               hover:text-white w-1/2 ">  aprovar cancelamento</button>
+
+          <button v-if="order.status === 'aguardando_aprovacao'" @click="deniedOrder()" class="border border-purple-300
+            rounded hover:border-white
+              hover:text-white w-1/2 ">  negar cancelamento</button>
+          <button v-if="order.status === 'cancelamento_aprovado' && order.shippingStatus==='retorno_enviado' " @click="cancelOrder()" class="border border-purple-300
+            rounded hover:border-white
+              hover:text-white w-1/2 ">  confirmar recebimento</button>
         </h4>
-        <p v-if="order.shippingStatus === 'retorno_enviado' && order.status === 'cancelamento_solicitado'" class="font-bold mt-1 bg-green-500 text-white rounded p-2">o cliente declarou que já enviou o retorno dos pedidos</p>
-        <p v-if="order.shippingStatus !== 'retorno_enviado' && order.status === 'cancelamento_solicitado'" class="font-bold bg-red-500 text-white rounded mt-1 p-2">o cliente ainda não declarou que enviou os produtos para devolução</p>
+
+        <p v-if="order.shippingStatus === 'retorno_enviado' && order.status === 'cancelamento_aprovado'" class="font-bold mt-1 bg-green-500 text-white rounded p-2">o cliente declarou que já enviou o retorno dos pedidos</p>
+        <p v-if="order.shippingStatus !== 'retorno_enviado' && order.status === 'cancelamento_aprovado'" class="font-bold bg-red-500 text-white rounded mt-1 p-2">o cliente ainda não declarou que enviou os produtos para devolução</p>
       </div>
       <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-2">
         <span v-for="item in products"  :key="item.id">
@@ -114,6 +122,41 @@ export default {
             this.loadOrderItem()
           })
     },
+    aprovedCancel(){
+      swal({
+        title: "tem certeza?",
+        text: "esse pedido será cancelado e essa operação será irreversível!",
+        icon: "warning",
+        buttons: ["cancelar", "tenho certeza"],
+        dangerMode: true,
+      })
+          .then((willDelete) => {
+            if (willDelete) {
+              this.loading = true
+              let url = `/aprovedCancel/${this.id}`
+              this.axios
+                  .request({
+                    url:url,
+                    method: 'GET',
+                    baseURL: 'http://localhost:8080/place/order',
+                    headers: {
+                      "Authorization":"Bearer  " + Cookie.get('token'),
+                      "Access-Control-Allow-Origin": '*',
+                      "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+                    }
+                  })
+                  .then(response => {
+                    response.data
+                    this.order.status = "cancelamento_aprovado"
+                    swal("Item cancelado com sucesso!", {
+                      icon: "success",
+                    });
+                  })
+            } else {
+              swal("uffa, nada aconteceu!");
+            }
+          });
+    },
     cancelOrder(){
       swal({
         title: "tem certeza?",
@@ -140,6 +183,41 @@ export default {
                   .then(response => {
                     response.data
                     this.order.status = "cancelado"
+                    swal("Item cancelado com sucesso!", {
+                      icon: "success",
+                    });
+                  })
+            } else {
+              swal("uffa, nada aconteceu!");
+            }
+          });
+    },
+    deniedOrder(){
+      swal({
+        title: "tem certeza?",
+        text: "essa ordem será negada, esta operação é irreversível!",
+        icon: "warning",
+        buttons: ["cancelar", "tenho certeza"],
+        dangerMode: true,
+      })
+          .then((willDelete) => {
+            if (willDelete) {
+              this.loading = true
+              let url = `/deniedCancel/${this.id}`
+              this.axios
+                  .request({
+                    url:url,
+                    method: 'GET',
+                    baseURL: 'http://localhost:8080/place/order',
+                    headers: {
+                      "Authorization":"Bearer  " + Cookie.get('token'),
+                      "Access-Control-Allow-Origin": '*',
+                      "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+                    }
+                  })
+                  .then(response => {
+                    response.data
+                    this.order.status = "cancelamento_negado"
                     swal("Item cancelado com sucesso!", {
                       icon: "success",
                     });

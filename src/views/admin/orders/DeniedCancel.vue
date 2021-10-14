@@ -1,6 +1,6 @@
 <template>
     <AdminTemplate>
-      <div @click="seeOrderDetail(item.id)" class=" shadow bg-gradient-to-r from-yellow-600 to-yellow-800
+      <div @click="seeOrderDetail(item.id)" class=" shadow bg-gradient-to-r from-gray-600 to-gray-800
         grid grid-cols-4 justify-between
           mb-4 p-4 cursor-pointer
             rounded font-sans text-white " v-for="item in orders" :key="item.id">
@@ -17,7 +17,7 @@
 import AdminTemplate from "@/views/templates/AdminTemplate";
 import Cookie from "js-cookie";
 export default {
-  name: "RequestCanceledOrders",
+  name: "DeniedCancel",
   components: {AdminTemplate},
   data(){
     return{
@@ -32,7 +32,7 @@ export default {
     },
     loadOrders(){
       this.loading = true
-      let url = `/findByStatus/aguardando_aprovacao`
+      let url = `/findByStatus/cancelamento_negado`
       this.axios
           .request({
             url:url,

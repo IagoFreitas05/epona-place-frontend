@@ -108,6 +108,17 @@ const routes = [
     path:'/categories',
     name:'categories',
     component: () => import('../views/admin/products/Categories')
+  },
+  {
+    path:'/aprovedCancel',
+    name:'aprovedCancel',
+    component: () => import('../views/admin/orders/AprovedCancel')
+  }
+  ,
+  {
+    path:'/deniedCancel',
+    name:'deniedCancel',
+    component: () => import('../views/admin/orders/DeniedCancel')
   }
 ]
 

@@ -54,7 +54,7 @@
               <span v-if="item.isValid == 'true'" class="shadow-lg
               p-2
               rounded font-sans border-2
-              border-blue-300">código: {{item.name}} valor: R$ {{item.value}}</span>
+              border-blue-300 block mb-1">código: {{item.name}} valor: R$ {{item.value}}</span>
             </p>
             <button  @click="applyCupom(cupomName)"
                 id="enter"
@@ -283,6 +283,13 @@ export default {
               this.cupom = []
               return;
             }
+
+            if(this.cupom.value > this.totalPrice){
+              swal("Opa!","O valor do seu cupom, é maior que o valor da sua compra, que tal encher o carrinho?!","error");
+              this.cupom = []
+              return;
+            }
+
             swal({
               title: "encontramos seu cupom!",
               text: `gostaria de aplicar esse cupom: ${this.cupom.name}, no valor de: ${this.cupom.value} reais`,

@@ -25,6 +25,17 @@
       <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm
             text-white  py-2 px-4
               rounded focus:outline-none  border border-gray-500 focus:shadow-outline">
+        <router-link class="text-center" to="/aprovedCancel">solicitações aprovadas</router-link>
+      </div>
+      <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm
+            text-white  py-2 px-4
+              rounded focus:outline-none  border border-gray-500 focus:shadow-outline">
+        <router-link class="text-center" to="/deniedCancel">solicitações negadas</router-link>
+      </div>
+
+      <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm
+            text-white  py-2 px-4
+              rounded focus:outline-none  border border-gray-500 focus:shadow-outline">
         <router-link class="text-center" to="/canceledOrders">cancelados </router-link>
       </div>
       <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm

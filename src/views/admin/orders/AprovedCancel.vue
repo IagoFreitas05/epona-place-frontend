@@ -17,7 +17,7 @@
 import AdminTemplate from "@/views/templates/AdminTemplate";
 import Cookie from "js-cookie";
 export default {
-  name: "RequestCanceledOrders",
+  name: "AprovedCancel",
   components: {AdminTemplate},
   data(){
     return{
@@ -32,7 +32,7 @@ export default {
     },
     loadOrders(){
       this.loading = true
-      let url = `/findByStatus/aguardando_aprovacao`
+      let url = `/findByStatus/cancelamento_aprovado`
       this.axios
           .request({
             url:url,

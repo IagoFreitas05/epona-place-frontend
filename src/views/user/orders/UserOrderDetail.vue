@@ -8,7 +8,7 @@
               <span>status: {{ order.status }}</span>
 
               <!-- se o pedido já foi enviado, quando ele solicitar o cancelamento, terá que confirmar que o pedido chegou, para poder efetuar a devolução. -->
-              <button v-if="order.status !== 'cancelado' && order.status !== 'enviado' && order.status !== 'recebido' && order.status !== 'cancelamento_solicitado' " @click="confirmTotalOrderCancel(id)" class="border border-purple-300
+              <button v-if="order.status !== 'cancelado' && order.status !== 'cancelamento_aprovado' && order.status !== 'enviado' && order.status !== 'recebido' && order.status !== 'cancelamento_solicitado' && order.status !== 'cancelamento_negado' && order.status !== 'aguardando_aprovacao' " @click="confirmTotalOrderCancel(id)" class="border border-purple-300
             rounded hover:border-white
               hover:text-white w-1/2 ">cancelar pedido
               </button>
@@ -23,7 +23,7 @@
               hover:text-white w-1/2 ">solicitar cancelamento
               </button>
 
-              <button v-if="order.status === 'cancelamento_solicitado' && order.shippingStatus !== 'retorno_enviado' " @click="returnMade(id)" class="border border-purple-300
+              <button v-if=" order.status === 'cancelamento_aprovado' && order.shippingStatus !== 'retorno_enviado' " @click="returnMade(id)" class="border border-purple-300
             rounded hover:border-white
               hover:text-white w-1/2 ">realizar devolução
               </button>
@@ -121,7 +121,7 @@ export default {
                   })
                   .then(response => {
                     response.data
-                    this.order.status = "cancelamento_solicitado"
+                    this.order.status = "aguardando_aprovacao"
                     swal("Sua solicitação foi enviada!", {
                       icon: "success",
                     });

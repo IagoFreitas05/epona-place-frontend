@@ -15,7 +15,9 @@
             <div class="flex flex-wrap ">
               <div class="flex items-center w-full justify-between min-w-0 ">
                 <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate "> {{ name }}</h2>
-                <div class="flex items-center bg-red-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
+                <div @click="cancelItem()" class="flex items-center
+                  bg-red-400 text-white text-xs
+                    cursor-pointer px-2 py-1 ml-3 rounded-lg">
                   cancelar item</div>
               </div>
             </div>
@@ -45,6 +47,7 @@
 
 
 <script>
+import swal from "sweetalert";
 export default {
   name: "ProductOrderDetail",
   props: {
@@ -55,6 +58,11 @@ export default {
       id: String,
       category: String,
       quantity:''
+    }
+  },
+  methods:{
+    cancelItem(){
+      return swal("clicado")
     }
   }
 }
