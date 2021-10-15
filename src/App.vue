@@ -1,5 +1,5 @@
-<template>
-  <div class="w-12/12">
+<template >
+  <div class="w-12/12 h-full" >
     <Navigation></Navigation>
   </div>
 </template>
@@ -11,5 +11,7 @@ export default {
 
 </script>
 <style>
-
+html{
+  background-color: #F4F5F7;
+}
 </style>

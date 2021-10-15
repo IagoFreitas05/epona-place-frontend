@@ -1,13 +1,13 @@
 <template>
     <AdminTemplate>
-      <div @click="seeOrderDetail(item.id)" class=" shadow bg-gradient-to-r from-gray-600 to-gray-800
+      <div @click="seeOrderDetail(item.id)" class=" shadow bg-white border-l-4 border-gray-600 text-gray-600
         grid grid-cols-4 justify-between
           mb-4 p-4 cursor-pointer
-            rounded font-sans text-white " v-for="item in orders" :key="item.id">
-        <p>pedido: <span class="font-bold">#{{item.id}}</span> </p>
-        <p>data: <span class="font-bold">{{item.data.replace("T", " ")}}</span> </p>
-        <p>status: <span class="font-bold">{{item.status}}</span> </p>
-        <p>total: <span class="font-bold">R$ {{item.totalValue}}</span> </p>
+            rounded-sm font-sans text-white " v-for="item in orders" :key="item.id">
+        <p>pedido: <span class="">#{{item.id}}</span> </p>
+        <p>data: <span class="">{{item.data.replace("T", " ")}}</span> </p>
+        <p>status: <span class="">{{item.status}}</span> </p>
+        <p>total: <span class="">R$ {{item.totalValue}}</span> </p>
       </div>
     </AdminTemplate>
 </template>

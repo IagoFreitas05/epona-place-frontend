@@ -1,12 +1,13 @@
 <template>
   <UserTemplate>
     <template v-slot:content>
-      <div  v-bind:class="item.isValid === 'true'?'bg-gradient-to-r from-green-600 to-green-800 cursor-pointer':'bg-gradient-to-r from-gray-600 to-gray-800 cursor-not-allowed'"  class="shadow
+      <div  v-bind:class="item.isValid === 'true'?' border-green-600 text-green-600 cursor-pointer':' border-gray-600 text-gray-600 cursor-not-allowed'"  class="shadow-sm
         grid grid-cols-2 justify-between
-          mb-4 p-4
-            rounded font-sans text-white " v-for="item in cupons" :key="item.id">
-        <p>nome: <span class="font-bold">{{item.name}}</span> </p>
-        <p>valor: <span class="font-bold">R${{item.value}}</span> </p>
+        border-l-4
+          mb-4 p-4 bg-white
+            rounded-sm font-sans text-white " v-for="item in cupons" :key="item.id">
+        <p>nome: <span class="">{{item.name}}</span> </p>
+        <p>valor: <span class="">R${{item.value}}</span> </p>
       </div>
     </template>
   </UserTemplate>

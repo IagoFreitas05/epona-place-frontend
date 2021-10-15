@@ -1,14 +1,14 @@
 <template>
   <UserTemplate>
     <template v-slot:content>
-      <div @click="seeOrderDetail(item.id)" v-bind:class="item.status !== 'cancelado' ?' bg-gradient-to-r from-purple-500 to-purple-700':' bg-gradient-to-r from-red-500 to-red-700'" class=" shadow
+      <div @click="seeOrderDetail(item.id)" v-bind:class="item.status !== 'cancelado' ?'bg-white border-l-4 border-purple-700 text-purple-600':' bg-white border-l-4 border-red-700 text-red-600'" class=" shadow
         grid grid-cols-4 justify-between
           mb-4 p-4 cursor-pointer
-            rounded font-sans text-white " v-for="item in orders" :key="item.id">
-        <p>pedido: <span class="font-bold">#{{item.id}}</span> </p>
-        <p>data: <span class="font-bold">{{item.data.replace("T", " ")}}</span> </p>
-        <p>status: <span class="font-bold">{{item.status}}</span> </p>
-        <p>total: <span class="font-bold">R$ {{item.totalValue}}</span> </p>
+            rounded-sm shadow-sm font-sans text-white " v-for="item in orders" :key="item.id">
+        <p>pedido: <span >#{{item.id}}</span> </p>
+        <p >data: <span >{{item.data.replace("T", " ")}}</span> </p>
+        <p >status: <span >{{item.status}}</span> </p>
+        <p >total: <span >R$ {{item.totalValue}}</span> </p>
       </div>
     </template>
   </UserTemplate>

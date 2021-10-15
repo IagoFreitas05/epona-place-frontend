@@ -56,11 +56,11 @@
         <p v-if="loading ==='true'">carregando</p>
       </h4>
       <div v-if="categories !== ' ' ">
-        <div class=" shadow-lg
+        <div class="bg-white shadow-lg
               grid grid-cols-3 justify-between
               mt-6 p-4 place-items-center
-              rounded font-sans border
-              border-blue-300"
+              rounded-sm font-sans border-l-4
+              border-blue-600"
              v-for="item in categories" :key="item.id">
           <p>nome: <span class="font-bold">{{ item.category }}</span></p>
           <p>valor: <span class="font-bold">%{{ item.profit }}</span></p>

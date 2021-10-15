@@ -19,13 +19,13 @@
           text-purple-600 my-4 flex justify-left items-center ">
             formas de pagamento &nbsp;
             <img src="../../assets/icons/credit-card.png" width="50" height="50" alt=""></h4>
-          <div class="w-full" v-if="creditCard != ''">
+          <div class="w-full " v-if="creditCard != ''">
             <div   v-for="item in creditCard"
-                   @click="selectCreditCard(item)" :key="item.id" v-bind:class="this.selectedCreditCard.id === item.id?' text-white bg-purple-600 bg-opacity-100  ':'border-2 border-purple-200'"
-                   class="transition ease-in duration-200
-            shadow-lg grid grid-cols-3 items-center
+                   @click="selectCreditCard(item)" :key="item.id" v-bind:class="this.selectedCreditCard.id === item.id?' text-white bg-purple-600 bg-opacity-100  ':'border-l-4 border-purple-800'"
+                   class="transition bg-white ease-in duration-200
+            shadow grid grid-cols-3 items-center
              cursor-pointer hover:bg-purple-800 hover:text-white
-                 rounded  p-4 mt-10">
+                 rounded-sm  p-4 mt-10">
               <span class="font-sans font-bold"> {{item.cardName}} </span>
               <span class="font-sans font-bold"> {{item.cardNumber.substr(9)}} **** **** </span>
               <span  class="font-sans font-bold "> {{item.flag}}  </span>
@@ -51,10 +51,10 @@
             <p class="font-sans font-xl font-light mt-5 ">caso você tenha algum cupom, copie o código abaixo:</p>
             <br>
             <p v-for="item in myCupons" :key="item.id"  >
-              <span v-if="item.isValid == 'true'" class="shadow-lg
+              <span v-if="item.isValid == 'true'" class="shadow-sm
               p-2
-              rounded font-sans border-2
-              border-blue-300 block mb-1">código: {{item.name}} valor: R$ {{item.value}}</span>
+              rounded-sm bg-white border-l-4 font-sans
+              border-blue-600 block mb-2">código: {{item.name}} valor: R$ {{item.value}}</span>
             </p>
             <button  @click="applyCupom(cupomName)"
                 id="enter"
@@ -73,10 +73,10 @@
             my-4 flex justify-left items-center mt-8 ">endereços de entrega &nbsp;
             <img src="../../assets/icons/caminhao-de-entrega.png" width="50" height="50" alt=""></h4>
           <div   v-for="item in deliverAddress" @click="selectAddress(item)" :key="item.id"
-                 v-bind:class="this.selectedAddress.id === item.id?' text-white bg-purple-600 bg-opacity-100  ':'border-2 border-purple-200'" class="transition ease-in duration-200
-            shadow-lg grid grid-cols-3 items-center
+           v-bind:class="this.selectedAddress.id === item.id?' text-white bg-purple-600 bg-opacity-100  ':'border-l-4 border-purple-800'" class="transition ease-in duration-200
+            shadow grid bg-white grid-cols-3 items-center
              cursor-pointer hover:bg-purple-800 hover:text-white
-                 rounded  p-4 mt-6">
+                 rounded-sm  p-4 mt-6">
             <span class="font-sans font-bold"> {{item.nameAddress}} </span>
             <span class="font-sans font-bold"> {{item.address}} </span>
           </div>
@@ -96,7 +96,7 @@
                   @click="purchase">
             finalizar pedido
           </button>
-          <p v-if="!Object.keys(this.cupom).length === false" class="p-4 font-bold">
+          <p v-if="!Object.keys(this.cupom).length === false" class="p-4  font-bold">
             cupom aplicado: {{cupom.name}} - R$ {{cupom.value}}
           </p>
           <div class="p-4 font-bold">total: {{totalPrice}} </div>

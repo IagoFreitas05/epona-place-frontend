@@ -2,30 +2,30 @@
       <UserTemplate>
         <template v-slot:content>
           <div class=" mb-5 ">
-            <h4 v-bind:class="order.status === 'recebido'?' bg-green-600  text-white ':'bg-purple-600   text-purple-300'" class="font-bold p-4 items-center content-center text-center justify-between rounded text-xl
+            <h4 v-bind:class="order.status === 'recebido'?'   border-green-600  text-green-600 ':'border-purple-600   text-purple-300'" class="font-bold bg-white border-l-4 p-4 items-center content-center text-center justify-between rounded-sm text-md
              grid grid-cols-3
           ">pedido número: #{{id}}
               <span>status: {{ order.status }}</span>
 
               <!-- se o pedido já foi enviado, quando ele solicitar o cancelamento, terá que confirmar que o pedido chegou, para poder efetuar a devolução. -->
               <button v-if="order.status !== 'cancelado' && order.status !== 'cancelamento_aprovado' && order.status !== 'enviado' && order.status !== 'recebido' && order.status !== 'cancelamento_solicitado' && order.status !== 'cancelamento_negado' && order.status !== 'aguardando_aprovacao' " @click="confirmTotalOrderCancel(id)" class="border border-purple-300
-            rounded hover:border-white
-              hover:text-white w-1/2 ">cancelar pedido
+            rounded-sm
+               w-1/2 ">cancelar pedido
               </button>
 
               <button v-if="order.status === 'enviado' " @click="confirmReceivement(id)" class="border border-purple-300
-            rounded hover:border-white
-              hover:text-white w-1/2 ">confirmar recebimento
+           rounded-sm
+              w-1/2 ">confirmar recebimento
               </button>
 
               <button v-if="order.status === 'recebido' " @click="requestCancel(id)" class="border border-purple-300
-            rounded hover:border-white
-              hover:text-white w-1/2 ">solicitar cancelamento
+            rounded-sm
+               w-1/2 ">solicitar cancelamento
               </button>
 
               <button v-if=" order.status === 'cancelamento_aprovado' && order.shippingStatus !== 'retorno_enviado' " @click="returnMade(id)" class="border border-purple-300
-            rounded hover:border-white
-              hover:text-white w-1/2 ">realizar devolução
+            rounded-sm
+               w-1/2 ">realizar devolução
               </button>
 
               <button v-if="order.status "></button>

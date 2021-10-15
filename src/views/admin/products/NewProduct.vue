@@ -1,7 +1,7 @@
 <template>
   <AdminTemplate>
-        <div class="items-center border-2  border-purple-200 shadow-lg rounded-md p-5 ">
-          <form class="bg-white flex  rounded grid  pb-4 " @submit.prevent="saveProduct" autocomplete="on">
+        <div class="items-center border-2  bg-white border-purple-200 shadow-lg rounded-md p-5 ">
+          <form class=" flex  rounded grid  pb-4 " @submit.prevent="saveProduct" autocomplete="on">
             <div class="mb-4">
               <h4 class="text-md font-bold text-purple-600 my-4"> cadastro de novo produto</h4>
               <div class="flex">

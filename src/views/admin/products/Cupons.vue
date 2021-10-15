@@ -1,7 +1,7 @@
 <template>
     <AdminTemplate>
-      <div class="items-center border-2  border-purple-200 shadow-lg rounded-md p-5 ">
-        <form class="bg-white flex  rounded grid  pb-4 " @submit.prevent="saveCupom()" autocomplete="on">
+      <div class="items-center border-2 bg-white  border-purple-200 shadow-lg rounded-md p-5 ">
+        <form class=" flex  rounded grid  pb-4 " @submit.prevent="saveCupom()" autocomplete="on">
           <div class="mb-4">
             <h4 class="text-md font-bold text-purple-600 my-4"> cadastro de novo cupom</h4>
             <div class="flex">
@@ -76,14 +76,15 @@
         <h4 class="p-4 font-bold text-xl text-purple-600">
           cupons
         </h4>
-        <div  v-bind:class="item.isValid === 'true'?'bg-gradient-to-r from-green-600 to-green-800 cursor-pointer':'bg-gradient-to-r from-gray-600 to-gray-800 cursor-not-allowed'"  class=" shadow
+        <div  v-bind:class="item.isValid === 'true'?'border-green-600 text-green-600  cursor-pointer':'border-gray-600 text-gray-600 cursor-not-allowed'"  class=" shadow
         grid grid-cols-5 justify-between
-          mt-6 p-4
-            rounded font-sans text-white " v-for="item in cupons" :key="item.id">
-          <p>cupom: <span class="font-bold">{{item.type}}</span> </p>
-          <p>nome: <span class="font-bold">#{{item.name}}</span> </p>
-          <p>valor: <span class="font-bold">R${{item.value}}</span> </p>
-          <p> utilização: <span class="font-bold"> {{item.countUsing}}</span></p>
+          mt-6 p-4 border-l-4
+          bg-white
+            rounded-sm font-sans text-white " v-for="item in cupons" :key="item.id">
+          <p>cupom: <span class="">{{item.type}}</span> </p>
+          <p>nome: <span class="">#{{item.name}}</span> </p>
+          <p>valor: <span class="">R${{item.value}}</span> </p>
+          <p> utilização: <span class=""> {{item.countUsing}}</span></p>
           <button
               @click="deleteCupom(item.id)"
               class="border border-white p-1 rounded-md"
