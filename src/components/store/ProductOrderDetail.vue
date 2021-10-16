@@ -14,8 +14,8 @@
           <div class="flex-auto justify-evenly">
             <div class="flex flex-wrap ">
               <div class="flex items-center w-full justify-between min-w-0 ">
-                <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate "> {{ name }}</h2>
-                <div @click="cancelItem()" class="flex items-center
+                <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate "> {{ product.name }}</h2>
+                <div v-if="product.status !== 'cancelamento_solicitado'"  @click="requestCancel()" class="flex items-center
                   bg-red-400 text-white text-xs
                     cursor-pointer px-2 py-1 ml-3 rounded-lg">
                   cancelar item</div>
@@ -48,6 +48,7 @@
 
 <script>
 import swal from "sweetalert";
+import Cookie from "js-cookie";
 export default {
   name: "ProductOrderDetail",
   props: {
@@ -61,8 +62,39 @@ export default {
     }
   },
   methods:{
-    cancelItem(){
-      return swal("clicado")
+    requestCancel(){
+      swal({
+        title: "tem certeza?",
+        text: "ao solicitar cancelamento, um cupom no valor desse pedido será gerado",
+        icon: "warning",
+        buttons: ["cancelar", "tenho certeza"],
+        dangerMode: true,
+      })
+          .then((willDelete) => {
+            if (willDelete) {
+              this.loading = true
+              let url = `/requestCancel/${this.product.id}`
+              this.axios
+                  .request({
+                    url:url,
+                    method: 'GET',
+                    baseURL: 'http://localhost:8080/place/OrderItem',
+                    headers: {
+                      "Authorization":"Bearer  " + Cookie.get('token'),
+                      "Access-Control-Allow-Origin": '*',
+                      "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+                    }
+                  })
+                  .then(response => {
+                    response.data
+                    swal("Sua solicitação foi enviada!", {
+                      icon: "success",
+                    });
+                  })
+            } else {
+              swal("uffa, nada aconteceu!");
+            }
+          });
     }
   }
 }
