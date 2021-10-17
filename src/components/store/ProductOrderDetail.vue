@@ -15,11 +15,18 @@
             <div class="flex flex-wrap ">
               <div class="flex items-center w-full justify-between min-w-0 ">
                 <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate "> {{ product.name }}</h2>
-                <div v-if="product.status !== 'cancelamento_solicitado'"  @click="requestCancel()" class="flex items-center
+                <div v-if="product.status !== 'cancelamento_solicitado' && product.status !== 'cancelado' && product.status !== 'cancelamento_aprovado' "  @click="requestCancel()" class="flex items-center
                   bg-red-400 text-white text-xs
                     cursor-pointer px-2 py-1 ml-3 rounded-lg">
                   cancelar item</div>
-              </div>
+
+                <div v-if="product.status === 'cancelamento_aprovado' && product.shippingStatus !== 'retorno_enviado' "  @click="madeReturn()" class="flex items-center
+                  bg-green-600 text-white text-xs
+                    cursor-pointer px-2 py-1 ml-3 rounded-lg">
+                  declarar que devolvi este produto</div>
+                </div>
+
+
             </div>
             <div class="text-xl text-white font-semibold mt-1">R$ {{product.value}}</div>
             <div class="lg:flex  py-4  text-sm text-gray-600">
@@ -36,7 +43,7 @@
             </div>
             <div class="flex space-x-2 text-sm font-medium justify-start">
               <button  class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
-                <span>quantidade: {{product.quantity}}</span>
+                <span>quantidade: {{product.quantity}} <span v-if="product.status !== 'andamento'"> | status: {{product.status.replace("_"," ")}}</span></span>
               </button>
             </div>
           </div>
@@ -95,7 +102,41 @@ export default {
               swal("uffa, nada aconteceu!");
             }
           });
-    }
+    },
+     madeReturn(){
+       swal({
+         title: "tem certeza?",
+         text: "o vendedo irá receber uma notificação de que este produto foi enviado",
+         icon: "warning",
+         buttons: ["cancelar", "tenho certeza"],
+         dangerMode: true,
+       })
+           .then((willDelete) => {
+             if (willDelete) {
+               this.loading = true
+               let url = `/returnMade/${this.product.id}`
+               this.axios
+                   .request({
+                     url:url,
+                     method: 'GET',
+                     baseURL: 'http://localhost:8080/place/OrderItem',
+                     headers: {
+                       "Authorization":"Bearer  " + Cookie.get('token'),
+                       "Access-Control-Allow-Origin": '*',
+                       "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+                     }
+                   })
+                   .then(response => {
+                     response.data
+                     swal("Sua declaração foi enviada!", {
+                       icon: "success",
+                     });
+                   })
+             } else {
+               swal("uffa, nada aconteceu!");
+             }
+           });
+     }
   }
 }
 </script>

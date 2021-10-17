@@ -31,8 +31,12 @@
             </div>
           </div>
           <div class="flex space-x-2 text-sm font-medium justify-start">
-            <button  class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
-              <span>quantidade: {{product.quantity}}</span>
+            <button class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0
+              bg-red-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-red-600" v-if="product.status === 'cancelado'">produto cancelado</button>
+
+            <button v-else class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0
+              bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
+              <span>quantidade: {{product.quantity}} <span v-if="product.status !== 'andamento'"> | status: {{product.status.replace("_"," ")}}</span></span>
             </button>
           </div>
         </div>

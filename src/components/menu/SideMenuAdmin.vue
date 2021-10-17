@@ -1,7 +1,7 @@
 <template>
-  <div class="h-screen">
+  <div class="h-full">
     <div id="nav" class="flex-col p-3 flex gap-3 bg-gray-700  rounded-r-md h-full ">
-      <span class="text-gray-500 font-bold">vendas</span>
+      <span class="text-gray-500 font-bold">pedidos</span>
       <div class="cursor-pointer border border-gray-500 shadow bg-gradient-to-r from-gray-500  to-gray-600  text-sm
           text-white  py-2 px-4 rounded-sm
             focus:outline-none focus:shadow-outline">
@@ -36,7 +36,29 @@
       <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm
             text-white  py-2 px-4
               rounded-sm focus:outline-none  border border-gray-500 focus:shadow-outline">
-        <router-link class="text-center" to="/canceledOrders">cancelados </router-link>
+        <router-link class="text-center" to="/canceledOrders">cancelados</router-link>
+      </div>
+      <span class="text-gray-500 font-bold">itens de pedidos</span>
+      <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm
+            text-white  py-2 px-4
+              rounded-sm focus:outline-none  border border-gray-500 focus:shadow-outline">
+        <router-link class="text-center" to="/requestCancelItems">solicitações de cancelamento</router-link>
+
+      </div>
+      <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm
+            text-white  py-2 px-4
+              rounded-sm focus:outline-none  border border-gray-500 focus:shadow-outline">
+        <router-link class="text-center" to="/aprovedCancelItems">solitações aprovadas</router-link>
+      </div>
+      <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm
+            text-white  py-2 px-4
+              rounded-sm focus:outline-none  border border-gray-500 focus:shadow-outline">
+        <router-link class="text-center" to="/deniedCancelItems">solicitações negadas</router-link>
+      </div>
+      <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm
+            text-white  py-2 px-4
+              rounded-sm focus:outline-none  border border-gray-500 focus:shadow-outline">
+        <router-link class="text-center" to="/CanceledItems">items cancelados</router-link>
       </div>
       <span class="text-gray-500 font-bold">produtos</span>
       <div class="cursor-pointer bg-gradient-to-r from-gray-500  to-gray-600  text-sm
@@ -72,7 +94,7 @@ export default {
 
 <style scoped>
 #nav a.router-link-exact-active {
-  color: #FFFFFF ;
+  color: #FFFFFF;
 
 }
 
@@ -80,8 +102,8 @@ export default {
   color: #A9A9A9;
 }
 
-#nav a:hover{
-  color:#FFFFFF;
+#nav a:hover {
+  color: #FFFFFF;
 }
 
 </style>

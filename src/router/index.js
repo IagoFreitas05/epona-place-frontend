@@ -119,6 +119,24 @@ const routes = [
     path:'/deniedCancel',
     name:'deniedCancel',
     component: () => import('../views/admin/orders/DeniedCancel')
+  },
+  { path:'/requestCancelItems',
+    name:'requestCancelItems',
+    component: () => import("../views/admin/OrderItems/RequestCancelItems")
+  }
+  ,
+  { path:'/aprovedCancelItems',
+    name:'aprovedCancelItems',
+    component: () => import("../views/admin/OrderItems/AprovedCancelItems")
+  }
+  ,
+  { path:'/canceledItems',
+    name:'canceledItems',
+    component: () => import("../views/admin/OrderItems/CanceledItems")
+  },{
+  path:'/deniedCancelItems',
+    name:'deniedCancelItems',
+    component: () => import("../views/admin/OrderItems/DeniedCancelItems")
   }
 ]
 
