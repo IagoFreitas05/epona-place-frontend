@@ -2,6 +2,7 @@
   <div class="w-12/12 h-full" >
     <Navigation></Navigation>
   </div>
+
 </template>
 <script>
 import Navigation from '@/components/header/Navigation.vue'

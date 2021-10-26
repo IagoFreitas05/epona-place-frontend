@@ -28,11 +28,14 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
   </div>
+  <TestChart/>
 </template>
 
 <script>
+import TestChart from "@/components/charts/testChart";
 export default {
   name: 'HelloWorld',
+  components: {TestChart},
   props: {
     msg: String
   }

@@ -7,7 +7,6 @@
           to-gray-600  text-sm text-white  py-2 px-4 rounded-sm focus:outline-none focus:shadow-outline">
         <router-link class="text-center " to="/profile"> dados </router-link>
       </div>
-
       <div
           class="cursor-pointer border border-gray-500 bg-gradient-to-r from-gray-500  to-gray-600
           text-sm text-white  py-2 px-4 rounded-sm focus:outline-none focus:shadow-outline">
