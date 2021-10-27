@@ -4,8 +4,8 @@
       <div  v-bind:class="item.isValid === 'true'?' border-green-600 text-green-600 cursor-pointer':' border-gray-600 text-gray-600 cursor-not-allowed'"  class="shadow-sm
         grid grid-cols-2 justify-between
         border-l-4
-          mb-4 p-4 bg-white
-            rounded-sm font-sans text-white " v-for="item in cupons" :key="item.id">
+          mb-4 p-4 bg-white overflow-hidden
+            rounded-lg font-sans text-white " v-for="item in cupons" :key="item.id">
         <p>nome: <span class="">{{item.name}}</span> </p>
         <p>valor: <span class="">R${{item.value}}</span> </p>
       </div>

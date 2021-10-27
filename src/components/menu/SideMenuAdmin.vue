@@ -75,7 +75,11 @@
              py-2 px-4 rounded-sm focus:outline-none focus:shadow-outline">
         <router-link class="text-center" to="/newProduct">cadastrar novo produto</router-link>
       </div>
-
+      <span class="text-gray-500 font-bold">estatísticas</span>
+      <div class="cursor-pointer bg-gradient-to-r  border border-gray-500 from-gray-500  to-gray-600  text-sm text-white
+             py-2 px-4 rounded-sm focus:outline-none focus:shadow-outline">
+        <router-link class="text-center" to="/adminProfile">dashboard</router-link>
+      </div>
 
       <div class="cursor-pointer bg-gradient-to-r mt-5  border border-gray-500 from-gray-500  to-gray-600  text-sm text-white
              py-2 px-4 rounded focus:outline-none focus:shadow-outline">

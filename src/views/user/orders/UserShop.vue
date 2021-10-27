@@ -1,10 +1,10 @@
 <template>
   <UserTemplate>
     <template v-slot:content>
-      <div @click="seeOrderDetail(item.id)" v-bind:class="item.status !== 'cancelado' ?'bg-white border-l-4 border-purple-700 text-purple-600':' bg-white border-l-4 border-red-700 text-red-600'" class=" shadow
+      <div @click="seeOrderDetail(item.id)" v-bind:class="item.status !== 'cancelado' ?'bg-white border-l-4 border-purple-700 text-purple-600':' bg-white border-l-4 border-red-700 text-red-600'" class=" overflow-hidden shadow
         grid grid-cols-4 justify-between
           mb-4 p-4 cursor-pointer
-            rounded-sm shadow-sm font-sans text-white " v-for="item in orders" :key="item.id">
+            rounded-lg shadow-sm font-sans text-white " v-for="item in orders" :key="item.id">
         <p>pedido: <span >#{{item.id}}</span> </p>
         <p >data: <span >{{item.data.replace("T", " ")}}</span> </p>
         <p >status: <span >{{item.status}}</span> </p>

@@ -15,7 +15,7 @@ export default defineComponent({
     const testData = {
       labels: ['janeiro','fevereiro','marco','abril','maio','junho','julho'],
       datasets: [{
-        label: 'My First Dataset',
+        label: 'vendas por mês',
         data: [65, 59, 80, 81, 56, 55, 40],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
