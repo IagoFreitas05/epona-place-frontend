@@ -20,7 +20,6 @@
       </div>
 
       <div class="flex flex-col  justify-between flex-1 mt-6">
-
         <nav>
           <h5 class="text-xl font-semibold text-gray-800 dark:text-white">pedidos</h5>
           <hr class="mb-2">
