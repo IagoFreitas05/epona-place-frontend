@@ -92,7 +92,7 @@
           </div>
           <div class="xl:w-1/2 md:w-1/2 p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
-              <lineChart></lineChart>
+              <lineChart :second-chart="firstChart"></lineChart>
             </div>
           </div>
         </div>
@@ -229,8 +229,6 @@ export default {
               this.firstChart.chartData.push(this.firstChartData[i].quantity)
             }
           })
-
-
     },
     serializeFirstData(){
 
