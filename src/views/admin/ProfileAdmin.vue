@@ -87,7 +87,7 @@
         <div class="flex flex-wrap -m-4">
           <div class="xl:w-1/2 md:w-1/2 p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
-              <testChart></testChart>
+              <testChart :firstChart="firstChart"></testChart>
             </div>
           </div>
           <div class="xl:w-1/2 md:w-1/2 p-4">
@@ -132,7 +132,12 @@ export default {
     return {
       recebidos: '',
       enviados: '',
-      andamento: ''
+      andamento: '',
+      firstChartData:[],
+      firstChart:{
+        chartData:[],
+        chartLabel:[],
+      }
     }
   },
   components: {AdminTemplate, testChart, lineChart, categoryLineChart, productLineChart},
@@ -201,10 +206,40 @@ export default {
       this.loadPedidoAndamento()
       this.loadPedidoRecebidos()
       this.loadPedidoEnviados()
+    },
+    loadFirstChartData(){
+      this.loading = true
+      let url = `/returnOrdersByPeriod`
+      this.axios
+          .request({
+            url: url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/order',
+            headers: {
+              "Authorization": "Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+
+          })
+          .then(response => {
+            this.firstChartData = response.data
+            for(let i = 0; i < this.firstChartData.length ; i++) {
+              this.firstChart.chartLabel.push(this.firstChartData[i].data)
+              this.firstChart.chartData.push(this.firstChartData[i].quantity)
+            }
+          })
+
+
+    },
+    serializeFirstData(){
+
     }
   },
   created() {
     this.loadPurchaseQuantities()
+    this.loadFirstChartData()
+
   }
 }
 </script>
