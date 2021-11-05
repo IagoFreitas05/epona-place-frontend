@@ -114,6 +114,18 @@
         </div>
       </div>
     </section>
+    <section class="text-gray-600 body-font">
+      <div class="container  mx-auto">
+        <div class="flex flex-wrap -m-4">
+          <div class="xl:w-1/2 md:w-1/2 p-4">
+            <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
+              <productAreaChart :areaChart="productAreaChart"></productAreaChart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
   </AdminTemplate>
 </template>
@@ -124,6 +136,7 @@ import testChart from "@/components/charts/testChart";
 import lineChart from "@/components/charts/lineChart";
 import productLineChart from "@/components/charts/productLineChart";
 import categoryAreaChart from "@/components/charts/categoryAreaChart";
+import productAreaChart from "@/components/charts/productAreaChart";
 import Cookie from "js-cookie";
 
 export default {
@@ -147,12 +160,17 @@ export default {
       },
       areaChartPeriod:[],
       areaChart:{
-        chartLabel:['musculaçao','carros','motos'],
-        chartData:['10','20','30']
+        chartLabel:[],
+        chartData:[]
+      },
+      productAreaChartPeriod:[],
+      productAreaChart:{
+        chartLabel:[],
+        chartData:[]
       }
     }
   },
-  components: {AdminTemplate, testChart, lineChart, categoryAreaChart, productLineChart},
+  components: {AdminTemplate, testChart, lineChart, categoryAreaChart, productLineChart, productAreaChart},
   methods: {
     loadPedidoAndamento() {
       this.loading = true
@@ -285,13 +303,35 @@ export default {
                 this.areaChart.chartData[i] = this.areaChartPeriod[i].quantity
              }
            })
-     }
+     },
+    loadProductSaleQuantity(){
+      let url = `/returnProductSaleQuantity`
+      this.axios
+          .request({
+            url: url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/order',
+            headers: {
+              "Authorization": "Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            this.productAreaChartPeriod = response.data
+            for(let i = 0; i < this.productAreaChartPeriod.length; i++){
+              this.productAreaChart.chartLabel[i] = this.productAreaChartPeriod[i].name;
+              this.productAreaChart.chartData[i] = this.productAreaChartPeriod[i].quantity
+            }
+          })
+    }
   },
   created() {
     this.loadPurchaseQuantities()
     this.loadFirstChartData()
     this.loadProductLineCharts();
     this.loadSalesByCategoryDTO();
+    this.loadProductSaleQuantity();
   }
 }
 </script>
