@@ -21,9 +21,6 @@ export default defineComponent({
     }
   },
   components: { BarChart },
-  methods:{
-
-  },
   setup(props) {
     const testData = {
       labels: props.firstChart.chartLabel,
@@ -35,10 +32,7 @@ export default defineComponent({
         borderWidth: 3
       }]
     };
-
     return { testData };
-  },
-  beforeMount() {
   }
 });
 </script>

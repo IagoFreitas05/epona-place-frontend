@@ -29,9 +29,6 @@ export default defineComponent({
     };
 
     return {testData};
-  },
-  created() {
-
   }
 });
 </script>

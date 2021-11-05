@@ -102,13 +102,13 @@
       <div class="container  mx-auto">
         <div class="flex flex-wrap -m-4">
           <div class="xl:w-1/2 md:w-1/2 p-4">
-            <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
-              <productLineChart></productLineChart>
+            <div v-if="productChartDataPeriod !== ''" class="border bg-white shadow border-gray-200 p-6 rounded-lg">
+              <productLineChart :productData="productChartsPeriod"></productLineChart>
             </div>
           </div>
           <div class="xl:w-1/2 md:w-1/2 p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
-              <categoryLineChart></categoryLineChart>
+              <categoryAreaChart :areaChart="areaChart"></categoryAreaChart>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ import AdminTemplate from "@/views/templates/AdminTemplate";
 import testChart from "@/components/charts/testChart";
 import lineChart from "@/components/charts/lineChart";
 import productLineChart from "@/components/charts/productLineChart";
-import categoryLineChart from "@/components/charts/categoryLineChart";
+import categoryAreaChart from "@/components/charts/categoryAreaChart";
 import Cookie from "js-cookie";
 
 export default {
@@ -137,10 +137,22 @@ export default {
       firstChart:{
         chartData:[],
         chartLabel:[],
+      },
+      productChartDataPeriod:[],
+      productChartsPeriod:{
+        chartData:[],
+        chartLabel:[],
+        chartDataName:[],
+        dataSet:[]
+      },
+      areaChartPeriod:[],
+      areaChart:{
+        chartLabel:['musculaçao','carros','motos'],
+        chartData:['10','20','30']
       }
     }
   },
-  components: {AdminTemplate, testChart, lineChart, categoryLineChart, productLineChart},
+  components: {AdminTemplate, testChart, lineChart, categoryAreaChart, productLineChart},
   methods: {
     loadPedidoAndamento() {
       this.loading = true
@@ -208,7 +220,7 @@ export default {
       this.loadPedidoEnviados()
     },
     loadFirstChartData(){
-      this.loading = true
+
       let url = `/returnOrdersByPeriod`
       this.axios
           .request({
@@ -225,19 +237,61 @@ export default {
           .then(response => {
             this.firstChartData = response.data
             for(let i = 0; i < this.firstChartData.length ; i++) {
-              this.firstChart.chartLabel.push(this.firstChartData[i].data)
-              this.firstChart.chartData.push(this.firstChartData[i].quantity)
+              this.firstChart.chartLabel[i] = this.firstChartData[i].data
+              this.firstChart.chartData[i] = this.firstChartData[i].quantity
             }
           })
     },
-    serializeFirstData(){
+    loadProductLineCharts(){
+       let url = `/returnProductsByPeriod`
+       this.axios
+           .request({
+             url: url,
+             method: 'GET',
+             baseURL: 'http://localhost:8080/place/order',
+             headers: {
+               "Authorization": "Bearer  " + Cookie.get('token'),
+               "Access-Control-Allow-Origin": '*',
+               "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+             }
+           })
+           .then(response => {
 
-    }
+             this.productChartDataPeriod = response.data
+             for(let i = 0; i < this.productChartDataPeriod.length; i++){
+               this.productChartsPeriod.chartLabel[i] = this.productChartDataPeriod[i].data
+               this.productChartsPeriod.chartData[i] = this.productChartDataPeriod[i].quantity
+               this.productChartsPeriod.chartDataName[i] = this.productChartDataPeriod[i].name
+             }
+           })
+     },
+    loadSalesByCategoryDTO(){
+       let url = `/returnSalesByCategory`
+       this.axios
+           .request({
+             url: url,
+             method: 'GET',
+             baseURL: 'http://localhost:8080/place/order',
+             headers: {
+               "Authorization": "Bearer  " + Cookie.get('token'),
+               "Access-Control-Allow-Origin": '*',
+               "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+             }
+           })
+           .then(response => {
+             this.areaChartPeriod = response.data
+             for(let i = 0; i < this.productChartDataPeriod.length; i++){
+                this.areaChart.chartLabel[i] = this.areaChartPeriod[i].category;
+                this.areaChart.chartData[i] = this.areaChartPeriod[i].quantity
+             }
+           })
+     }
   },
   created() {
     this.loadPurchaseQuantities()
     this.loadFirstChartData()
-
+    this.loadProductLineCharts();
+    this.loadSalesByCategoryDTO();
   }
 }
 </script>
