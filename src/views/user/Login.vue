@@ -32,17 +32,17 @@
 
 
         <div class="mt-4">
-          <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="LoggingEmailAddress">Email </label>
-          <input id="LoggingEmailAddress" v-model="mail" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" type="email">
+          <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="email">Email </label>
+          <input id="email" v-model="mail" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" type="email">
         </div>
 
         <div class="mt-4">
           <div class="flex justify-between">
-            <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="loggingPassword">senha</label>
+            <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="password">senha</label>
             <a href="#" class="text-xs text-gray-500 dark:text-gray-300 hover:underline">esqueceu sua senha?</a>
           </div>
 
-          <input id="loggingPassword" v-model="password" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" type="password">
+          <input id="password" v-model="password" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" type="password">
         </div>
 
         <div class="mt-8">

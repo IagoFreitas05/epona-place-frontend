@@ -84,14 +84,17 @@
 
     <section class="text-gray-600 body-font">
       <div class="container  mx-auto">
+
         <div class="flex flex-wrap -m-4">
-          <div class="xl:w-1/2 md:w-1/2 p-4">
+          <div class="w-full p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
+              <h2 class="text-lg pb-2 font-semibold text-gray-700  dark:text-white">Gráfico de barras quantidade de vendas por período</h2>
               <testChart v-if="renderComponent" :firstChart="firstChart"></testChart>
             </div>
           </div>
-          <div class="xl:w-1/2 md:w-1/2 p-4">
+          <div class="w-full p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
+              <h2 class="text-lg pb-2 font-semibold text-gray-700  dark:text-white">Gráfico de linhas quantidade de vendas por período</h2>
               <lineChart v-if="renderComponent" :second-chart="firstChart"></lineChart>
             </div>
           </div>
@@ -103,6 +106,7 @@
         <div class="flex flex-wrap -m-4">
           <div class="w-full p-4">
             <div v-if="productChartDataPeriod !== ''" class="border bg-white shadow border-gray-200 p-6 rounded-lg">
+              <h2 class="text-lg pb-2 font-semibold text-gray-700  dark:text-white">Gráfico de linha por quantidade de vendas por período por produto</h2>
               <productLineChart v-if="renderComponent" :productData="productChartsPeriod"></productLineChart>
             </div>
           </div>
@@ -114,11 +118,13 @@
         <div class="flex flex-wrap -m-4">
           <div class="xl:w-1/2 md:w-1/2 p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
+              <h2 class="text-lg pb-2 font-semibold text-gray-700  dark:text-white">Gráfico de área produtos mais vendidos</h2>
               <productAreaChart v-if="renderComponent" :areaChart="productAreaChart"></productAreaChart>
             </div>
           </div>
           <div class="xl:w-1/2 md:w-1/2 p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
+              <h2 class="text-lg pb-2 font-semibold text-gray-700  dark:text-white">Gráfico de área categoria mais vendidas</h2>
               <categoryAreaChart v-if="renderComponent" :areaChart="areaChart"></categoryAreaChart>
             </div>
           </div>
@@ -373,8 +379,6 @@ export default {
               this.productChartsPeriod.chartData[i] = this.productChartDataPeriod[i].quantity
               this.productChartsPeriod.chartDataName[i] = this.productChartDataPeriod[i].name
             }
-
-
 
             swal("dados atualizados")
             response.data
