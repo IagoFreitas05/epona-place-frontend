@@ -13,7 +13,7 @@
                 </svg>
               </div>
               <h2 class="text-lg text-gray-900 font-medium title-font mb-2">aguardando envio</h2>
-              <p class="leading-relaxed text-base">{{andamento}}</p>
+              <p class="leading-relaxed text-base">{{ andamento }}</p>
             </div>
           </div>
           <div class="xl:w-1/3 md:w-1/2 p-4">
@@ -52,12 +52,11 @@
 
     <section class=" p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-2 mb-2">
       <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">período</h2>
-
-      <form class="flex gap-2 ">
+      <form @submit.prevent="getAnalysisByPeriod" class="flex gap-2 ">
         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 w-10/12">
           <div>
             <label class="text-gray-700 dark:text-gray-200" for="username">início do período </label>
-            <input id="username" type="date"
+            <input required v-model="startPeriod" id="username" type="date"
                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300
                    rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500
                    dark:focus:border-blue-500 focus:outline-none focus:ring">
@@ -65,7 +64,7 @@
 
           <div>
             <label class="text-gray-700 dark:text-gray-200" for="emailAddress">fim do período</label>
-            <input id="emailAddress" type="date"
+            <input required v-model="endsPeriod" id="emailAddress" type="date"
                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md
                    dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500
                    dark:focus:border-blue-500 focus:outline-none focus:ring">
@@ -74,6 +73,7 @@
 
         <div class="  mt-12 w-2/12">
           <button
+              type="submit"
               class="px-6 py-2 text-white transition-colors duration-200 transform bg-gray-700 rounded-md
               hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
             pesquisar
@@ -87,12 +87,12 @@
         <div class="flex flex-wrap -m-4">
           <div class="xl:w-1/2 md:w-1/2 p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
-              <testChart :firstChart="firstChart"></testChart>
+              <testChart v-if="renderComponent" :firstChart="firstChart"></testChart>
             </div>
           </div>
           <div class="xl:w-1/2 md:w-1/2 p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
-              <lineChart :second-chart="firstChart"></lineChart>
+              <lineChart v-if="renderComponent" :second-chart="firstChart"></lineChart>
             </div>
           </div>
         </div>
@@ -101,14 +101,9 @@
     <section class="text-gray-600 body-font">
       <div class="container  mx-auto">
         <div class="flex flex-wrap -m-4">
-          <div class="xl:w-1/2 md:w-1/2 p-4">
+          <div class="w-full p-4">
             <div v-if="productChartDataPeriod !== ''" class="border bg-white shadow border-gray-200 p-6 rounded-lg">
-              <productLineChart :productData="productChartsPeriod"></productLineChart>
-            </div>
-          </div>
-          <div class="xl:w-1/2 md:w-1/2 p-4">
-            <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
-              <categoryAreaChart :areaChart="areaChart"></categoryAreaChart>
+              <productLineChart v-if="renderComponent" :productData="productChartsPeriod"></productLineChart>
             </div>
           </div>
         </div>
@@ -119,7 +114,12 @@
         <div class="flex flex-wrap -m-4">
           <div class="xl:w-1/2 md:w-1/2 p-4">
             <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
-              <productAreaChart :areaChart="productAreaChart"></productAreaChart>
+              <productAreaChart v-if="renderComponent" :areaChart="productAreaChart"></productAreaChart>
+            </div>
+          </div>
+          <div class="xl:w-1/2 md:w-1/2 p-4">
+            <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
+              <categoryAreaChart v-if="renderComponent" :areaChart="areaChart"></categoryAreaChart>
             </div>
           </div>
         </div>
@@ -138,40 +138,51 @@ import productLineChart from "@/components/charts/productLineChart";
 import categoryAreaChart from "@/components/charts/categoryAreaChart";
 import productAreaChart from "@/components/charts/productAreaChart";
 import Cookie from "js-cookie";
+import swal from "sweetalert";
 
 export default {
   name: "ProfileAdmin",
   data() {
     return {
+      renderComponent:true,
+      startPeriod:'',
+      endsPeriod:'',
       recebidos: '',
       enviados: '',
       andamento: '',
-      firstChartData:[],
-      firstChart:{
-        chartData:[],
-        chartLabel:[],
+      firstChartData: [],
+      firstChart: {
+        chartData: [],
+        chartLabel: [],
       },
-      productChartDataPeriod:[],
-      productChartsPeriod:{
-        chartData:[],
-        chartLabel:[],
-        chartDataName:[],
-        dataSet:[]
+      productChartDataPeriod: [],
+      productChartsPeriod: {
+        chartData: [],
+        chartLabel: [],
+        chartDataName: [],
+        dataSet: []
       },
-      areaChartPeriod:[],
-      areaChart:{
-        chartLabel:[],
-        chartData:[]
+      areaChartPeriod: [],
+      areaChart: {
+        chartLabel: [],
+        chartData: []
       },
-      productAreaChartPeriod:[],
-      productAreaChart:{
-        chartLabel:[],
-        chartData:[]
+      productAreaChartPeriod: [],
+      productAreaChart: {
+        chartLabel: [],
+        chartData: []
       }
     }
   },
   components: {AdminTemplate, testChart, lineChart, categoryAreaChart, productLineChart, productAreaChart},
   methods: {
+    forceReRender(){
+      this.renderComponent = false;
+      this.$nextTick(() => {
+        // Add the component back in
+        this.renderComponent = true;
+      });
+    },
     loadPedidoAndamento() {
       this.loading = true
       let url = `/returnQuantifiedByStatus/andamento`
@@ -237,7 +248,7 @@ export default {
       this.loadPedidoRecebidos()
       this.loadPedidoEnviados()
     },
-    loadFirstChartData(){
+    loadFirstChartData() {
 
       let url = `/returnOrdersByPeriod`
       this.axios
@@ -254,57 +265,57 @@ export default {
           })
           .then(response => {
             this.firstChartData = response.data
-            for(let i = 0; i < this.firstChartData.length ; i++) {
+            for (let i = 0; i < this.firstChartData.length; i++) {
               this.firstChart.chartLabel[i] = this.firstChartData[i].data
               this.firstChart.chartData[i] = this.firstChartData[i].quantity
             }
           })
     },
-    loadProductLineCharts(){
-       let url = `/returnProductsByPeriod`
-       this.axios
-           .request({
-             url: url,
-             method: 'GET',
-             baseURL: 'http://localhost:8080/place/order',
-             headers: {
-               "Authorization": "Bearer  " + Cookie.get('token'),
-               "Access-Control-Allow-Origin": '*',
-               "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
-             }
-           })
-           .then(response => {
+    loadProductLineCharts() {
+      let url = `/returnProductsByPeriod`
+      this.axios
+          .request({
+            url: url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/order',
+            headers: {
+              "Authorization": "Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
 
-             this.productChartDataPeriod = response.data
-             for(let i = 0; i < this.productChartDataPeriod.length; i++){
-               this.productChartsPeriod.chartLabel[i] = this.productChartDataPeriod[i].data
-               this.productChartsPeriod.chartData[i] = this.productChartDataPeriod[i].quantity
-               this.productChartsPeriod.chartDataName[i] = this.productChartDataPeriod[i].name
-             }
-           })
-     },
-    loadSalesByCategoryDTO(){
-       let url = `/returnSalesByCategory`
-       this.axios
-           .request({
-             url: url,
-             method: 'GET',
-             baseURL: 'http://localhost:8080/place/order',
-             headers: {
-               "Authorization": "Bearer  " + Cookie.get('token'),
-               "Access-Control-Allow-Origin": '*',
-               "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
-             }
-           })
-           .then(response => {
-             this.areaChartPeriod = response.data
-             for(let i = 0; i < this.productChartDataPeriod.length; i++){
-                this.areaChart.chartLabel[i] = this.areaChartPeriod[i].category;
-                this.areaChart.chartData[i] = this.areaChartPeriod[i].quantity
-             }
-           })
-     },
-    loadProductSaleQuantity(){
+            this.productChartDataPeriod = response.data
+            for (let i = 0; i < this.productChartDataPeriod.length; i++) {
+              this.productChartsPeriod.chartLabel[i] = this.productChartDataPeriod[i].data
+              this.productChartsPeriod.chartData[i] = this.productChartDataPeriod[i].quantity
+              this.productChartsPeriod.chartDataName[i] = this.productChartDataPeriod[i].name
+            }
+          })
+    },
+    loadSalesByCategoryDTO() {
+      let url = `/returnSalesByCategory`
+      this.axios
+          .request({
+            url: url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/order',
+            headers: {
+              "Authorization": "Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            this.areaChartPeriod = response.data
+            for (let i = 0; i < this.areaChartPeriod.length; i++) {
+              this.areaChart.chartLabel[i] = this.areaChartPeriod[i].category;
+              this.areaChart.chartData[i] = this.areaChartPeriod[i].quantity;
+            }
+          })
+    },
+    loadProductSaleQuantity() {
       let url = `/returnProductSaleQuantity`
       this.axios
           .request({
@@ -319,11 +330,57 @@ export default {
           })
           .then(response => {
             this.productAreaChartPeriod = response.data
-            for(let i = 0; i < this.productAreaChartPeriod.length; i++){
+            for (let i = 0; i < this.productAreaChartPeriod.length; i++) {
               this.productAreaChart.chartLabel[i] = this.productAreaChartPeriod[i].name;
               this.productAreaChart.chartData[i] = this.productAreaChartPeriod[i].quantity
             }
           })
+    },
+    getAnalysisByPeriod(){
+      let config = {
+        headers: {
+          "Authorization": "Bearer " + Cookie.get('token'),
+          "Content-type": "Application/json"
+        }
+      }
+      this.axios.post("http://localhost:8080/place/order/getAnalysisByPeriod", {
+        startPeriod: this.startPeriod,
+        endsPeriod: this.endsPeriod
+      }, config)
+          .then((response) => {
+            /* first chart data */
+            this.firstChartData = []
+            this.firstChart.chartLabel = []
+            this.firstChart.chartData = []
+
+            /*  productChartDataPeriod */
+            this.productChartDataPeriod = []
+            this.productChartsPeriod.chartData = []
+            this.productChartsPeriod.chartLabel = []
+
+            /* renderizando os gráficos a cada atualização*/
+            this.forceReRender();
+
+            this.firstChartData = response.data.purchaseOrderByPeriodDTO;
+            for (let i = 0; i < this.firstChartData.length; i++) {
+              this.firstChart.chartLabel[i] = this.firstChartData[i].data
+              this.firstChart.chartData[i] = this.firstChartData[i].quantity
+            }
+
+            this.productChartDataPeriod = response.data.productsByPeriodDTO;
+            for (let i = 0; i < this.productChartDataPeriod.length; i++) {
+              this.productChartsPeriod.chartLabel[i] = this.productChartDataPeriod[i].data
+              this.productChartsPeriod.chartData[i] = this.productChartDataPeriod[i].quantity
+              this.productChartsPeriod.chartDataName[i] = this.productChartDataPeriod[i].name
+            }
+
+
+
+            swal("dados atualizados")
+            response.data
+          }).catch(() => {
+        swal("Oops :(", "alguma coisa deu errado na sua requisição", "error")
+      })
     }
   },
   created() {
