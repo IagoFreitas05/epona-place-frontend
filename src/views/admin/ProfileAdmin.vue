@@ -166,7 +166,12 @@ export default {
         chartData: [],
         chartLabel: [],
         chartDataName: [],
-        dataSet: []
+        dataSet: [
+
+        ],
+        dataSetOut:[
+
+        ]
       },
       areaChartPeriod: [],
       areaChart: {
@@ -291,14 +296,38 @@ export default {
             }
           })
           .then(response => {
-
             this.productChartDataPeriod = response.data
             for (let i = 0; i < this.productChartDataPeriod.length; i++) {
               this.productChartsPeriod.chartLabel[i] = this.productChartDataPeriod[i].data
-              this.productChartsPeriod.chartData[i] = this.productChartDataPeriod[i].quantity
+              this.productChartsPeriod.chartData.push( this.productChartDataPeriod[i].quantity)
               this.productChartsPeriod.chartDataName[i] = this.productChartDataPeriod[i].name
+
+              this.productChartsPeriod.dataSet[i] = {
+                label: this.productChartsPeriod.chartDataName[i],
+                data: this.productChartsPeriod.chartData[i],
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgb(201, 203, 207)',
+                borderWidth: '3'
+              }
             }
-          })
+
+            const dataSet = this.productChartsPeriod.dataSet.reduce((obj, {label, data}) =>{
+              if(!obj[label]) obj[label] = [];
+              obj[label].push(data);
+              return obj;
+            }, {})
+
+            const dataSetOut = Object.keys(dataSet).map(label =>{
+              return{
+                label,
+                data:dataSet[label],
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgb(201, 203, 207)',
+                borderWidth: '3'
+              }
+            })
+            this.productChartsPeriod.dataSetOut = dataSetOut;
+        })
     },
     loadSalesByCategoryDTO() {
       let url = `/returnSalesByCategory`

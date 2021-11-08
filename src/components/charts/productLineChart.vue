@@ -17,20 +17,8 @@ export default defineComponent({
   },
   setup(props) {
     const testData = {
-      labels:props.productData.chartLabel ,
-      datasets:
-      [
-        {
-          label: props.productData.chartDataName,
-          data: props.productData.chartData,
-          backgroundColor: 'rgba(153, 102, 255, 0.2)'
-          ,
-          borderColor:
-            'rgb(201, 203, 207)'
-          ,
-          borderWidth: 3
-        }
-      ]
+      labels:props.productData.chartLabel,
+      datasets: props.productData.dataSetOut
     };
     return { testData };
   },
