@@ -81,7 +81,6 @@
         </div>
       </form>
     </section>
-
     <section class="text-gray-600 body-font">
       <div class="container  mx-auto">
 
@@ -131,8 +130,6 @@
         </div>
       </div>
     </section>
-
-
   </AdminTemplate>
 </template>
 

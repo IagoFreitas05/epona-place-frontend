@@ -70,6 +70,48 @@ export default {
   },
   methods:{
     requestCancel(){
+      if(this.product.quantity > 1){
+        this.cancelMoreThanOneItem()
+      }else{
+        this.cancelOneItem()
+      }
+    },
+    cancelOneItem(){
+      swal({
+        title: "tem certeza?",
+        text: "ao solicitar cancelamento, um cupom no valor desse pedido será gerado",
+        icon: "warning",
+        buttons: ["cancelar", "tenho certeza"],
+        dangerMode: true,
+      })
+          .then((willDelete) => {
+            if (willDelete) {
+              this.loading = true
+              let url = `/requestCancel/${this.product.id}`
+              this.axios
+                  .request({
+                    url:url,
+                    method: 'GET',
+                    baseURL: 'http://localhost:8080/place/OrderItem',
+                    headers: {
+                      "Authorization":"Bearer  " + Cookie.get('token'),
+                      "Access-Control-Allow-Origin": '*',
+                      "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+                    }
+                  })
+                  .then(response => {
+                    response.data
+                    swal("Sua solicitação foi enviada!", {
+                      icon: "success",
+                    });
+                  })
+            } else {
+              swal("uffa, nada aconteceu!");
+            }
+          });
+    },
+    cancelMoreThanOneItem(){
+      alert('voce quer cancelar mais de 1 item');
       swal({
         title: "tem certeza?",
         text: "ao solicitar cancelamento, um cupom no valor desse pedido será gerado",

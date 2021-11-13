@@ -6,7 +6,6 @@
              grid grid-cols-3
           ">pedido número: #{{id}}
               <span>status: {{ order.status }}</span>
-
               <!-- se o pedido já foi enviado, quando ele solicitar o cancelamento, terá que confirmar que o pedido chegou, para poder efetuar a devolução. -->
               <button v-if="order.status !== 'cancelado' && order.status !== 'cancelamento_aprovado' && order.status !== 'enviado' && order.status !== 'recebido' && order.status !== 'cancelamento_solicitado' && order.status !== 'cancelamento_negado' && order.status !== 'aguardando_aprovacao' " @click="confirmTotalOrderCancel(id)" class="border border-purple-300
             rounded-sm
@@ -27,9 +26,7 @@
             rounded-sm
                w-1/2 ">realizar devolução
               </button>
-
               <button v-if="order.status "></button>
-
             </h4>
           </div>
           <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-2">
@@ -39,7 +36,6 @@
           </div>
         </template>
       </UserTemplate>
-
 </template>
 
 <script>
