@@ -105,7 +105,7 @@
       <div class="container  mx-auto">
         <div class="flex flex-wrap -m-4">
           <div class="w-full p-4">
-            <div v-if="productChartDataPeriod !== ''" class="border bg-white shadow border-gray-200 p-6 rounded-lg">
+            <div class="border bg-white shadow border-gray-200 p-6 rounded-lg">
               <h2 class="text-lg pb-2 font-semibold text-gray-700  dark:text-white">Gráfico de linha por quantidade de vendas por período por produto</h2>
               <productLineChart v-if="renderComponent" :productData="productChartsPeriod"></productLineChart>
             </div>
@@ -326,6 +326,7 @@ export default {
                 borderWidth: '3'
               }
             })
+            this.forceReRender()
             this.productChartsPeriod.dataSetOut = dataSetOut;
         })
     },
