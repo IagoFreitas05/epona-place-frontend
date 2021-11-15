@@ -187,7 +187,6 @@
           </div>
         </div>
   </AdminTemplate>
-
 </template>
 
 <script>
