@@ -44,7 +44,7 @@ data:function() {
           .request({
             url:url,
             method: 'GET',
-            baseURL: 'http://localhost:8080/place/product',
+            baseURL: 'http://localhost:8080/place/product/findByStatus/ativo',
             headers: {
               "Authorization":"Bearer  " + Cookie.get('token'),
               "Access-Control-Allow-Origin": '*',
