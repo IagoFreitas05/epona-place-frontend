@@ -149,14 +149,48 @@
             </button>
           </form>
         </div>
+        <div class="items-center border-2  bg-white border-purple-200 shadow-lg rounded-md p-5">
 
+          <div class="overflow-x-auto">
+            <table class="table-auto text-left w-full  rounded">
+              <thead>
+              <tr  class="bg-blue-500 border text-left text-white px-8 py-4 rounded">
+                <th></th>
+                <th  >nome</th>
+                <th>categoria</th>
+                <th>valor</th>
+                <th>descrição</th>
+                <th>tamanho</th>
+                <th>valor de venda</th>
+                <th>ações</th>
+              </tr>
+              </thead>
+              <tbody class="text-left">
+              <tr class="border px-4 py-4"  v-for="item in products" :key="item.id">
+                <td ><img class="rounded p-2 " :src="item.image" width="100" height="100" alt=""></td>
+                <td >{{ item.name }}</td>
+                <td >{{ item.category }}</td>
+                <td >R$ {{item.value}}</td>
+                <td >{{ item.description }}</td>
+                <td >{{ item.size }}</td>
+                <td >R$ {{ item.salePrice }}</td>
+                <td ><button @click="action(item.id, item.status)" class="bg-white shadow
+
+                          text-white font-bold py-2
+                          px-2 rounded focus:outline-none
+                          font-bold
+
+                          focus:shadow-outline"><span class="text-red-500 " v-if="item.status ==='ativo'">inativar </span> <span class="text-green-500  font-bold" v-else>ativar </span></button> </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
   </AdminTemplate>
 
 </template>
 
 <script>
-
-
 import AdminTemplate from "@/views/templates/AdminTemplate";
 import swal from "sweetalert";
 import Cookie from "js-cookie";
@@ -174,10 +208,28 @@ export default {
       description: "",
       size: "",
       quantity: "",
-      image: ""
+      image: "",
+      products:[]
     }
   },
   methods: {
+    loadProduct(){
+      let url = ``
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/product',
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            this.products = response.data
+          })
+    },
     calculateSalePrice(id) {
       const existInProduct = this.categories.findIndex((obj) => obj.id === id)
       this.salePrice = (this.value * ((this.categories[existInProduct].profit / 100) + 1)).toFixed(2)
@@ -228,10 +280,55 @@ export default {
         swal("Oops :(", "alguma coisa deu errado na sua requisição", "error")
       })
 
+    },
+    disable(id){
+      let url = ``
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: `http://localhost:8080/place/product/disable/${id}`,
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            response.data
+            swal('inativado com sucesso')
+          })
+    },
+    activate(id){
+      let url = ``
+      this.axios
+          .request({
+            url:url,
+            method: 'GET',
+            baseURL: `http://localhost:8080/place/product/activate/${id}`,
+            headers: {
+              "Authorization":"Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            response.data
+            swal('ativado com sucesso')
+          })
+    },
+    action(id, status){
+      if(status === 'ativo'){
+        this.disable(id)
+      }
+      if(status === 'inativo'){
+        this.activate(id)
+      }
     }
   },
   created() {
     this.loadCategory()
+    this.loadProduct()
   }
 }
 </script>
