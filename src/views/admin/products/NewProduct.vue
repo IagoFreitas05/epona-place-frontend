@@ -149,12 +149,12 @@
             </button>
           </form>
         </div>
-        <div class="items-center border-2  bg-white border-purple-200 shadow-lg rounded-md p-5">
+        <div class="items-center border-2  bg-white border-purple-200 shadow-lg rounded p-5">
 
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto rounded">
             <table class="table-auto text-left w-full  rounded">
               <thead>
-              <tr  class="bg-blue-500 border text-left text-white px-8 py-4 rounded">
+              <tr  class="bg-blue-400 border text-left text-white px-8 py-4 rounded">
                 <th></th>
                 <th  >nome</th>
                 <th>categoria</th>
@@ -180,7 +180,15 @@
                           px-2 rounded focus:outline-none
                           font-bold
 
-                          focus:shadow-outline"><span class="text-red-500 " v-if="item.status ==='ativo'">inativar </span> <span class="text-green-500  font-bold" v-else>ativar </span></button> </td>
+                          focus:shadow-outline"><span class="text-red-400 " v-if="item.status ==='ativo'">inativar </span> <span class="text-green-400  font-bold" v-else>ativar </span></button>
+                  <button @click="edit(item.id)" class="bg-white shadow
+
+                          text-white font-bold py-2
+                          px-2 rounded focus:outline-none
+                          font-bold
+                          text-gray-500
+                          focus:shadow-outline">editar</button>
+                </td>
               </tr>
               </tbody>
             </table>
@@ -323,6 +331,9 @@ export default {
       if(status === 'inativo'){
         this.activate(id)
       }
+    },
+    edit(){
+
     }
   },
   created() {
