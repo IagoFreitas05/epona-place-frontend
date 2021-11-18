@@ -99,7 +99,7 @@
           <p v-if="!Object.keys(this.cupom).length === false" class="p-4  font-bold">
             cupom aplicado: {{cupom.name}} - R$ {{cupom.value}}
           </p>
-          <div class="p-4 font-bold">total: {{totalPrice}} </div>
+          <div class="p-4 font-bold">total: R${{totalPrice}} frete: R${{frete}} </div>
         </div>
     </div>
       <div v-else class="w-9/12 m-auto py-16  flex items-center justify-center">
@@ -128,6 +128,7 @@ export default {
   components: {ProductCard},
   data:function() {
     return {
+      frete:'',
       paymentType:'',
       cupomName:'',
       cupom:{},
@@ -193,7 +194,7 @@ export default {
     selectAddress(item){
       swal("endereço selecionado: " + item.nameAddress)
       this.selectedAddress = item
-      this.calculateFrete(item);
+      this.calculateFrete();
     },
     calculateTotal(){
       this.totalPrice = 0;
@@ -342,27 +343,26 @@ export default {
             this.loading = false;
           })
     },
-    calculateFrete(item){
-      var myHeaders = new Headers();
-      myHeaders.append("Access-Control-Allow-Origin", "*");
-      myHeaders.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      myHeaders.append("Cookie", "ASP.NET_SessionId=0jyy35rcrkj1jk4fohtfdj0b");
-      myHeaders.append("Origin","http://localhost:8081");
-      myHeaders.append("Connection","keep-alive");
-      myHeaders.append("Cache-Control","no-cache");
-      myHeaders.append("Host","ws.correios.com.br");
-      myHeaders.append("Accept","*/*");
-      myHeaders.append("Referer","http://localhost:8081");
-      myHeaders.append("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0");
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
-      fetch("http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?sCepOrigem="+item.postalCode+"&sCepDestino=04547000&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3", requestOptions)
-          .then(response => response.text())
-          .then(result => console.table(result))
-          .catch(error => console.log('error', error));
+    calculateFrete(){
+      this.loading = true
+      let url = `/returnTaxByQuantity/${this.$store.state.cart.length}`
+      this.axios
+          .request({
+            url: url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/tax',
+            headers: {
+              "Authorization": "Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+
+          })
+          .then(response => {
+            this.frete = response.data.taxValue
+            this.totalPrice = this.totalPrice + parseInt(this.frete)
+            this.loading = false;
+          })
     }
   },
   mounted() {
