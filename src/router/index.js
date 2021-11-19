@@ -133,10 +133,14 @@ const routes = [
   { path:'/canceledItems',
     name:'canceledItems',
     component: () => import("../views/admin/OrderItems/CanceledItems")
-  },{
-  path:'/deniedCancelItems',
+  },
+   {path:'/deniedCancelItems',
     name:'deniedCancelItems',
     component: () => import("../views/admin/OrderItems/DeniedCancelItems")
+  },{
+    path: '/editProduct/:id',
+    name:'EditProduct',
+    component: () => import('../views/admin/products/EditProduct')
   }
 ]
 

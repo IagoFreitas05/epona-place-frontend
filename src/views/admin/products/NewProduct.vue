@@ -26,7 +26,8 @@
                     valor
                   </label>
                   <input
-                      name="value"
+                      v-on:change="calculateSalePrice(selectCategory)"
+                       name="value"
                       class="shadow appearance-none border
                                   rounded w-full py-2 px-3
                                     text-gray-700 leading-tight
@@ -47,7 +48,7 @@
                                     text-gray-700 leading-tight
                                       focus:outline-none
                                         focus:shadow-outline">
-                    <option v-for="item in categories" :key="item.id" :value="item.id">{{ item.category }}</option>
+                    <option v-for="item in categories" :key="item.id" :value="item.id">{{ item.category }} - {{item.profit}} %</option>
                   </select>
                 </div>
               </div>
@@ -154,12 +155,12 @@
           <div class="overflow-x-auto rounded">
             <table class="table-auto text-left w-full  rounded">
               <thead>
-              <tr  class="bg-blue-400 border text-left text-white px-8 py-4 rounded">
+              <tr  class="bg-purple-500 border text-left text-white px-8 py-4 rounded">
                 <th></th>
                 <th  >nome</th>
                 <th>categoria</th>
                 <th>valor</th>
-                <th>descrição</th>
+                <th size="10%">descrição</th>
                 <th>tamanho</th>
                 <th>valor de venda</th>
                 <th>ações</th>
@@ -274,7 +275,8 @@ export default {
         size: this.size,
         salePrice: this.salePrice,
         quantity: this.quantity,
-        image: this.image
+        image: this.image,
+        status: 'ativo'
       }, config)
           .then((response) => {
             if (response.data === " ") {
@@ -332,8 +334,8 @@ export default {
         this.activate(id)
       }
     },
-    edit(){
-
+    edit(id){
+      this.$router.push(`/editProduct/${id}`)
     }
   },
   created() {
