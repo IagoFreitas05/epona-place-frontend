@@ -1,6 +1,19 @@
 <template>
   <div class="md:flex md:gap-4 sm:grid-1">
-    <div  class="sm:w-full " v-bind:class="this.$store.state.cart != ''?' md:w-10/12':'md:w-12/12'">
+
+    <div  class="sm:w-full container mx-auto" v-bind:class="this.$store.state.cart != ''?' md:w-10/12':'md:w-12/12'">
+
+      <form class="">
+        <div class="flex mt-8 flex-col overflow-hidden border rounded-lg dark:border-gray-600 lg:flex-row">
+          <input class="px-6 py-3 w-full  text-gray-700 placeholder-gray-500 bg-white outline-none dark:bg-gray-800
+          dark:placeholder-gray-400 focus:placeholder-transparent dark:focus:placeholder-transparent"
+                 type="text" name="email" placeholder="está procurando por algum item?" aria-label="procurando por algum item?">
+
+          <button class="px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors
+          duration-200 transform bg-gray-700 hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">procurar</button>
+        </div>
+      </form>
+
       <div class="container mx-auto mt-8 grid sm:grid-cols-1 md:grid-cols-4 gap-4">
       <span v-for="item in products" :key="item.id">
         <ProductCard :product="item"></ProductCard>
