@@ -190,7 +190,7 @@ export default {
         description: this.description,
         size: this.size,
         salePrice: this.salePrice,
-        quantity: 0,//ajustar para alterar quantidade na productInventory
+        quantity: this.quantity, //ajustar para alterar quantidade na productInventory
         image: this.image,
         id:this.$route.params.id,
         status: 'ativo'
@@ -205,6 +205,23 @@ export default {
           }).catch(() => {
         swal("Oops :(", "alguma coisa deu errado na sua requisição", "error")
       })
+    },
+    consultQuantityProduct(){
+      let url = `${this.$route.params.id}`
+      this.axios
+          .request({
+            url: url,
+            method: 'GET',
+            baseURL: 'http://localhost:8080/place/product/getQuantityOfProduct',
+            headers: {
+              "Authorization": "Bearer  " + Cookie.get('token'),
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Headers": "Origin, X-Request-Width, Content-Type, Accept",
+            }
+          })
+          .then(response => {
+            this.quantity = response.data.currentQuantity
+          })
     },
     consultProduct(){
       let url = `${this.$route.params.id}`
@@ -257,6 +274,7 @@ export default {
   created() {
     this.loadCategory()
     this.consultProduct()
+    this.consultQuantityProduct()
   }
 }
 </script>
