@@ -2,7 +2,6 @@
   <div class="md:flex md:gap-4 sm:grid-1">
 
     <div  class="sm:w-full container mx-auto" v-bind:class="this.$store.state.cart != ''?' md:w-10/12':'md:w-12/12'">
-
       <form class="">
         <div class="flex mt-8 flex-col overflow-hidden border rounded-lg dark:border-gray-600 lg:flex-row">
           <input class="px-6 py-3 w-full  text-gray-700 placeholder-gray-500 bg-white outline-none dark:bg-gray-800

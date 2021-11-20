@@ -55,16 +55,16 @@
       <form @submit.prevent="getAnalysisByPeriod" class="flex gap-2 ">
         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 w-10/12">
           <div>
-            <label class="text-gray-700 dark:text-gray-200" for="username">início do período </label>
-            <input required v-model="startPeriod" id="username" type="date"
+            <label class="text-gray-700 dark:text-gray-200" for="startPeriod">início do período </label>
+            <input required v-model="startPeriod" id="startPeriod" type="date"
                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300
                    rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500
                    dark:focus:border-blue-500 focus:outline-none focus:ring">
           </div>
 
           <div>
-            <label class="text-gray-700 dark:text-gray-200" for="emailAddress">fim do período</label>
-            <input required v-model="endsPeriod" id="emailAddress" type="date"
+            <label class="text-gray-700 dark:text-gray-200" for="endsPeriod">fim do período</label>
+            <input required v-model="endsPeriod" id="endsPeriod" type="date"
                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md
                    dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500
                    dark:focus:border-blue-500 focus:outline-none focus:ring">
@@ -73,6 +73,7 @@
 
         <div class="  mt-12 w-2/12">
           <button
+              id="searchPeriod"
               type="submit"
               class="px-6 py-2 text-white transition-colors duration-200 transform bg-gray-700 rounded-md
               hover:bg-gray-600 focus:outline-none focus:bg-gray-600">

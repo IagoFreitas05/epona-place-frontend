@@ -5,9 +5,9 @@ describe('save address error',()=>{
 
     it('save address error',()=>{
         cy.visit('http://localhost:8081/#/login')
-        cy.get('input[name=email]').type('iagofreitas@outlook.com');
-        cy.get('input[name=password]').type('123');
-        cy.contains('acessar').click();
+        cy.get('#email').type('iagofreitas@outlook.com');
+        cy.get('#password').type('123');
+        cy.contains('Login').click();
         cy.get('.swal-button').click()
         //adição endereço de entrega
         cy.get("#new-deliver-address").click();
