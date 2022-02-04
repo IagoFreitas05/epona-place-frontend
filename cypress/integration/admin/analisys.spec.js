@@ -13,7 +13,7 @@ describe('Analisys',()=>{
         cy.get('#startPeriod').type('2021-10-11')
         cy.get('#endsPeriod').type('2021-11-11')
         cy.contains('pesquisar').click()
-        cy.get('.swal-button').click()
+        //cy.get('.swal-button').click()
         cy.pause()
 
 
@@ -21,13 +21,13 @@ describe('Analisys',()=>{
         cy.get('#startPeriod').type('2021-10-30')
         cy.get('#endsPeriod').type('2021-11-11')
         cy.contains('pesquisar').click()
-        cy.get('.swal-button').click()
+     //   cy.get('.swal-button').click()
         cy.pause()
 
         cy.get('#startPeriod').type('2021-10-20')
         cy.get('#endsPeriod').type('2021-11-05')
         cy.contains('pesquisar').click()
-        cy.get('.swal-button').click()
+       // cy.get('.swal-button').click()
         cy.pause()
 
     });

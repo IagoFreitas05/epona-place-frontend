@@ -7,6 +7,6 @@ describe('LoginError',()=>{
         cy.visit('http://localhost:8081/#/login')
         cy.get('#email').type('testedeerro@erro.com');
         cy.get('#password').type('123');
-        cy.contains('acessar').click();
+        cy.contains('Login').click();
     });
 });

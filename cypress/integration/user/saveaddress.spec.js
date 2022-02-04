@@ -5,8 +5,8 @@ describe('save address',()=>{
 
     it('save address',()=>{
         cy.visit('http://localhost:8081/#/login')
-        cy.get('input[name=email]').type('iagofreitas@outlook.com');
-        cy.get('input[name=password]').type('123');
+        cy.get('#email').type('iagofreitas@outlook.com');
+        cy.get('#password').type('123');
         cy.contains('Login').click();
         cy.get('.swal-button').click()
         //adição endereço de entrega

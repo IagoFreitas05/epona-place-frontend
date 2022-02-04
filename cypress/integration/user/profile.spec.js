@@ -11,7 +11,7 @@ describe('profile',()=>{
         cy.get('.swal-button').click()
 
         //dados pessoais
-        cy.visit('http://localhost:8080/#/Profile')
+        cy.visit('http://localhost:8081/#/Profile')
         cy.get('input[name=edit-name]').type('Iago');
         cy.get('input[name=edit-lastname]').type('Freitas Cardoso de Souza');
         cy.get('input[name=edit-date]').type('2020-01-18')
